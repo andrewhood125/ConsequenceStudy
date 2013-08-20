@@ -1,5 +1,4 @@
 ﻿Reading Duration = 5
-# of groups = 4
 -Start Group Set-
 DVRC = Φ , Ψ , λ , Ω 
 DVR = δ , β , μ , Δ

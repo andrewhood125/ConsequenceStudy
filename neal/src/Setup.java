@@ -74,10 +74,7 @@ public class Setup {
             if(conf.get(i).startsWith("Reading")) {				//to config the amount of SEC to wait
                 readingDuration = Integer.parseInt(conf.get(i).substring(index));   //read in the int and modify the global var.
             }
-            if(conf.get(i).startsWith("#")) {					//to config the number of groups.
-                numOfGroups = Integer.parseInt(conf.get(i).substring(index+2));	//update the global var
-            }
-            if(conf.get(i).startsWith("-Start")) {				//start reading in the different groups
+            if(conf.get(i).startsWith("-Start")) {				    //start reading in the different groups
 		int temp2 = i + 1 + numOfGroups;
                 for(int j = i+1; j < temp2; j++) {						//i is at delim line, so j needs to start 1 after to read in first group
 		    name = conf.get(j).substring(0, conf.get(j).indexOf("="));			//from start of the line to the delim = is the name of the group
