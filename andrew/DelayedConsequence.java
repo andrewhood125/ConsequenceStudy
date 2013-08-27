@@ -7,35 +7,35 @@
 
 import java.util.Scanner;
 import java.util.Random;
+
 public class DelayedConsequence
 {
-    // Constants
-    public static final int DVRC_ENUM = 0;
-    public static final int DVR_ENUM = 1;
-    public static final int DC_ENUM = 2;
-    public static final int IC_ENUM = 3;
+   
 
     // instance variables
-    Shapes dvrc = new Shapes('Φ', 'Ψ', 'λ', 'Ω');
-    Shapes dvr = new Shapes('δ', 'β', 'μ', 'Δ');
-    Shapes dc = new Shapes('α', 'Θ', 'Ξ', 'ζ');
-    Shapes ic = new Shapes('Σ', 'Π');
+    Group group;
     
     public DelayedConsequence()
     {
-        
+        group = new Group();
     }
     
     public static void main(String[] args)
     {
         DelayedConsequence dc = new DelayedConsequence();
+        
         // Display startup screen
         dc.startupScreen();
         
         // Establish preference
-        dc.establishPreference();
+        dc.group.establishPreference();
         
     }
+    
+    
+    
+    
+    
     
     public void startupScreen()
     {
@@ -57,33 +57,5 @@ public class DelayedConsequence
         String response = input.nextLine();
     }
     
-    public void establishPreference()
-    {
-        Random rand = new Random(); 
-        int lastGroup = rand.nextInt(4);
-        boolean preferenceEstablished = false;
-        while(preferenceEstablished)
-        {
-            // Select the group at random
-            int nextGroup = rand.nextInt(4); 
-            // Check to make sure we don't do the same group twice in a row
-            while(lastGroup == nextGroup)
-            {
-                nextGroup = rand.nextInt(4); 
-            }
-            // reset lastGroup to the one we are using this round. 
-            lastGroup = nextGroup;
-            
-            // The group has been selected. Now select two symbols within that group. 
-            switch(nextGroup)
-            {
-                case DVRC_ENUM: break;
-                case DVR_ENUM: break;
-                case DC_ENUM: break;
-                case IC_ENUM: break;
-                default: System.err.println("FATAL ERROR: Integer outside the range 0-3 was genereated while eastablishing preference. Exiting."); System.exit(1); break;
-            }
-            // Check if all symbols have been displayed at least ten times. 
-        }
-    }
+    
 }

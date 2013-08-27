@@ -5,6 +5,4 @@ comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment2.params=
 comment2.target=void\ startupScreen()
-comment3.params=
-comment3.target=void\ establishPreference()
-numComments=4
+numComments=3
