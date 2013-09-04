@@ -39,18 +39,16 @@ public class Model
     private char[][] charCube = {dvrc_chars, dvr_chars, dc_chars, ic_chars};
     
     public Model()
-    {
+    {       
         dGroupPairs = new ArrayList<Pair>();
         populateDGroupPairs();
         icGroupPairs = new ArrayList<Pair>();
         populateICGroupPairs();
-        
+        groups = new ArrayList<ArrayList>();
         dvrc_pairs = new ArrayList<Pair>(dGroupPairs);
         dvr_pairs = new ArrayList<Pair>(dGroupPairs);
         dc_pairs = new ArrayList<Pair>(dGroupPairs);
         ic_pairs = new ArrayList<Pair>(icGroupPairs);        
-        
-        groups = new ArrayList<ArrayList>();
         groups.add(dvrc_pairs);
         groups.add(dvr_pairs);
         groups.add(dc_pairs);
@@ -59,22 +57,27 @@ public class Model
     
     private void populateDGroupPairs()
     {
-        for(int i = 0; i < groups.size()-1; i++)
-        	{
-        	    for(int j = 0; j < Setup.getShapes(i).length; j++)
-            	    {
-            		if(i != j)
-                		{
-                		    dGroupPairs.add(new Pair(i,j));
-                		}
-            	    }
-        	}	
+        for(int i = 0; i < 3; i++)
+            {
+                for(int j = 0; j < Setup.getShapes(i).length; j++)
+                    {
+                    if(i != j)
+                        {
+                            dGroupPairs.add(new Pair(i,j));
+                        }
+                    }
+            }   
     }
     
     private void populateICGroupPairs()
     {
-        icGroupPairs.add(new Pair(0,1));
-        icGroupPairs.add(new Pair(1,0));
+        for(int i = 0; i < Setup.getShapes(3).length-1; i++)
+            {
+                if(i != (Setup.getShapes(3).length-1))
+                    {
+                        icGroupPairs.add(new Pair(i,(Setup.getShapes(3).length - 1 - i)));
+                    }
+            }
     }
     
     public Pair getRandomPair()
@@ -90,8 +93,7 @@ public class Model
                 thisGroup = groups.remove(0);
                 break;
             }
-            thisGroup = groups.get(rand.nextInt(groups.size()));
-            
+            thisGroup = groups.get(rand.nextInt(groups.size()));            
             if(thisGroup == lastGroup)
             {
                 System.out.println("DEBUG: getRandomPair() - same group as last time, trying again.");
@@ -99,13 +101,11 @@ public class Model
             if(thisGroup == null)
             {
                 System.out.println("DEBUG: getRandomPair() - That group is complete, try another group.");
-            }
-            
+            }            
         } while(thisGroup == lastGroup || thisGroup == null);
         lastGroup = thisGroup;
         System.out.println("DEBUG: getRandomPair() - group: " + thisGroup + " has been selected.");
-        int whichGroup = 0;
-        
+        int whichGroup = 0;        
         if(thisGroup == dvrc_pairs)
         {
             whichGroup = 0;
@@ -125,8 +125,7 @@ public class Model
         {
             whichGroup = 3;
             System.out.println("DEBUG: getRandomPair() - whichGroup = 3");
-        }
-        
+        }        
         switch(whichGroup)
         {
             case DVRC_ENUM: if(dvrc_pairs.size() == 1)
@@ -153,10 +152,8 @@ public class Model
                                     groups.remove(dvrc_pairs);
                                     
                                 }
-                            }
-                            
-                            break;
-                            
+                            }                            
+                            break;                            
             case DVR_ENUM: if(dvr_pairs.size() == 1)
                             {
                                 returnPair = dvr_pairs.remove(0);
@@ -164,8 +161,7 @@ public class Model
                             } else {
                                 returnPair = dvr_pairs.remove(rand.nextInt(dvr_pairs.size()));
                                 returnPair.setGroup(DVR_ENUM);
-                            }
-            
+                            }            
                             if(dvr_pairs.isEmpty()) 
                             {
                                 if(dvrRenewedTimes < D_GROUPS_MAX_RENEW) 
