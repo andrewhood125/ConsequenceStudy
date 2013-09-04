@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Controller()
+comment1.params=
+comment1.target=void\ showInstructionSheet()
+comment2.params=
+comment2.target=void\ getBaselineCondition()
+comment3.params=
+comment3.target=void\ continueBaselineCondition()
+comment4.params=
+comment4.target=void\ setPreference()
+comment5.params=group\ index
+comment5.target=void\ incrementHitCount(int,\ int)
+comment6.params=
+comment6.target=void\ printBaselineStats()
+numComments=7
