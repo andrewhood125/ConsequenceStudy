@@ -21,9 +21,9 @@ public class Model
     private int dvrRenewedTimes = 0;
     private int dcRenewedTimes = 0;
     private int icRenewedTimes = 0;
-    private int lastGroup = -1;
+    private ArrayList lastGroup = null;
     
-    private ArrayList[] groups;
+    private ArrayList<ArrayList> groups;
     private ArrayList<Pair> dvrc_pairs;
     private ArrayList<Pair> dvr_pairs;
     private ArrayList<Pair> dc_pairs;
@@ -50,11 +50,11 @@ public class Model
         dc_pairs = new ArrayList<Pair>(dGroupPairs);
         ic_pairs = new ArrayList<Pair>(icGroupPairs);
         
-        groups = new ArrayList[4];
-        groups[DVRC_ENUM] = dvrc_pairs;
-        groups[DVR_ENUM] = dvr_pairs;
-        groups[DC_ENUM] = dc_pairs;
-        groups[IC_ENUM] = ic_pairs;
+        groups = new ArrayList<ArrayList>();
+        groups.add(dvrc_pairs);
+        groups.add(dvr_pairs);
+        groups.add(dc_pairs);
+        groups.add(ic_pairs);
     }
     
     private void populateDGroupPairs()
@@ -81,26 +81,56 @@ public class Model
     
     public Pair getRandomPair()
     {
-        int thisGroup;
+        ArrayList thisGroup;
         Pair returnPair = null;
         Random rand = new Random();
         
         do
         {
-            thisGroup = rand.nextInt(4);
+            if(groups.size() == 1)
+            {
+                System.out.println("DEBUG: getRandomPair() - groups is size 1 removing the first index and breaking.");
+                thisGroup = groups.remove(0);
+                break;
+            }
+            thisGroup = groups.get(rand.nextInt(groups.size()));
+            
             if(thisGroup == lastGroup)
             {
                 System.out.println("DEBUG: getRandomPair() - same group as last time, trying again.");
             }
-            if(groups[thisGroup] == null)
+            if(thisGroup == null)
             {
                 System.out.println("DEBUG: getRandomPair() - That group is complete, try another group.");
             }
-        } while(thisGroup == lastGroup || groups[thisGroup] == null);
+            
+        } while(thisGroup == lastGroup || thisGroup == null);
         lastGroup = thisGroup;
         System.out.println("DEBUG: getRandomPair() - group: " + thisGroup + " has been selected.");
+        int whichGroup = 0;
         
-        switch(thisGroup)
+        if(thisGroup == dvrc_pairs)
+        {
+            whichGroup = 0;
+            System.out.println("DEBUG: getRandomPair() - whichGroup = 0");
+        }
+        if(thisGroup == dvr_pairs)
+        {
+            whichGroup = 1;
+            System.out.println("DEBUG: getRandomPair() - whichGroup = 1");
+        }
+        if(thisGroup == dc_pairs)
+        {
+            whichGroup = 2;
+            System.out.println("DEBUG: getRandomPair() - whichGroup = 2");
+        }
+        if(thisGroup == ic_pairs)
+        {
+            whichGroup = 3;
+            System.out.println("DEBUG: getRandomPair() - whichGroup = 3");
+        }
+        
+        switch(whichGroup)
         {
             case DVRC_ENUM: if(dvrc_pairs.size() == 1)
                             {
@@ -123,7 +153,8 @@ public class Model
                                     dvrcRenewedTimes++;
                                 } else {
                                     System.out.println("DEBUG: getRandomPair() - dvrc_pairs has been depleted setting the reference to null.");
-                                    groups[DVRC_ENUM] = null;
+                                    groups.remove(dvrc_pairs);
+                                    
                                 }
                             }
                             
@@ -145,7 +176,7 @@ public class Model
                                     dvr_pairs.addAll(dGroupPairs);
                                     dvrRenewedTimes++;
                                 } else {
-                                    groups[DVR_ENUM] = null;
+                                    groups.remove(dvr_pairs);
                                 }
                             }
                             
@@ -167,7 +198,7 @@ public class Model
                                     dc_pairs.addAll(dGroupPairs);
                                     dcRenewedTimes++;
                                 } else {
-                                    groups[DC_ENUM] = null;
+                                    groups.remove(dc_pairs);
                                 }
                             }
                             
@@ -188,7 +219,7 @@ public class Model
                                     ic_pairs.addAll(icGroupPairs);
                                     icRenewedTimes++;
                                 } else {
-                                    groups[IC_ENUM] = null;
+                                    groups.remove(ic_pairs);
                                 }
                             }
                             
@@ -201,8 +232,8 @@ public class Model
     
     public boolean isBaselineEstablished()
     {
-        System.out.println("DEBUG: isBaselineEstablished() - groups[0] is null: " + (groups[0] == null) + " groups[1] is null: " + (groups[1] == null) + " groups[2] is null: " + (groups[2] == null) + " groups[3] is null: " + (groups[3] == null));
-        return groups[0] == null && groups[1] == null && groups[2] == null && groups[3] == null;
+        System.out.println("DEBUG: isBaselineEstablished() - groups.isEmpty() is " + groups.isEmpty());
+        return groups.isEmpty();
     }
     
     public char getLeftChar(Pair pair)
