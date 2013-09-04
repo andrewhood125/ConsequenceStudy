@@ -90,9 +90,9 @@ public class Controller
         
         dvrcMostPreferred = max;
         dvrcLeastPreferred = min;
-        System.out.println("DEBUG - setPreference() - dvrcMostPreferred = " + max);
-        System.out.println("DEBUG - setPreference() - dvrcLeastPreferred = " + min);
-        max = min = 0;
+        System.out.println("DEBUG - setPreference() - dvrcMostPreferred = " + dvrcMostPreferred);
+        System.out.println("DEBUG - setPreference() - dvrcLeastPreferred = " + dvrcLeastPreferred);
+        max = min = 4;
         for(; i < 8; i++)
         {
             if(hitCount[i] > hitCount[max]) 
@@ -106,11 +106,11 @@ public class Controller
                 min = i;
             }
         }
-        dvrMostPreferred = max;
-        dvrLeastPreferred = min;
-        System.out.println("DEBUG - setPreference() - dvrMostPreferred = " + max);
-        System.out.println("DEBUG - setPreference() - dvrLeastPreferred = " + min);
-        max = min = 0;
+        dvrMostPreferred = max-4;
+        dvrLeastPreferred = min-4;
+        System.out.println("DEBUG - setPreference() - dvrMostPreferred = " + dvrMostPreferred);
+        System.out.println("DEBUG - setPreference() - dvrLeastPreferred = " + dvrLeastPreferred);
+        max = min = 8;
         for(; i < 12; i++)
         {
             if(hitCount[i] > hitCount[max]) 
@@ -124,11 +124,11 @@ public class Controller
                 min = i;
             }
         }
-        dcMostPreferred = max;
-        dcLeastPreferred = min;
-        System.out.println("DEBUG - setPreference() - dcMostPreferred = " + max);
-        System.out.println("DEBUG - setPreference() - dcLeastPreferred = " + min);
-        max = min = 0;
+        dcMostPreferred = max-8;
+        dcLeastPreferred = min-8;
+        System.out.println("DEBUG - setPreference() - dcMostPreferred = " + dcMostPreferred);
+        System.out.println("DEBUG - setPreference() - dcLeastPreferred = " + dcLeastPreferred);
+        max = min = 12;
         for(; i < 14; i++)
         {
              if(hitCount[i] > hitCount[max]) 
@@ -143,10 +143,10 @@ public class Controller
             }
         }
         
-        icMostPreferred = max;
-        icLeastPreferred = min;
-        System.out.println("DEBUG - setPreference() - icMostPreferred = " + max);
-        System.out.println("DEBUG - setPreference() - icLeastPreferred = " + min);
+        icMostPreferred = max-12;
+        icLeastPreferred = min-12;
+        System.out.println("DEBUG - setPreference() - icMostPreferred = " + icMostPreferred);
+        System.out.println("DEBUG - setPreference() - icLeastPreferred = " + icLeastPreferred);
     }
     
     public void incrementHitCount(int group, int index)
