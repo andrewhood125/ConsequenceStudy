@@ -20,6 +20,8 @@ public class Controller
     // constructor
     public Controller()
     {
+        Setup.set();
+        points = Setup.getPoints();
         view = new View(this);
         model = new Model();
         hitCount  = new int[14];

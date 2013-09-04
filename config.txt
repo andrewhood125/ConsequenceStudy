@@ -1,0 +1,8 @@
+﻿Reading Duration = 5
+-Start Group Set-
+DVRC=ΦΨλΩ
+DVR=δβμΔ
+DC=αΘΞζ
+IC=ΣΠ
+-End Group Set-
+Starting Points = 100

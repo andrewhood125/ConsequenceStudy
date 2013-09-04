@@ -32,12 +32,12 @@ public class Model
     private ArrayList<Pair> dGroupPairs;
     private ArrayList<Pair> icGroupPairs;
     
-    private char[] dvrc_chars = {'Φ','Ψ','λ','Ω'};
-    private char[] dvr_chars = {'δ','β','μ','Δ'};
-    private char[] dc_chars = {'α','Θ','Ξ','ζ'};
-    private char[] ic_chars = {'Σ','Π'};
-    
+    private char[] dvrc_chars = Setup.getShapes(0);
+    private char[] dvr_chars = Setup.getShapes(1);
+    private char[] dc_chars = Setup.getShapes(2);
+    private char[] ic_chars = Setup.getShapes(3);    
     private char[][] charCube = {dvrc_chars, dvr_chars, dc_chars, ic_chars};
+    
     public Model()
     {
         dGroupPairs = new ArrayList<Pair>();
@@ -48,7 +48,7 @@ public class Model
         dvrc_pairs = new ArrayList<Pair>(dGroupPairs);
         dvr_pairs = new ArrayList<Pair>(dGroupPairs);
         dc_pairs = new ArrayList<Pair>(dGroupPairs);
-        ic_pairs = new ArrayList<Pair>(icGroupPairs);
+        ic_pairs = new ArrayList<Pair>(icGroupPairs);        
         
         groups = new ArrayList<ArrayList>();
         groups.add(dvrc_pairs);
@@ -59,18 +59,16 @@ public class Model
     
     private void populateDGroupPairs()
     {
-        dGroupPairs.add(new Pair(0,1));
-        dGroupPairs.add(new Pair(0,2));
-        dGroupPairs.add(new Pair(0,3));
-        dGroupPairs.add(new Pair(1,0));
-        dGroupPairs.add(new Pair(1,2));
-        dGroupPairs.add(new Pair(1,3));
-        dGroupPairs.add(new Pair(2,0));
-        dGroupPairs.add(new Pair(2,1));
-        dGroupPairs.add(new Pair(2,3));
-        dGroupPairs.add(new Pair(3,0));
-        dGroupPairs.add(new Pair(3,1));
-        dGroupPairs.add(new Pair(3,2));
+        for(int i = 0; i < groups.size()-1; i++)
+        	{
+        	    for(int j = 0; j < Setup.getShapes(i).length; j++)
+            	    {
+            		if(i != j)
+                		{
+                		    dGroupPairs.add(new Pair(i,j));
+                		}
+            	    }
+        	}	
     }
     
     private void populateICGroupPairs()
@@ -83,8 +81,7 @@ public class Model
     {
         ArrayList thisGroup;
         Pair returnPair = null;
-        Random rand = new Random();
-        
+        Random rand = new Random();        
         do
         {
             if(groups.size() == 1)

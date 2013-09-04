@@ -5,7 +5,7 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
-
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -85,23 +85,27 @@ public class View extends JFrame
     
     public void showInstructionSheet()
     {
-         JPanel newPanel = new JPanel(new BorderLayout());
-         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        JTextArea textArea = new JTextArea("Once you begin the computer program you will be exposed to a variety of different choice options.  Please select the option you most prefer, although you may change your decision at any time.  After you select a shape, you will occasionally be given material to read. Continue selecting shapes and reading material until this program automatically ends." + 
-        "\n\nAt the top of your screen (top right), you will see a number of points.  These points correspond to raffle tickets.  The more points you have, the more raffle tickets you will have and the better your chances will be of winning the prize (Kindle Fire).  The choices you make on the computer will affect the number of points you have.  You cannot earn points; you can only lose points.  You may leave at any time, but you must complete the program to retain any points." + 
-        "\n\nParticipation in this study will take approximately 2 hours.  Once you begin this program, you should continue and refrain from talking to other participants." + 
-        "\n\nWhen you are ready to begin the program, press begin");
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setBackground(new Color(0,0,0,0));
-        
-      
+        JPanel newPanel = new JPanel(new BorderLayout());
+        newPanel.setBackground(new Color(156,181,228)); 
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        JTextArea introTextArea = new JTextArea();
+    	ArrayList<String> introduction = Setup.getITS();
+    	introTextArea.setLineWrap(true);
+        introTextArea.setWrapStyleWord(true);
+        introTextArea.setEditable(false);
+        introTextArea.setBackground(new Color(0,0,0,0));
+	    for(int i = 0; i < introduction.size(); i++)
+    	    {
+        		introTextArea.setWrapStyleWord(true);
+        		introTextArea.append(introduction.get(i));
+        		introTextArea.append("\n");
+    	}     
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
+        beginButtonPanel.setBackground(new Color(156,181,228));
+        pageStartPanel.setBackground(new Color(156,181,228));
         JButton beginButton = new JButton("Begin");
-        beginButton.addActionListener(new BeginButtonAction());
-        
-        newPanel.add(textArea, BorderLayout.CENTER);
+        beginButton.addActionListener(new BeginButtonAction());        
+        newPanel.add(introTextArea, BorderLayout.CENTER);
         beginButtonPanel.add(beginButton, BorderLayout.LINE_END);
         newPanel.add(beginButtonPanel, BorderLayout.PAGE_END);
         cards.add(newPanel, "Instruction Sheet");
@@ -114,8 +118,8 @@ public class View extends JFrame
     {
          JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
          newPanel.setBorder(new EmptyBorder(50,50,50,50));
-            
-        
+         newPanel.setBackground(new Color(0,153,153));
+        pageStartPanel.setBackground(new Color(0,153,153));        
          JButton left = new JButton("" + leftButtonChar);
          JButton right = new JButton("" + rightButtonChar);
          left.setFont(new Font("Dialog", Font.BOLD, 200));
