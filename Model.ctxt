@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Model()
+comment1.params=
+comment1.target=void\ populateDGroupPairs()
+comment2.params=
+comment2.target=void\ populateICGroupPairs()
+comment3.params=
+comment3.target=Pair\ getRandomPair()
+comment4.params=
+comment4.target=boolean\ isBaselineEstablished()
+comment5.params=pair
+comment5.target=char\ getLeftChar(Pair)
+comment6.params=pair
+comment6.target=char\ getRightChar(Pair)
+numComments=7
