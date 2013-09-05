@@ -2,6 +2,9 @@
 dependency1.from=Model
 dependency1.to=Pair
 dependency1.type=UsesDependency
+dependency10.from=Setup
+dependency10.to=DelayedConsequence
+dependency10.type=UsesDependency
 dependency2.from=Controller
 dependency2.to=View
 dependency2.type=UsesDependency
@@ -23,11 +26,21 @@ dependency7.type=UsesDependency
 dependency8.from=Controller
 dependency8.to=Setup
 dependency8.type=UsesDependency
+<<<<<<< Updated upstream
+=======
+dependency9.from=Model
+dependency9.to=Setup
+dependency9.type=UsesDependency
+>>>>>>> Stashed changes
 package.editor.height=556
 package.editor.width=549
 package.editor.x=683
 package.editor.y=0
+<<<<<<< Updated upstream
 package.numDependencies=8
+=======
+package.numDependencies=10
+>>>>>>> Stashed changes
 package.numTargets=6
 package.showExtends=true
 package.showUses=true
@@ -44,10 +57,10 @@ target1.type=ClassTarget
 target1.width=80
 target1.x=90
 target1.y=40
-target2.editor.height=700
-target2.editor.width=900
-target2.editor.x=105
-target2.editor.y=42
+target2.editor.height=728
+target2.editor.width=683
+target2.editor.x=0
+target2.editor.y=0
 target2.height=50
 target2.name=Controller
 target2.naviview.expanded=false
@@ -92,6 +105,10 @@ target5.type=ClassTarget
 target5.width=80
 target5.x=360
 target5.y=100
+target6.editor.height=700
+target6.editor.width=900
+target6.editor.x=0
+target6.editor.y=0
 target6.height=50
 target6.name=Setup
 target6.showInterface=false

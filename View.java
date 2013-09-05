@@ -24,6 +24,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 public class View extends JFrame
 {
@@ -179,7 +180,20 @@ public class View extends JFrame
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
             // show screen 2 of dvrc
         }
-    }
+    }    
+    public void timerScreen(int a)
+    {
+        Timer timer = new Timer( 1000, new ActionListener(){
+                    @Override
+                    public void actionPerformed( ActionEvent e ){
+                        CardLayout cl = (CardLayout) cards.getLayout();
+                        cl.next(cards);
+                    }
+                } );
+        timer.start();
+        timer.setRepeats(false);
+    } 
+
     
     // nested class
     public class BeginButtonAction implements ActionListener
