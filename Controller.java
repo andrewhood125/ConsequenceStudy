@@ -53,7 +53,7 @@ public class Controller
     
     public void continueBaselineCondition()
     {
-        if(model.isBaselineEstablished() == false)
+        if(false) // disabled for testing model.isBaselineEstablished() == false
         {
             System.out.println("DEBUG - continueBaselineCondition() - isBaseLineEstablished is false");
             Pair thisPair = model.getRandomPair();
@@ -73,14 +73,11 @@ public class Controller
     
     public void presentCondition()
     {
-//         System.out.println("DEBUG: presentCondition() - Setting title to Baseline Condition.");
-//         view.setCurrentTitle("Baseline Condition");
-//         
-//         System.out.println("DEBUG: getBaselineCondition() - Get Random Pair.");
-//         Pair thisPair = model.getRandomPair();
-//           
-//         System.out.println("DEBUG: getBaselineCondition() - invoke view.establishPreference(" + model.getLeftChar(thisPair) + "," +  model.getRightChar(thisPair) + "," +  thisPair.getGroup() + "," + thisPair.getLeftIndex() + "," + thisPair.getRightIndex() + ")");    
-//         view.establishPreference(model.getLeftChar(thisPair), model.getRightChar(thisPair), thisPair.getGroup(), thisPair.getLeftIndex(), thisPair.getRightIndex());
+        System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
+        view.setCurrentTitle("Delayed Consequence");
+        
+        // Select a condition to show
+        // show that condition sequence
     }
     
     public void setPreference()

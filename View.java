@@ -103,6 +103,7 @@ public class View extends JFrame
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
     } 
+    
     public void establishPreference(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
@@ -120,7 +121,29 @@ public class View extends JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+    }
+    
+    
+    public void presentCondition(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
+    {
+        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(0,153,153));
+        pageStartPanel.setBackground(new Color(0,153,153));        
+        JButton left = new JButton("" + leftButtonChar);
+        JButton right = new JButton("" + rightButtonChar);
+        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.addActionListener(new ButtonAction(group, leftIndex));
+        right.addActionListener(new ButtonAction(group, rightIndex));
+        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        newPanel.add(left);
+        newPanel.add(right);
+        cards.add(newPanel, "Baseline Condition");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);
     }    
+    
+    
     // nested class
     public class BeginButtonAction implements ActionListener
     {
