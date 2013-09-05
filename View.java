@@ -200,14 +200,28 @@ public class View extends JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
-        left.addActionListener(new dvrcButtonOne(group, leftIndex));
-        right.addActionListener(new dvrcButtonOne(group, rightIndex));
+        left.addActionListener(new dvrcButtonTwo(group, leftIndex));
+        right.addActionListener(new dvrcButtonTwo(group, rightIndex));
         right.setFont(new Font("Dialog", Font.BOLD, 200));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+    }
+    
+    public void dvrc4()
+    {
+        JPanel newPanel = new JPanel();
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(0,153,153));
+        pageStartPanel.setBackground(new Color(0,153,153));        
+        JTextArea reading = new JTextArea("Man You fucked up. Your shit sucks. You picked the wrong one. I fucked your mother. mIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsum");
+        newPanel.add(reading, BorderLayout.CENTER);
+        cards.add(newPanel, "Read now!");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards); 
+        
     }
     
     public class dvrcButtonTwo implements ActionListener
@@ -225,7 +239,7 @@ public class View extends JFrame
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
             //controller.incrementConditionCount(group,index);
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-            //dvrc4();
+            dvrc4();
             
         }
     }
