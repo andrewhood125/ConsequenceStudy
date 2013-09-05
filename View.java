@@ -234,6 +234,17 @@ public class View extends JFrame
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
         
+        
+         ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //...Perform a task...
+
+                controller.printConditionStats();
+            }
+            };
+        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        timer.setRepeats(false);
+        timer.start();       
     }
     
     public class dvrcButtonTwo implements ActionListener
@@ -249,7 +260,7 @@ public class View extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            //controller.incrementConditionCount(group,index);
+            controller.incrementConditionCount(Model.DVRC_ENUM,index);
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
             dvrc4();
             
@@ -269,7 +280,7 @@ public class View extends JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            //controller.incrementConditionCount(group,index);
+            controller.incrementConditionCount(Model.DVRC_ENUM, index);
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
             dvrc2();
             
