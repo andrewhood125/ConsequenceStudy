@@ -194,7 +194,7 @@ public class View extends JFrame
                 dvrc3('D', '3', 0, 0, 1);
             }
             };
-        Timer timer = new Timer(5000, taskPerformer);
+        Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
     }

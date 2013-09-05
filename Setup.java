@@ -77,10 +77,6 @@ public class Setup {
         readingDuration = Integer.parseInt(conf.get(0).substring(conf.get(0).indexOf("=")+1).trim());
         for(int i = 1; i < conf.size(); i++){                   //read all of the lines 
             int index = conf.get(i).indexOf("=");               //keep a count of where the delim is for everything but shapes.
-//             if(conf.get(i).startsWith("R")) {             //to config the amount of SEC to wait
-//                 System.out.println("DEBUG: " + readingDuration + Integer.parseInt(conf.get(i).substring(index)));
-//                 readingDuration = Integer.parseInt(conf.get(i).substring(index));   //read in the int and modify the global var.
-//             }
             if(conf.get(i).startsWith("-Start")) {                  //start reading in the different groups
                 int count = 0;
                 for(int j = i+1; j < i+5; j++) {
