@@ -174,7 +174,20 @@ public class View extends JFrame
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.pausedvrc3();
+        
+        
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //...Perform a task...
+
+                dvrc3('D', '3', 0, 0, 1);
+            }
+            };
+        Timer timer = new Timer( 5000 , taskPerformer);
+        timer.setRepeats(false);
+        timer.start();
+        
+        
         
     }
     
@@ -235,7 +248,8 @@ public class View extends JFrame
             dvrc2();
             
         }
-    }    
+    }
+    
     public void timerScreen(int a)
     {
         Timer timer = new Timer( 1000, new ActionListener(){

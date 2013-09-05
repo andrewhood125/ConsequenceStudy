@@ -69,19 +69,7 @@ public class Controller
         }
     }
     
-    public void pausedvrc3()
-    {
-        try 
-        {
-            Thread.sleep(1000);
-            view.dvrc3('D', '3', 0, 0, 1);
-        } catch(Exception ex) {
-            System.exit(1);
-        }
-        
-        
-    }
-    
+   
     public void presentCondition()
     {
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
