@@ -26,21 +26,14 @@ dependency7.type=UsesDependency
 dependency8.from=Controller
 dependency8.to=Setup
 dependency8.type=UsesDependency
-<<<<<<< Updated upstream
-=======
 dependency9.from=Model
 dependency9.to=Setup
 dependency9.type=UsesDependency
->>>>>>> Stashed changes
 package.editor.height=556
 package.editor.width=549
-package.editor.x=683
+package.editor.x=0
 package.editor.y=0
-<<<<<<< Updated upstream
-package.numDependencies=8
-=======
 package.numDependencies=10
->>>>>>> Stashed changes
 package.numTargets=6
 package.showExtends=true
 package.showUses=true

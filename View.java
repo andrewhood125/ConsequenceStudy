@@ -67,14 +67,17 @@ public class View extends JFrame
         // frame.setUndecorated(true);
         this.setVisible(true);
     }
+    
     public void setCurrentTitle(String title)
     {
         currentPaneTitle.setText(title);
     }
+    
     public void setPoints(int points)
     {
         this.points.setText("Remaining Points: " + points);
     }
+    
     public void showInstructionSheet()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
@@ -122,8 +125,7 @@ public class View extends JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-    }
-    
+    }    
     
     public void presentCondition(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
