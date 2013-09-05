@@ -6,13 +6,16 @@
  * @version (a version number or a date)
  */
 import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -22,6 +25,7 @@ import java.awt.Image;
 import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -172,6 +176,7 @@ public class View extends JFrame
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240));        
         JTextArea reading = new JTextArea();
+        JScrollPane sp = new JScrollPane(reading);
         ArrayList<String> introduction = Setup.getRI();
         for(int i = 0; i < introduction.size(); i++)
             {
@@ -182,7 +187,7 @@ public class View extends JFrame
         reading.setWrapStyleWord(true);
         reading.setEditable(false);
         reading.setBackground(new Color(0,0,0,0));        
-        newPanel.add(reading, BorderLayout.CENTER);
+        newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
