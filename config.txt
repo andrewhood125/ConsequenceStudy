@@ -1,4 +1,4 @@
-﻿Reading Duration = 60
+Reading Duration = 5
 -Start Group Set-
 DVRC=ΦΨλΩ
 DVR=δβμΔ

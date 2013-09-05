@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class Model
 {
-    public final int DVRC_ENUM = 0; 
-    public final int DVR_ENUM = 1;
-    public final int DC_ENUM = 2;
-    public final int IC_ENUM = 3; 
+    public static final int DVRC_ENUM = 0; 
+    public static final int DVR_ENUM = 1;
+    public static final int DC_ENUM = 2;
+    public static final int IC_ENUM = 3; 
     private final int D_GROUPS_MAX_RENEW = 2;
     private final int IC_GROUP_MAX_RENEW = 6;
     private int dvrcRenewedTimes = 0;
