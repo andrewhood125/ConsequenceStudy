@@ -55,6 +55,11 @@ public class Model
         groups.add(ic_pairs);
     }
     
+    public char getCharCubeChar(int group, int index)
+    {
+        return charCube[group][index];
+    }
+    
     private void populateDGroupPairs()
     {
         for(int i = 0; i < 3; i++)

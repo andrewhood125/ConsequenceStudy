@@ -5,6 +5,10 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
+
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Controller
 {
     // instance variables
@@ -17,16 +21,29 @@ public class Controller
     private int dvrMostPreferred, dvrLeastPreferred;
     private int dcMostPreferred, dcLeastPreferred;
     private int icMostPreferred, icLeastPreferred;
+    private ArrayList<Condition> conditionArray;
+    Condition dvrc, dvr, dc, ic, lastCondition = null;
     // constructor
     public Controller()
     {
         Setup.set();
-        System.out.println(Setup.getRD() + "adasdasdasdasdasdas");
+        System.out.println("DEBUG: Controller constructor Setup.getRD():  " + Setup.getRD());
         points = Setup.getPoints();
         view = new View(this);
         model = new Model();
         hitCount  = new int[14];
         conditionCount = new int[4][4];
+        conditionArray = new ArrayList<Condition>();
+        dvrc = new Condition();
+        dvr = new Condition();
+        dc = new Condition();
+        ic = new Condition();
+        
+        conditionArray.add(dvrc);
+        conditionArray.add(dvr);
+        conditionArray.add(dc);
+        conditionArray.add(ic);
+        
     }
 
     // methods
@@ -76,10 +93,42 @@ public class Controller
     public void presentCondition()
     {
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
-        view.setCurrentTitle("Delayed Consequence");        
-        view.dvrc('L', 'R', 0, 0, 1);
-        // Select a condition to show
-        // show that condition sequence
+        view.setCurrentTitle("Delayed Consequence"); 
+        Condition thisCondition;
+        Random rand = new Random();
+        do
+        {
+            System.out.println("DEBUG: presentCondition() - Randomly Selectiong condition");
+            thisCondition= conditionArray.get(rand.nextInt(conditionArray.size()));
+        } while(lastCondition == thisCondition);
+        
+        System.out.println("DEBUG: presentCondition() - Condition chosen: " + thisCondition);
+        
+        if(thisCondition.getTimesShown() > 6)
+        {
+            System.out.println("DEBUG: presentCondition() - Condition shown more than 6 times, removing form conditionArray.");
+            conditionArray.remove(thisCondition);
+        }
+        
+        if(thisCondition == dvrc)
+        {
+            view.dvrc(model.getCharCubeChar(Model.DVRC_ENUM, dvrcMostPreferred), model.getCharCubeChar(Model.DVRC_ENUM, dvrcLeastPreferred), Model.DVRC_ENUM, dvrcMostPreferred, dvrcLeastPreferred);
+        }
+        
+        if(thisCondition == dvr)
+        {
+            view.dvrc(model.getCharCubeChar(Model.DVR_ENUM, dvrMostPreferred), model.getCharCubeChar(Model.DVR_ENUM, dvrLeastPreferred), Model.DVR_ENUM, dvrMostPreferred, dvrLeastPreferred);
+        }
+        
+        if(thisCondition == dc)
+        {
+            view.dvrc(model.getCharCubeChar(Model.DC_ENUM, dcMostPreferred), model.getCharCubeChar(Model.DC_ENUM, dcLeastPreferred), Model.DC_ENUM, dcMostPreferred, dcLeastPreferred);
+        }
+        
+        if(thisCondition == ic)
+        {
+            view.dvrc(model.getCharCubeChar(Model.IC_ENUM, icMostPreferred), model.getCharCubeChar(Model.IC_ENUM, icLeastPreferred), Model.IC_ENUM, icMostPreferred, icLeastPreferred);
+        }
     }
 
     public void setPreference()
