@@ -65,9 +65,22 @@ public class Controller
             view.showInstructionSheet();
             System.out.println("DEBUG - continueBaselineCondition() - print the baseline stats");
             printBaselineStats();
-            // Set the most preferred and least preferred for each group. 
+            System.out.println("DEBUG - continueBaselineCondition() - Set the preference.");
             setPreference();
+            presentCondition();
         }
+    }
+    
+    public void presentCondition()
+    {
+//         System.out.println("DEBUG: presentCondition() - Setting title to Baseline Condition.");
+//         view.setCurrentTitle("Baseline Condition");
+//         
+//         System.out.println("DEBUG: getBaselineCondition() - Get Random Pair.");
+//         Pair thisPair = model.getRandomPair();
+//           
+//         System.out.println("DEBUG: getBaselineCondition() - invoke view.establishPreference(" + model.getLeftChar(thisPair) + "," +  model.getRightChar(thisPair) + "," +  thisPair.getGroup() + "," + thisPair.getLeftIndex() + "," + thisPair.getRightIndex() + ")");    
+//         view.establishPreference(model.getLeftChar(thisPair), model.getRightChar(thisPair), thisPair.getGroup(), thisPair.getLeftIndex(), thisPair.getRightIndex());
     }
     
     public void setPreference()
