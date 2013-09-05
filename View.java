@@ -42,27 +42,21 @@ public class View extends JFrame
         // initialize the page start panel and add a border
         pageStartPanel = new JPanel(new BorderLayout());
         pageStartPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        
+
         // Initial points to 100
         points = new JLabel("Calculating Points...");
         // intialize to begin screen title
         currentPaneTitle = new JLabel("Starting up...");
-        
+
         // add the points and title label to the pageStartPanel
         pageStartPanel.add(points, BorderLayout.LINE_END);
         pageStartPanel.add(currentPaneTitle, BorderLayout.LINE_START);
-        
+
         // initialize the centerPanel
         cards = new JPanel(new CardLayout());
-        
+
         this.getContentPane().add(cards, BorderLayout.CENTER);
         this.getContentPane().add(pageStartPanel, BorderLayout.PAGE_START);
-        
-        
-        
-       
-        
-        
         this.setTitle("Delayed Consequence");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
@@ -72,34 +66,31 @@ public class View extends JFrame
         // frame.setUndecorated(true);
         this.setVisible(true);
     }
-    
     public void setCurrentTitle(String title)
     {
         currentPaneTitle.setText(title);
     }
-    
     public void setPoints(int points)
     {
         this.points.setText("Remaining Points: " + points);
     }
-    
     public void showInstructionSheet()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBackground(new Color(156,181,228)); 
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         JTextArea introTextArea = new JTextArea();
-    	ArrayList<String> introduction = Setup.getITS();
-    	introTextArea.setLineWrap(true);
+        ArrayList<String> introduction = Setup.getITS();
+        introTextArea.setLineWrap(true);
         introTextArea.setWrapStyleWord(true);
         introTextArea.setEditable(false);
         introTextArea.setBackground(new Color(0,0,0,0));
-	    for(int i = 0; i < introduction.size(); i++)
-    	    {
-        		introTextArea.setWrapStyleWord(true);
-        		introTextArea.append(introduction.get(i));
-        		introTextArea.append("\n");
-    	}     
+        for(int i = 0; i < introduction.size(); i++)
+        {
+            introTextArea.setWrapStyleWord(true);
+            introTextArea.append(introduction.get(i));
+            introTextArea.append("\n");
+        }     
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
         beginButtonPanel.setBackground(new Color(156,181,228));
         pageStartPanel.setBackground(new Color(156,181,228));
@@ -111,44 +102,35 @@ public class View extends JFrame
         cards.add(newPanel, "Instruction Sheet");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-    }
-   
-    
+    } 
     public void establishPreference(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
-         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-         newPanel.setBackground(new Color(0,153,153));
+        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(0,153,153));
         pageStartPanel.setBackground(new Color(0,153,153));        
-         JButton left = new JButton("" + leftButtonChar);
-         JButton right = new JButton("" + rightButtonChar);
-         left.setFont(new Font("Dialog", Font.BOLD, 200));
-         left.addActionListener(new ButtonAction(group, leftIndex));
-         right.addActionListener(new ButtonAction(group, rightIndex));
-         right.setFont(new Font("Dialog", Font.BOLD, 200));
-         
-         newPanel.add(left);
-         newPanel.add(right);
-         
-         cards.add(newPanel, "Baseline Condition");
-         CardLayout cl = (CardLayout) cards.getLayout();
+        JButton left = new JButton("" + leftButtonChar);
+        JButton right = new JButton("" + rightButtonChar);
+        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.addActionListener(new ButtonAction(group, leftIndex));
+        right.addActionListener(new ButtonAction(group, rightIndex));
+        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        newPanel.add(left);
+        newPanel.add(right);
+        cards.add(newPanel, "Baseline Condition");
+        CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-    }
-    
-    
-    
-    
+    }    
     // nested class
     public class BeginButtonAction implements ActionListener
     {
-       
+
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEBUG: BeginButtonAction.actionPerformed() - begin button clicked, invoke getBaselineCondition().");
             controller.getBaselineCondition();
         }
     }
-    
     public class ButtonAction implements ActionListener
     {
         int group;
@@ -159,7 +141,6 @@ public class View extends JFrame
             this.group = group;
             this.index = index;
         }
-        
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEBUG - ButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
@@ -168,5 +149,4 @@ public class View extends JFrame
             controller.continueBaselineCondition();
         }
     }
-    
 }
