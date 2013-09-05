@@ -150,8 +150,8 @@ public class View extends JFrame
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(0,153,153));
-        pageStartPanel.setBackground(new Color(0,153,153));        
+        newPanel.setBackground(new Color(142,180,227));
+        pageStartPanel.setBackground(new Color(142,180,227));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -169,14 +169,13 @@ public class View extends JFrame
     {
         JPanel newPanel = new JPanel();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(0,153,153));
-        pageStartPanel.setBackground(new Color(0,153,153));        
+        newPanel.setBackground(new Color(240,240,240));
+        pageStartPanel.setBackground(new Color(240,240,240));        
         JTextArea reading = new JTextArea("LorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsum");
         newPanel.add(reading, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
-        cl.next(cards);
-        
+        cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -185,20 +184,17 @@ public class View extends JFrame
                 dvrc3('D', '3', 0, 0, 1);
             }
             };
-        Timer timer = new Timer( 5000 , taskPerformer);
+        Timer timer = new Timer(Setup.getRD() , taskPerformer);
         timer.setRepeats(false);
-        timer.start();
-        
-        
-        
+        timer.start();       
     }
     
     public void dvrc3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(0,153,153));
-        pageStartPanel.setBackground(new Color(0,153,153));        
+        newPanel.setBackground(new Color(217,150,148));
+        pageStartPanel.setBackground(new Color(217,150,148));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -216,8 +212,8 @@ public class View extends JFrame
     {
         JPanel newPanel = new JPanel();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(0,153,153));
-        pageStartPanel.setBackground(new Color(0,153,153));        
+        newPanel.setBackground(new Color(179,162,199));
+        pageStartPanel.setBackground(new Color(179,162,199));        
         JTextArea reading = new JTextArea("Man You fucked up. Your shit sucks. You picked the wrong one. I fucked your mother. mIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsum");
         newPanel.add(reading, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");

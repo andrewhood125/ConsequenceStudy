@@ -38,11 +38,11 @@ public class Setup {
     
     
     public static void set(){
-	conf = new ArrayList<>();
-	readConf();
-	parseConf();
-	setITS();
-	setRI();
+    	conf = new ArrayList<>();
+    	readConf();
+    	parseConf();
+    	setITS();
+    	setRI();
     }
     
     private static void readConf() {				//to read in the config
