@@ -209,7 +209,7 @@ public class Controller
     {
         for(int i = 0; i < conditionCount.length; i++)
         {
-            for(int j = 0; j < conditionCount[i].length; i++)
+            for(int j = 0; j < conditionCount[i].length; j++)
             {
                 if(i == 3 && j == 2)
                 {
