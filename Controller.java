@@ -16,8 +16,6 @@ public class Controller
     private int dvrMostPreferred, dvrLeastPreferred;
     private int dcMostPreferred, dcLeastPreferred;
     private int icMostPreferred, icLeastPreferred;
-    
-    
     // constructor
     public Controller()
     {
@@ -27,8 +25,7 @@ public class Controller
         model = new Model();
         hitCount  = new int[14];
     }
-    
-    
+
     // methods
     public void showInstructionSheet()
     {
@@ -39,19 +36,19 @@ public class Controller
         System.out.println("DEBUG: showInstructionSheet() - envoke showInstructionSheet from view.");
         view.showInstructionSheet();
     }
-    
+
     public void getBaselineCondition()
     {
         System.out.println("DEBUG: getBaselineCondition() - Setting title to Baseline Condition.");
         view.setCurrentTitle("Baseline Condition");
-        
+
         System.out.println("DEBUG: getBaselineCondition() - Get Random Pair.");
         Pair thisPair = model.getRandomPair();
-          
+
         System.out.println("DEBUG: getBaselineCondition() - invoke view.establishPreference(" + model.getLeftChar(thisPair) + "," +  model.getRightChar(thisPair) + "," +  thisPair.getGroup() + "," + thisPair.getLeftIndex() + "," + thisPair.getRightIndex() + ")");    
         view.establishPreference(model.getLeftChar(thisPair), model.getRightChar(thisPair), thisPair.getGroup(), thisPair.getLeftIndex(), thisPair.getRightIndex());
     }
-    
+
     public void continueBaselineCondition()
     {
         if(false) // disabled for testing model.isBaselineEstablished() == false
@@ -84,24 +81,24 @@ public class Controller
         
         
     }
+    
     public void presentCondition()
     {
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
-        view.setCurrentTitle("Delayed Consequence");
-        
+        view.setCurrentTitle("Delayed Consequence");        
         view.dvrc('L', 'R', 0, 0, 1);
         // Select a condition to show
         // show that condition sequence
     }
-    
+
     public void setPreference()
     {
         // DVRC
         int max, min, i = 0;
-        
+
         max = 0;
         min = 0;
-        
+
         for(; i < 4; i++)
         {
             if(hitCount[i] > hitCount[max]) 
@@ -109,7 +106,7 @@ public class Controller
                 // This index is higher than what is at index max. 
                 max = i;
             } 
-            
+
             if(hitCount[i] < hitCount[min])
             {
                 min = i;
@@ -117,11 +114,10 @@ public class Controller
         } 
         dvrcMostPreferred = max;
         dvrcLeastPreferred = min;
-        
+
         System.out.println("DEBUG - setPreference() - dvrcMostPreferred = " + dvrcMostPreferred);
         System.out.println("DEBUG - setPreference() - dvrcLeastPreferred = " + dvrcLeastPreferred);
-        
-        
+
         max = 4;
         min = 4;
         for(; i < 8; i++)
@@ -131,7 +127,7 @@ public class Controller
                 // This index is higher than what is at index max. 
                 max = i;
             } 
-            
+
             if(hitCount[i] < hitCount[min])
             {
                 min = i;
@@ -139,10 +135,10 @@ public class Controller
         }
         dvrMostPreferred = max-4;
         dvrLeastPreferred = min-4;
-        
+
         System.out.println("DEBUG - setPreference() - dvrMostPreferred = " + dvrMostPreferred);
         System.out.println("DEBUG - setPreference() - dvrLeastPreferred = " + dvrLeastPreferred);
-        
+
         max = 8;
         min = 8;
         for(; i < 12; i++)
@@ -152,49 +148,49 @@ public class Controller
                 // This index is higher than what is at index max. 
                 max = i;
             } 
-            
+
             if(hitCount[i] < hitCount[min])
             {
                 min = i;
             }
         }
-        
+
         dcMostPreferred = max-8;
         dcLeastPreferred = min-8;
-        
+
         System.out.println("DEBUG - setPreference() - dcMostPreferred = " + dcMostPreferred);
         System.out.println("DEBUG - setPreference() - dcLeastPreferred = " + dcLeastPreferred);
-        
+
         max = 12;
         min = 12;
         for(; i < 14; i++)
         {
-             if(hitCount[i] > hitCount[max]) 
+            if(hitCount[i] > hitCount[max]) 
             {
                 // This index is higher than what is at index max. 
                 max = i;
             } 
-            
+
             if(hitCount[i] < hitCount[min])
             {
                 min = i;
             }
         }
-        
+
         icMostPreferred = max-12;
         icLeastPreferred = min-12;
-        
+
         System.out.println("DEBUG - setPreference() - icMostPreferred = " + icMostPreferred);
         System.out.println("DEBUG - setPreference() - icLeastPreferred = " + icLeastPreferred);
     }
-    
+
     public void incrementHitCount(int group, int index)
     {
         int hitCountIndex = group*4+index;
         System.out.println("DEBUG - incrementHitCount() - incrementing hitCount[" + hitCountIndex + "]");
         hitCount[hitCountIndex]++;
     }
-    
+
     public void printBaselineStats()
     {
         for(int i = 0; i < hitCount.length; i++)
@@ -211,6 +207,4 @@ public class Controller
             }
         }
     }
-    
-    
 }
