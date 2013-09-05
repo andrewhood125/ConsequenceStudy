@@ -126,7 +126,7 @@ public class View extends JFrame
     
     public void presentCondition(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(1,2,40,40));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(0,153,153));
         pageStartPanel.setBackground(new Color(0,153,153));        
@@ -141,8 +141,45 @@ public class View extends JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-    }    
+    }
     
+    public void dvrc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
+    {
+        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(0,153,153));
+        pageStartPanel.setBackground(new Color(0,153,153));        
+        JButton left = new JButton("" + leftButtonChar);
+        JButton right = new JButton("" + rightButtonChar);
+        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.addActionListener(new dvrcButtonOne(group, leftIndex));
+        right.addActionListener(new dvrcButtonOne(group, rightIndex));
+        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        newPanel.add(left);
+        newPanel.add(right);
+        cards.add(newPanel, "Baseline Condition");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);
+    }
+    
+     public class dvrcButtonOne implements ActionListener
+    {
+        int group;
+        int index;
+        // constructor
+        public dvrcButtonOne(int group, int index)
+        {
+            this.group = group;
+            this.index = index;
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
+            
+            System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+            // show screen 2 of dvrc
+        }
+    }
     
     // nested class
     public class BeginButtonAction implements ActionListener

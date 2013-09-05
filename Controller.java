@@ -17,6 +17,7 @@ public class Controller
     private int dcMostPreferred, dcLeastPreferred;
     private int icMostPreferred, icLeastPreferred;
     
+    
     // constructor
     public Controller()
     {
@@ -76,6 +77,7 @@ public class Controller
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
         view.setCurrentTitle("Delayed Consequence");
         
+        view.dvrc('L', 'R', 0, 0, 1);
         // Select a condition to show
         // show that condition sequence
     }
