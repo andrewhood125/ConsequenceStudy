@@ -58,15 +58,15 @@ public class Model
     private void populateDGroupPairs()
     {
         for(int i = 0; i < 3; i++)
-            {
-                for(int j = 0; j < Setup.getShapes(i).length; j++)
-                    {
-                    if(i != j)
-                        {
-                            dGroupPairs.add(new Pair(i,j));
-                        }
-                    }
-            }   
+        	{
+        	    for(int j = 0; j < Setup.getShapes(i).length; j++)
+            	    {
+            		if(i != j)
+                		{
+                		    dGroupPairs.add(new Pair(i,j));
+                		}
+            	    }
+        	}	
     }
     
     private void populateICGroupPairs()
