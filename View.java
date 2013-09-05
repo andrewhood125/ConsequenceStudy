@@ -172,7 +172,7 @@ public class View extends JFrame
     public void dvrc2()
     {
         JPanel newPanel = new JPanel();
-        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        //newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240));        
         JTextArea reading = new JTextArea();
