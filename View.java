@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Dimension;
@@ -172,11 +173,11 @@ public class View extends JFrame
     public void dvrc2()
     {
         JPanel newPanel = new JPanel();
-        //newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240));        
         JTextArea reading = new JTextArea();
-        JScrollPane sp = new JScrollPane(reading);
+        JScrollPane sp = new javax.swing.JScrollPane(reading);
         ArrayList<String> introduction = Setup.getRI();
         for(int i = 0; i < introduction.size(); i++)
             {
@@ -229,7 +230,8 @@ public class View extends JFrame
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(179,162,199));
         pageStartPanel.setBackground(new Color(179,162,199));   
-        JTextArea reading = new JTextArea("Man You fucked up. Your shit sucks. You picked the wrong one. I fucked your mother. mIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsum");
+        JTextArea reading = new javax.swing.JTextArea("test this is a test of a test while i am testing this text area test",100,100);
+        
         reading.setLineWrap(true);
         reading.setWrapStyleWord(true);
         reading.setEditable(false);
