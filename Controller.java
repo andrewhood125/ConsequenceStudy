@@ -209,7 +209,7 @@ public class Controller
     {
         for(int i = 0; i < conditionCount.length; i++)
         {
-            for(int j = 0; j < conditionCount[i].length; i++)
+            for(int j = 0; j < conditionCount[i].length; j++)
             {
                 if(i == 3 && j == 2)
                 {
@@ -218,23 +218,13 @@ public class Controller
                 
                 switch(i)
                 {
-                    case 0: System.out.print("DVRC index[" + j + "]:" + j); break;
-                    case 1: System.out.print("DVR index[" + j + "]:" + j); break;
-                    case 2: System.out.print("DC index[" + j + "]:" + j); break;
-                    case 3: System.out.print("IC index[" + j + "]:" + j); break;
+                    case 0: System.out.print("\tDVRC index[" + j + "]:" + conditionCount[i][j]); break;
+                    case 1: System.out.print("\tDVR index[" + j + "]:" + conditionCount[i][j]); break;
+                    case 2: System.out.print("\tDC index[" + j + "]:" + conditionCount[i][j]); break;
+                    case 3: System.out.print("\tIC index[" + j + "]:" + conditionCount[i][j]); break;
                 }
             }
             System.out.println();
-            if(i < 4)
-            {
-                System.out.println("DVRC index[" + i + "]: " + hitCount[i]);
-            } else if(i < 8) {
-                System.out.println("DVR index[" + (i-4) + "]: " + hitCount[(i-4)]);
-            } else if(i < 12) {
-                System.out.println("DC index[" + (i-8) + "]: " + hitCount[(i-8)]);
-            } else {
-                System.out.println("IC index[" + (i-12) + "]: " + hitCount[(i-12)]);
-            }
         }
     }
     
