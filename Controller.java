@@ -68,7 +68,8 @@ public class Controller
             presentCondition();
         }
     }
-
+    
+   
     public void presentCondition()
     {
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
