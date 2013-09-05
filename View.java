@@ -171,7 +171,17 @@ public class View extends JFrame
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240));        
-        JTextArea reading = new JTextArea("LorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsum");
+        JTextArea reading = new JTextArea();
+        ArrayList<String> introduction = Setup.getRI();
+        for(int i = 0; i < introduction.size(); i++)
+            {
+                reading.append(introduction.get(i));
+                reading.append("\n");
+            }
+        reading.setLineWrap(true);
+        reading.setWrapStyleWord(true);
+        reading.setEditable(false);
+        reading.setBackground(new Color(0,0,0,0));        
         newPanel.add(reading, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
@@ -184,7 +194,7 @@ public class View extends JFrame
                 dvrc3('D', '3', 0, 0, 1);
             }
             };
-        Timer timer = new Timer(Setup.getRD() , taskPerformer);
+        Timer timer = new Timer(5000, taskPerformer);
         timer.setRepeats(false);
         timer.start();       
     }
@@ -213,8 +223,12 @@ public class View extends JFrame
         JPanel newPanel = new JPanel();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(179,162,199));
-        pageStartPanel.setBackground(new Color(179,162,199));        
+        pageStartPanel.setBackground(new Color(179,162,199));   
         JTextArea reading = new JTextArea("Man You fucked up. Your shit sucks. You picked the wrong one. I fucked your mother. mIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsumLorumIpsum");
+        reading.setLineWrap(true);
+        reading.setWrapStyleWord(true);
+        reading.setEditable(false);
+        reading.setBackground(new Color(0,0,0,0));
         newPanel.add(reading, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();

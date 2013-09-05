@@ -20,6 +20,7 @@ public class Controller
     public Controller()
     {
         Setup.set();
+        System.out.println(Setup.getRD() + "adasdasdasdasdasdas");
         points = Setup.getPoints();
         view = new View(this);
         model = new Model();

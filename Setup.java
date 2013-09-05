@@ -30,22 +30,21 @@ public class Setup {
     private static ArrayList<String> readingIntermission;       //The text that will be show at the intermission(Screen 3)
     private static ArrayList<String> conf;                      //The configuration file contents
     private static int readingDuration;                         //In SEC how long does the intermission stay up
-    private static int numOfPoints;				//The number of points that the person has left. 
+    private static int numOfPoints;                             //The number of points that the person has left. 
     private static char[] dvrc;
     private static char[] dvr;
     private static char[] dc;
     private static char[] ic;
-    
-    
+
     public static void set(){
-    	conf = new ArrayList<>();
-    	readConf();
-    	parseConf();
-    	setITS();
-    	setRI();
+        conf = new ArrayList<>();
+        readConf();
+        parseConf();
+        setITS();
+        setRI();
     }
-    
-    private static void readConf() {				//to read in the config
+
+    private static void readConf() {                //to read in the config
         FileInputStream fis = null;                             //read in config
         InputStreamReader isr = null;                           //read in config
         BufferedReader br = null;                               //read in config
@@ -71,101 +70,101 @@ public class Setup {
             } catch (IOException ex) {                                          //catch
                 Logger.getLogger(DelayedConsequence.class.getName()).log(Level.SEVERE, null, ex);
             }       
-        }									//return
+        }                                   //return
     }
-    
-    private static void parseConf() {						//parse all of the text in the config
-        for(int i = 0; i < conf.size(); i++){					//read all of the lines 
-            int index = conf.get(i).indexOf("=");				//keep a count of where the delim is for everything but shapes.
-	    String[] shapeIcon;							//after splitting needs string array
-            if(conf.get(i).startsWith("Reading")) {				//to config the amount of SEC to wait
-                readingDuration = Integer.parseInt(conf.get(i).substring(index));   //read in the int and modify the global var.
-            }
-            if(conf.get(i).startsWith("-Start")) {				    //start reading in the different groups
-		int count = 0;
+
+    private static void parseConf() {                       //parse all of the text in the config
+        readingDuration = Integer.parseInt(conf.get(0).substring(conf.get(0).indexOf("=")+1).trim());
+        for(int i = 1; i < conf.size(); i++){                   //read all of the lines 
+            int index = conf.get(i).indexOf("=");               //keep a count of where the delim is for everything but shapes.
+//             if(conf.get(i).startsWith("R")) {             //to config the amount of SEC to wait
+//                 System.out.println("DEBUG: " + readingDuration + Integer.parseInt(conf.get(i).substring(index)));
+//                 readingDuration = Integer.parseInt(conf.get(i).substring(index));   //read in the int and modify the global var.
+//             }
+            if(conf.get(i).startsWith("-Start")) {                  //start reading in the different groups
+                int count = 0;
                 for(int j = i+1; j < i+5; j++) {
-		    String temp = conf.get(j).substring(conf.get(j).indexOf("=")+1);		//make a new string that is everything after the delim 	
-		    setShapes(count, temp);
-		    count++;
-		}	
+                    String temp = conf.get(j).substring(conf.get(j).indexOf("=")+1);        //make a new string that is everything after the delim  
+                    setShapes(count, temp);
+                    count++;
+                }   
             }
-	    if(conf.get(i).startsWith("Starting")) {						//set the starting points
-		numOfPoints = Integer.parseInt(conf.get(i).substring(index + 1).trim());		//from the config file.
-	    }
+            if(conf.get(i).startsWith("Starting")) {                        //set the starting points
+                numOfPoints = Integer.parseInt(conf.get(i).substring(index + 1).trim());        //from the config file.
+            }
         }
     }
-    
-    private static ArrayList<String> reader (File txt){			//read in the different types of text files with no special encoding
-        ArrayList<String> lines = new ArrayList<>();			//make a temp arraylist
+
+    private static ArrayList<String> reader (File txt){         //read in the different types of text files with no special encoding
+        ArrayList<String> lines = new ArrayList<>();            //make a temp arraylist
         try {
-            Scanner scan = new Scanner(txt);				//scan it in
-            while(scan.hasNext()){					//while there is a line
-                lines.add(scan.nextLine());				//ADD
+            Scanner scan = new Scanner(txt);                //scan it in
+            while(scan.hasNext()){                  //while there is a line
+                lines.add(scan.nextLine());             //ADD
             }
-        } catch (FileNotFoundException ex) {				//catch
+        } catch (FileNotFoundException ex) {                //catch
             Logger.getLogger(DelayedConsequence.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        return lines;							//return arraylist of the text file
+        return lines;                           //return arraylist of the text file
     }
-        
-    private static void setITS() {					//setter for the Intro text
+
+    private static void setITS() {                  //setter for the Intro text
         introTextScreen = reader(new File("introText.txt"));
     }
-    
+
     private static void setRI() {
-        readingIntermission = reader(new File("readingText.txt"));	//setter for the intermission text
+        readingIntermission = reader(new File("readingText.txt"));  //setter for the intermission text
     }
-    
-    public static ArrayList<String> getITS() {				//getter for the intro text
+
+    public static ArrayList<String> getITS() {              //getter for the intro text
         return introTextScreen;
     }
-    
-    public static ArrayList<String> getRI() {				//getter for the Intermission text
+
+    public static ArrayList<String> getRI() {               //getter for the Intermission text
         return readingIntermission;
     }
-    
-    public static int getPoints() {					//getter for the points
-	return numOfPoints;
+
+    public static int getPoints() {                 //getter for the points
+        return numOfPoints;
     }
-        
-    public static void decPoints(int decrement) {			//when the user loses points
-	if(numOfPoints > decrement){					//as long as the user has points to give it will happen
-	    numOfPoints = numOfPoints - decrement;
-	}
-	else{								//if not then user is stuck at 0.
-	    numOfPoints = 0;
-	}	
+
+    public static void decPoints(int decrement) {           //when the user loses points
+        if(numOfPoints > decrement){                    //as long as the user has points to give it will happen
+            numOfPoints = numOfPoints - decrement;
+        }
+        else{                               //if not then user is stuck at 0.
+            numOfPoints = 0;
+        }   
     }
-    
+
     public static void setShapes(int a , String s){
-	if(a == 0){
-             dvrc = s.toCharArray();
-         }else if (a == 1){
-              dvr= s.toCharArray();
-         }else if (a == 2){
-              dc= s.toCharArray();
-         }else if (a == 3){
-              ic= s.toCharArray();
-         }else{}
+        if(a == 0){
+            dvrc = s.toCharArray();
+        }else if (a == 1){
+            dvr= s.toCharArray();
+        }else if (a == 2){
+            dc= s.toCharArray();
+        }else if (a == 3){
+            ic= s.toCharArray();
+        }else{}
     }
-    
+
     public static char[] getShapes(int a){
-	if(a == 0){
-             return dvrc;
-         }else if (a == 1){
-              return dvr;
-         }else if (a == 2){
-              return dc;
-         }else if (a == 3){
-              return ic;
-         }else{
-              return null;
-         }
+        if(a == 0){
+            return dvrc;
+        }else if (a == 1){
+            return dvr;
+        }else if (a == 2){
+            return dc;
+        }else if (a == 3){
+            return ic;
+        }else{
+            return null;
+        }
     }
-    
+
     public static int getRD(){
-	return readingDuration * 1000;
+        return (readingDuration * 1000);
     }
-    
+
 }
-    
