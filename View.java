@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
@@ -90,26 +91,28 @@ public class View extends javax.swing.JFrame
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBackground(new Color(156,181,228)); 
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        JTextArea introTextArea = new javax.swing.JTextArea();
+        JTextPane introTextArea = new JTextPane();
         JScrollPane sp = new javax.swing.JScrollPane(introTextArea);
         sp.setViewportView(introTextArea);
         ArrayList<String> introduction = Setup.getITS();
-        introTextArea.setLineWrap(true);
-        introTextArea.setWrapStyleWord(true);
+        //introTextArea.setLineWrap(true);
+        //introTextArea.setWrapStyleWord(true);
         introTextArea.setEditable(false);
         introTextArea.setBackground(new Color(0,0,0,0));
+        StringBuilder contents = new StringBuilder();
         for(int i = 0; i < introduction.size(); i++)
         {
-            introTextArea.setWrapStyleWord(true);
-            introTextArea.append(introduction.get(i));
-            introTextArea.append("\n");
-        }     
+            // introTextArea.setWrapStyleWord(true);
+            contents.append(introduction.get(i));
+           contents.append("\n");
+        }
+        introTextArea.setText(contents.toString());
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
         beginButtonPanel.setBackground(new Color(156,181,228));
         pageStartPanel.setBackground(new Color(156,181,228));
         JButton beginButton = new JButton("Begin");
         beginButton.addActionListener(new BeginButtonAction());        
-        newPanel.add(introTextArea, BorderLayout.CENTER);
+        newPanel.add(sp, BorderLayout.CENTER);
         beginButtonPanel.add(beginButton, BorderLayout.LINE_END);
         newPanel.add(beginButtonPanel, BorderLayout.PAGE_END);
         cards.add(newPanel, "Instruction Sheet");
