@@ -155,12 +155,12 @@ public class Controller
     public void setPreference()
     {
         // DVRC
-        int max, min, i = 0;
+        int max, min;
 
         max = 0;
         min = 0;
         boolean middleSet = false;
-        for(; i < 4; i++)
+        for(int i = 0; i < 4; i++)
         {
             if(hitCount[i] > hitCount[max]) 
             {
@@ -179,16 +179,22 @@ public class Controller
             {
                 if(j != max && j!= min)
                 {
+                    System.out.println("DEBUG: - setPreference - dvrcLeft = " + j);
                     dvrcLeft = j;
                 }
+                System.out.println("DEBUG: - setPreference - j matches most or least\tmax: " + max + "\tmin: " + min + "\tj: " + j);
             } else {
                  if(j != max && j!= min)
                     {
+                        System.out.println("DEBUG: - setPreference - dvrcRight = " + j);
                         dvrcRight = j;
+                        middleSet = true;
+                        System.out.println("DEBUG: - setPreference - j matches most or least\tmax: " + max + "\tmin: " + min + "\tj: " + j);
                     }
-                middleSet = true;
+                
             }
         }
+        
         dvrcMostPreferred = max;
         dvrcLeastPreferred = min;
 
@@ -196,7 +202,7 @@ public class Controller
 
         max = 4;
         min = 4;
-        for(; i < 8; i++)
+        for(int i = 4; i < 8; i++)
         {
             if(hitCount[i] > hitCount[max]) 
             {
@@ -216,14 +222,19 @@ public class Controller
             {
                 if(j != max && j!= min)
                 {
+                    System.out.println("DEBUG: - setPreference - dvrLeft = " + j);
                     dvrLeft = j-4;
                 }
+                System.out.println("DEBUG: - setPreference - j matches most or least\tmax: " + max + "\tmin: " + min + "\tj: " + j);
             } else {
                  if(j != max && j!= min)
                     {
+                        System.out.println("DEBUG: - setPreference - dvrRight = " + j);
                         dvrRight = j-4;
+                        middleSet = true;
+                        System.out.println("DEBUG: - setPreference - j matches most or least\tmax: " + max + "\tmin: " + min + "\tj: " + j);
                     }
-                middleSet = true;
+                
             }
         }
         dvrMostPreferred = max-4;
@@ -233,7 +244,7 @@ public class Controller
 
         max = 8;
         min = 8;
-        for(; i < 12; i++)
+        for(int i = 8; i < 12; i++)
         {
             if(hitCount[i] > hitCount[max]) 
             {
@@ -254,16 +265,22 @@ public class Controller
             {
                 if(j != max && j!= min)
                 {
+                    System.out.println("DEBUG: - setPreference - dcLeft = " + j);
                     dcLeft = j-8;
                 }
+                System.out.println("DEBUG: - setPreference - j matches most or least\tmax: " + max + "\tmin: " + min + "\tj: " + j);
             } else {
                  if(j != max && j!= min)
                     {
+                        System.out.println("DEBUG: - setPreference - dcRight = " + j);
                         dcRight = j-8;
+                        middleSet = true;
+                        System.out.println("DEBUG: - setPreference - j matches most or least\tmax: " + max + "\tmin: " + min + "\tj: " + j);
                     }
-                middleSet = true;
+                
             }
         }
+        
         dcMostPreferred = max-8;
         dcLeastPreferred = min-8;
 
@@ -271,7 +288,7 @@ public class Controller
 
         max = 12;
         min = 12;
-        for(; i < 14; i++)
+        for(int i = 12; i < 14; i++)
         {
             if(hitCount[i] > hitCount[max]) 
             {
