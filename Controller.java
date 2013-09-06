@@ -17,9 +17,9 @@ public class Controller
     private int points = 100;
     private int[] hitCount;
     private int[][] conditionCount;
-    private int dvrcMostPreferred, dvrcLeastPreferred;
-    private int dvrMostPreferred, dvrLeastPreferred;
-    private int dcMostPreferred, dcLeastPreferred;
+    private int dvrcMostPreferred, dvrcLeastPreferred, dvrcLeft, dvrcRight;
+    private int dvrMostPreferred, dvrLeastPreferred, dvrLeft, dvrRight;
+    private int dcMostPreferred, dcLeastPreferred, dcLeft, dcRight;
     private int icMostPreferred, icLeastPreferred;
     private ArrayList<Condition> conditionArray;
     Condition dvrc, dvr, dc, ic, lastCondition = null;
@@ -44,6 +44,27 @@ public class Controller
         conditionArray.add(dc);
         conditionArray.add(ic);
         
+    }
+    
+    public void calculatePointLoss(int group, int index)
+    {
+        switch(group)
+        {
+            case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {points -= 3;}break;
+            case Model.DVR_ENUM: if(index == dvrMostPreferred) {points -= 3;}break;
+            case Model.DC_ENUM: if(index == dcMostPreferred) {points -= 3;}break;
+            case Model.IC_ENUM: if(index == icMostPreferred) {points -= 3;}break;
+        }
+    }
+    
+    public char getCharCubeChar(int group, int index)
+    {
+        return model.getCharCubeChar(group, index);
+    }
+    
+    public void updatePoints()
+    {
+        view.setPoints(points);
     }
 
     // methods
@@ -138,7 +159,7 @@ public class Controller
 
         max = 0;
         min = 0;
-
+        boolean middleSet = false;
         for(; i < 4; i++)
         {
             if(hitCount[i] > hitCount[max]) 
@@ -152,6 +173,22 @@ public class Controller
                 min = i;
             }
         } 
+        for(int j = 0; j < 4; j++)
+        {
+            if(middleSet) 
+            {
+                if(j != max && j!= min)
+                {
+                    dvrcLeft = j;
+                }
+            } else {
+                 if(j != max && j!= min)
+                    {
+                        dvrcRight = j;
+                    }
+                middleSet = true;
+            }
+        }
         dvrcMostPreferred = max;
         dvrcLeastPreferred = min;
 
@@ -171,6 +208,23 @@ public class Controller
             if(hitCount[i] < hitCount[min])
             {
                 min = i;
+            }
+        }
+        middleSet = false;
+         for(int j = 0; j < 4; j++)
+        {
+            if(middleSet) 
+            {
+                if(j != max && j!= min)
+                {
+                    dvrLeft = j;
+                }
+            } else {
+                 if(j != max && j!= min)
+                    {
+                        dvrRight = j;
+                    }
+                middleSet = true;
             }
         }
         dvrMostPreferred = max-4;
@@ -194,7 +248,24 @@ public class Controller
                 min = i;
             }
         }
-
+        
+        middleSet = false;
+         for(int j = 0; j < 4; j++)
+        {
+            if(middleSet) 
+            {
+                if(j != max && j!= min)
+                {
+                    dcLeft = j;
+                }
+            } else {
+                 if(j != max && j!= min)
+                    {
+                        dcRight = j;
+                    }
+                middleSet = true;
+            }
+        }
         dcMostPreferred = max-8;
         dcLeastPreferred = min-8;
 
@@ -216,12 +287,42 @@ public class Controller
                 min = i;
             }
         }
-
+        
         icMostPreferred = max-12;
         icLeastPreferred = min-12;
 
         System.out.println("DEBUG - setPreference() - icMostPreferred = " + icMostPreferred);
         System.out.println("DEBUG - setPreference() - icLeastPreferred = " + icLeastPreferred);
+    }
+    
+    public int getDVRCleft()
+    {
+        return dvrcLeft;
+    }
+    
+    public int getDVRCright()
+    {
+        return dvrcRight;
+    }
+    
+    public int getDVRleft()
+    {
+        return dvrLeft;
+    }
+    
+    public int getDVRright()
+    {
+        return dvrRight;
+    }
+    
+    public int getDCleft()
+    {
+        return dcLeft;
+    }
+    
+    public int getDCright()
+    {
+        return dcRight;
     }
 
     public void incrementHitCount(int group, int index)
