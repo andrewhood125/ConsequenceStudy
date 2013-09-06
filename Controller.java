@@ -122,6 +122,7 @@ public class Controller
             System.out.println("DEBUG: presentCondition() - Randomly Selectiong condition");
             thisCondition= conditionArray.get(rand.nextInt(conditionArray.size()));
         } while(lastCondition == thisCondition);
+        lastCondition = thisCondition;
         
         System.out.println("DEBUG: presentCondition() - Condition chosen: " + thisCondition);
         
