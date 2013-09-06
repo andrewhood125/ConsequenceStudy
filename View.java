@@ -31,7 +31,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-public class View extends JFrame
+public class View extends javax.swing.JFrame
 {
     // This panel is used to hold the current page title and remaining points
     JPanel pageStartPanel;
@@ -59,7 +59,8 @@ public class View extends JFrame
         pageStartPanel.add(currentPaneTitle, BorderLayout.LINE_START);
 
         // initialize the centerPanel
-        cards = new JPanel(new CardLayout());
+        cards = new JPanel();
+        cards.setLayout(new java.awt.CardLayout());
 
         this.getContentPane().add(cards, BorderLayout.CENTER);
         this.getContentPane().add(pageStartPanel, BorderLayout.PAGE_START);
@@ -71,6 +72,7 @@ public class View extends JFrame
         this.setLocationRelativeTo(null);
         // frame.setUndecorated(true);
         this.setVisible(true);
+        this.setResizable(false);
     }
     
     public void setCurrentTitle(String title)
@@ -88,7 +90,9 @@ public class View extends JFrame
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBackground(new Color(156,181,228)); 
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        JTextArea introTextArea = new JTextArea();
+        JTextArea introTextArea = new javax.swing.JTextArea();
+        JScrollPane sp = new javax.swing.JScrollPane(introTextArea);
+        sp.setViewportView(introTextArea);
         ArrayList<String> introduction = Setup.getITS();
         introTextArea.setLineWrap(true);
         introTextArea.setWrapStyleWord(true);
