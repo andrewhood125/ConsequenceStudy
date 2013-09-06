@@ -172,7 +172,7 @@ public class View extends JFrame
     
     public void dvrc2()
     {
-        JPanel newPanel = new JPanel();
+        JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240));        
@@ -226,12 +226,11 @@ public class View extends JFrame
     
     public void dvrc4()
     {
-        JPanel newPanel = new JPanel();
+        JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(179,162,199));
         pageStartPanel.setBackground(new Color(179,162,199));   
         JTextArea reading = new javax.swing.JTextArea("test this is a test of a test while i am testing this text area test",100,100);
-        
         reading.setLineWrap(true);
         reading.setWrapStyleWord(true);
         reading.setEditable(false);
