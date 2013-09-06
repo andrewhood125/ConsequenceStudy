@@ -260,6 +260,7 @@ public class View extends javax.swing.JFrame
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 controller.printConditionStats();
+                controller.presentCondition();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
