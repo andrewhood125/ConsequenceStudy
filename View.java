@@ -327,8 +327,8 @@ public class View extends javax.swing.JFrame
         setCurrentTitle("DVR");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(142,180,227));
-        pageStartPanel.setBackground(new Color(142,180,227));        
+        newPanel.setBackground(new Color(255,255,0));
+        pageStartPanel.setBackground(new Color(255,255,0));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -383,8 +383,8 @@ public class View extends javax.swing.JFrame
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(217,150,148));
-        pageStartPanel.setBackground(new Color(217,150,148));        
+        newPanel.setBackground(new Color(195,214,155));
+        pageStartPanel.setBackground(new Color(195,214,155));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -403,8 +403,8 @@ public class View extends javax.swing.JFrame
         JPanel newPanel = new JPanel(new BorderLayout());
 		controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(179,162,199));
-        pageStartPanel.setBackground(new Color(179,162,199));   
+        newPanel.setBackground(new Color(196,189,151));
+        pageStartPanel.setBackground(new Color(196,189,151));   
         JTextArea reading = new JTextArea();
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
@@ -483,8 +483,8 @@ public class View extends javax.swing.JFrame
         setCurrentTitle("DC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(142,180,227));
-        pageStartPanel.setBackground(new Color(142,180,227));        
+        newPanel.setBackground(new Color(166,166,166));
+        pageStartPanel.setBackground(new Color(166,166,166));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -539,8 +539,8 @@ public class View extends javax.swing.JFrame
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(217,150,148));
-        pageStartPanel.setBackground(new Color(217,150,148));        
+        newPanel.setBackground(new Color(152,72,7));
+        pageStartPanel.setBackground(new Color(152,72,7));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -559,8 +559,8 @@ public class View extends javax.swing.JFrame
         JPanel newPanel = new JPanel(new BorderLayout());
 		controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(179,162,199));
-        pageStartPanel.setBackground(new Color(179,162,199));   
+        newPanel.setBackground(new Color(255,255,255));
+        pageStartPanel.setBackground(new Color(255,255,255));   
         JTextArea reading = new JTextArea();
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
@@ -641,8 +641,8 @@ public class View extends javax.swing.JFrame
         setCurrentTitle("DC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(142,180,227));
-        pageStartPanel.setBackground(new Color(142,180,227));        
+        newPanel.setBackground(new Color(250,192,144));
+        pageStartPanel.setBackground(new Color(250,192,144));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -662,8 +662,8 @@ public class View extends javax.swing.JFrame
         JPanel newPanel = new JPanel(new BorderLayout());
 		controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(179,162,199));
-        pageStartPanel.setBackground(new Color(179,162,199));   
+        newPanel.setBackground(new Color(217,217,217));
+        pageStartPanel.setBackground(new Color(217,217,217));   
         JTextArea reading = new JTextArea();
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
