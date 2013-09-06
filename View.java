@@ -88,25 +88,25 @@ public class View extends javax.swing.JFrame
     
     public void showInstructionSheet()
     {
-        JPanel newPanel = new JPanel(new BorderLayout());
+        JPanel newPanel = new JPanel(new BorderLayout());         
         newPanel.setBackground(new Color(156,181,228)); 
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        JTextPane introTextArea = new JTextPane();
-        JScrollPane sp = new javax.swing.JScrollPane(introTextArea);
+        JTextArea introTextArea = new JTextArea();
+        introTextArea.setWrapStyleWord(true);
+        introTextArea.setLineWrap(true);
+		introTextArea.setEditable(false);
+		introTextArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		introTextArea.setBounds(10, 0, 774, 496);
+		newPanel.add(introTextArea);
+        JScrollPane sp = new javax.swing.JScrollPane(introTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(introTextArea);
         ArrayList<String> introduction = Setup.getITS();
-        //introTextArea.setLineWrap(true);
-        //introTextArea.setWrapStyleWord(true);
         introTextArea.setEditable(false);
-        introTextArea.setBackground(new Color(0,0,0,0));
-        StringBuilder contents = new StringBuilder();
         for(int i = 0; i < introduction.size(); i++)
         {
-            // introTextArea.setWrapStyleWord(true);
-            contents.append(introduction.get(i));
-           contents.append("\n");
+        	introTextArea.append(introduction.get(i));
+        	introTextArea.append("\n");
         }
-        introTextArea.setText(contents.toString());
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
         beginButtonPanel.setBackground(new Color(156,181,228));
         pageStartPanel.setBackground(new Color(156,181,228));
@@ -182,19 +182,23 @@ public class View extends javax.swing.JFrame
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
-        pageStartPanel.setBackground(new Color(240,240,240));        
+        pageStartPanel.setBackground(new Color(240,240,240)); 
         JTextArea reading = new JTextArea();
-        JScrollPane sp = new javax.swing.JScrollPane(reading);
-        ArrayList<String> introduction = Setup.getRI();
-        for(int i = 0; i < introduction.size(); i++)
-            {
-                reading.append(introduction.get(i));
-                reading.append("\n");
-            }
-        reading.setLineWrap(true);
         reading.setWrapStyleWord(true);
+        reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setBackground(new Color(0,0,0,0));        
+        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setBounds(10, 0, 774, 496);
+		newPanel.add(reading);
+        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setViewportView(reading);
+        ArrayList<String> introduction = Setup.getRI();
+        reading.setEditable(false);
+        for(int i = 0; i < introduction.size(); i++)
+        {
+        	reading.append(introduction.get(i));
+        	reading.append("\n");
+        }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
