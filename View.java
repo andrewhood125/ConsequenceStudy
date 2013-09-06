@@ -164,6 +164,7 @@ public class View extends javax.swing.JFrame
     
     public void dvrc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        setCurrentTitle("DVRC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(142,180,227));
@@ -323,6 +324,7 @@ public class View extends javax.swing.JFrame
     
     public void dvr(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        setCurrentTitle("DVR");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(142,180,227));
@@ -470,6 +472,163 @@ public class View extends javax.swing.JFrame
             
         }
     }
+    
+    
+    /**
+     * DC VIEW SEQUENCE ******************************************************************************
+     */
+    
+    public void dc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
+    {
+        setCurrentTitle("DC");
+        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(142,180,227));
+        pageStartPanel.setBackground(new Color(142,180,227));        
+        JButton left = new JButton("" + leftButtonChar);
+        JButton right = new JButton("" + rightButtonChar);
+        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.addActionListener(new dcButtonOne(group, leftIndex));
+        right.addActionListener(new dcButtonOne(group, rightIndex));
+        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        newPanel.add(left);
+        newPanel.add(right);
+        cards.add(newPanel, "Baseline Condition");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);
+    }
+    
+    public void dc2()
+    {
+        JPanel newPanel = new JPanel(new BorderLayout());
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(240,240,240));
+        pageStartPanel.setBackground(new Color(240,240,240)); 
+        JTextArea reading = new JTextArea();
+        reading.setWrapStyleWord(true);
+        reading.setLineWrap(true);
+        reading.setEditable(false);
+        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setBounds(10, 0, 774, 496);
+		newPanel.add(reading);
+        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setViewportView(reading);
+        ArrayList<String> introduction = Setup.getRI();
+        reading.setEditable(false);
+        for(int i = 0; i < introduction.size(); i++)
+        {
+        	reading.append(introduction.get(i));
+        	reading.append("\n");
+        }       
+        newPanel.add(sp, BorderLayout.CENTER);
+        cards.add(newPanel, "Read now!");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);  
+        
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
+            }
+            };
+        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        timer.setRepeats(false);
+        timer.start();       
+    }
+    
+    public void dc3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
+    {
+        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(217,150,148));
+        pageStartPanel.setBackground(new Color(217,150,148));        
+        JButton left = new JButton("" + leftButtonChar);
+        JButton right = new JButton("" + rightButtonChar);
+        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.addActionListener(new dcButtonTwo(group, leftIndex));
+        right.addActionListener(new dcButtonTwo(group, rightIndex));
+        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        newPanel.add(left);
+        newPanel.add(right);
+        cards.add(newPanel, "Baseline Condition");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);
+    }
+    
+    public void dc4()
+    {
+        JPanel newPanel = new JPanel(new BorderLayout());
+		controller.updatePoints();
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        newPanel.setBackground(new Color(179,162,199));
+        pageStartPanel.setBackground(new Color(179,162,199));   
+        JTextArea reading = new JTextArea();
+        reading.setWrapStyleWord(true);
+        reading.setLineWrap(true);
+        reading.setEditable(false);
+        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setBounds(10, 0, 774, 496);
+		newPanel.add(reading);
+        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setViewportView(reading);
+        reading.setEditable(false);
+        reading.append("this is a test of the test while i am testing this new untested text ");
+        newPanel.add(reading, BorderLayout.CENTER);
+        cards.add(newPanel, "Read now!");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards); 
+        
+        
+         ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                controller.printConditionStats();
+                controller.presentCondition();
+            }
+            };
+        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        timer.setRepeats(false);
+        timer.start();       
+    }
+    
+    public class dcButtonTwo implements ActionListener
+    {
+        int group;
+        int index;
+        // constructor
+        public dcButtonTwo(int group, int index)
+        {
+            this.group = group;
+            this.index = index;
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+            controller.incrementConditionCount(Model.DC_ENUM,index);
+            System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+            dc4();
+            
+        }
+    }
+    
+     public class dcButtonOne implements ActionListener
+    {
+        int group;
+        int index;
+        // constructor
+        public dcButtonOne(int group, int index)
+        {
+            this.group = group;
+            this.index = index;
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+            controller.incrementConditionCount(Model.DC_ENUM, index);
+            System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
+            dc2();
+            
+        }
+    }
+    
     
     
     
