@@ -195,9 +195,7 @@ public class View extends JFrame
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                //...Perform a task...
-
-                dvrc3('D', '3', 0, 0, 1);
+                dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -227,6 +225,7 @@ public class View extends JFrame
     public void dvrc4()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
+		controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(179,162,199));
         pageStartPanel.setBackground(new Color(179,162,199));   
@@ -243,8 +242,6 @@ public class View extends JFrame
         
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                //...Perform a task...
-
                 controller.printConditionStats();
             }
             };
@@ -287,6 +284,7 @@ public class View extends JFrame
         {
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
             controller.incrementConditionCount(Model.DVRC_ENUM, index);
+            controller.calculatePointLoss(group, index);
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
             dvrc2();
             
