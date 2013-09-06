@@ -92,7 +92,7 @@ public class Controller
 
     public void continueBaselineCondition()
     {
-        if(false) // disabled for testing model.isBaselineEstablished() == false
+        if(model.isBaselineEstablished() == false) // disabled for testing model.isBaselineEstablished() == false
         {
             System.out.println("DEBUG - continueBaselineCondition() - isBaseLineEstablished is false");
             Pair thisPair = model.getRandomPair();
@@ -192,8 +192,7 @@ public class Controller
         dvrcMostPreferred = max;
         dvrcLeastPreferred = min;
 
-        System.out.println("DEBUG - setPreference() - dvrcMostPreferred = " + dvrcMostPreferred);
-        System.out.println("DEBUG - setPreference() - dvrcLeastPreferred = " + dvrcLeastPreferred);
+       
 
         max = 4;
         min = 4;
@@ -211,18 +210,18 @@ public class Controller
             }
         }
         middleSet = false;
-         for(int j = 0; j < 4; j++)
+         for(int j = 4; j < 8; j++)
         {
             if(middleSet) 
             {
                 if(j != max && j!= min)
                 {
-                    dvrLeft = j;
+                    dvrLeft = j-4;
                 }
             } else {
                  if(j != max && j!= min)
                     {
-                        dvrRight = j;
+                        dvrRight = j-4;
                     }
                 middleSet = true;
             }
@@ -230,8 +229,7 @@ public class Controller
         dvrMostPreferred = max-4;
         dvrLeastPreferred = min-4;
 
-        System.out.println("DEBUG - setPreference() - dvrMostPreferred = " + dvrMostPreferred);
-        System.out.println("DEBUG - setPreference() - dvrLeastPreferred = " + dvrLeastPreferred);
+        
 
         max = 8;
         min = 8;
@@ -250,18 +248,18 @@ public class Controller
         }
         
         middleSet = false;
-         for(int j = 0; j < 4; j++)
+         for(int j = 8; j < 12; j++)
         {
             if(middleSet) 
             {
                 if(j != max && j!= min)
                 {
-                    dcLeft = j;
+                    dcLeft = j-8;
                 }
             } else {
                  if(j != max && j!= min)
                     {
-                        dcRight = j;
+                        dcRight = j-8;
                     }
                 middleSet = true;
             }
@@ -269,8 +267,7 @@ public class Controller
         dcMostPreferred = max-8;
         dcLeastPreferred = min-8;
 
-        System.out.println("DEBUG - setPreference() - dcMostPreferred = " + dcMostPreferred);
-        System.out.println("DEBUG - setPreference() - dcLeastPreferred = " + dcLeastPreferred);
+        
 
         max = 12;
         min = 12;
@@ -291,6 +288,18 @@ public class Controller
         icMostPreferred = max-12;
         icLeastPreferred = min-12;
 
+        System.out.println("DEBUG - setPreference() - dvrcMostPreferred = " + dvrcMostPreferred);
+        System.out.println("DEBUG - setPreference() - dvrcLeastPreferred = " + dvrcLeastPreferred);
+        System.out.println("DEBUG - setPreference() - dvrcLeft = " + dvrcLeft);
+        System.out.println("DEBUG - setPreference() - dvrcRight = " + dvrcRight);
+        System.out.println("DEBUG - setPreference() - dvrMostPreferred = " + dvrMostPreferred);
+        System.out.println("DEBUG - setPreference() - dvrLeastPreferred = " + dvrLeastPreferred);
+        System.out.println("DEBUG - setPreference() - dvrLeft = " + dvrLeft);
+        System.out.println("DEBUG - setPreference() - dvrRight = " + dvrRight);
+        System.out.println("DEBUG - setPreference() - dcMostPreferred = " + dcMostPreferred);
+        System.out.println("DEBUG - setPreference() - dcLeastPreferred = " + dcLeastPreferred);
+        System.out.println("DEBUG - setPreference() - dcLeft = " + dcLeft);
+        System.out.println("DEBUG - setPreference() - dcRight = " + dvrcRight);
         System.out.println("DEBUG - setPreference() - icMostPreferred = " + icMostPreferred);
         System.out.println("DEBUG - setPreference() - icLeastPreferred = " + icLeastPreferred);
     }
