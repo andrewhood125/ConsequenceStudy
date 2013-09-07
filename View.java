@@ -43,8 +43,8 @@ public class View extends javax.swing.JFrame
     JLabel currentPaneTitle;
     Controller controller;
     JScrollPane sp;
-    private int currXScroll = 0;
-    private int currYScroll = 0;
+    private int currXScroll;
+    private JTextArea reading;
     // constructor
     public View(Controller controller)
     {
@@ -65,7 +65,7 @@ public class View extends javax.swing.JFrame
         // initialize the centerPanel
         cards = new JPanel();
         cards.setLayout(new java.awt.CardLayout());
-
+        reading = new JTextArea();
         this.getContentPane().add(cards, BorderLayout.CENTER);
         this.getContentPane().add(pageStartPanel, BorderLayout.PAGE_START);
         this.setTitle("Delayed Consequence");
@@ -77,6 +77,7 @@ public class View extends javax.swing.JFrame
         // frame.setUndecorated(true);
         this.setVisible(true);
         this.setResizable(false);
+        currXScroll = 40;
     }
     
     public void setCurrentTitle(String title)
@@ -191,7 +192,7 @@ public class View extends javax.swing.JFrame
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240)); 
-        JTextArea reading = new JTextArea();
+        reading = new JTextArea();
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
@@ -200,8 +201,6 @@ public class View extends javax.swing.JFrame
 		newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-        sp.getVerticalScrollBar().setValue(currXScroll);
-        sp.getHorizontalScrollBar().setValue(currYScroll);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -210,15 +209,17 @@ public class View extends javax.swing.JFrame
         	reading.append("\n");
         }       
         newPanel.add(sp, BorderLayout.CENTER);
+        sp.getVerticalScrollBar().setValue(currXScroll);
+        reading.setCaretPosition(currXScroll);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
-                currXScroll = sp.getVerticalScrollBar().getValue();
-                currYScroll = sp.getHorizontalScrollBar().getValue();
+            	currXScroll = reading.getCaretPosition();
+            	dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
+                
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -355,7 +356,7 @@ public class View extends javax.swing.JFrame
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240)); 
-        JTextArea reading = new JTextArea();
+        reading = new JTextArea();
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
@@ -364,8 +365,6 @@ public class View extends javax.swing.JFrame
 		newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-        sp.getVerticalScrollBar().setValue(currXScroll);
-        sp.getHorizontalScrollBar().setValue(currYScroll);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -375,14 +374,15 @@ public class View extends javax.swing.JFrame
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
+        sp.getVerticalScrollBar().setValue(currXScroll);
+        reading.setCaretPosition(currXScroll);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
-                currXScroll = sp.getVerticalScrollBar().getValue();
-                currYScroll = sp.getHorizontalScrollBar().getValue();
+            	currXScroll = reading.getCaretPosition();
+            	dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -515,7 +515,7 @@ public class View extends javax.swing.JFrame
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(240,240,240));
         pageStartPanel.setBackground(new Color(240,240,240)); 
-        JTextArea reading = new JTextArea();
+        reading = new JTextArea();
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
@@ -524,8 +524,6 @@ public class View extends javax.swing.JFrame
 		newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-        sp.getVerticalScrollBar().setValue(currXScroll);
-        sp.getHorizontalScrollBar().setValue(currYScroll);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -535,15 +533,16 @@ public class View extends javax.swing.JFrame
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
+        sp.getVerticalScrollBar().setValue(currXScroll);
+        reading.setCaretPosition(currXScroll);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
-                currXScroll = sp.getVerticalScrollBar().getValue();
-                currYScroll = sp.getHorizontalScrollBar().getValue();
-            }
+            	currXScroll = reading.getCaretPosition();
+            	dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
+           }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
