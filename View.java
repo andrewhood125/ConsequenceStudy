@@ -42,6 +42,9 @@ public class View extends javax.swing.JFrame
     JLabel points;
     JLabel currentPaneTitle;
     Controller controller;
+    JScrollPane sp;
+    private int currXScroll = 0;
+    private int currYScroll = 0;
     // constructor
     public View(Controller controller)
     {
@@ -195,8 +198,10 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
+        sp.getVerticalScrollBar().setValue(currXScroll);
+        sp.getHorizontalScrollBar().setValue(currYScroll);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -212,6 +217,8 @@ public class View extends javax.swing.JFrame
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
+                currXScroll = sp.getVerticalScrollBar().getValue();
+                currYScroll = sp.getHorizontalScrollBar().getValue();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -355,8 +362,10 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
+        sp.getVerticalScrollBar().setValue(currXScroll);
+        sp.getHorizontalScrollBar().setValue(currYScroll);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -372,6 +381,8 @@ public class View extends javax.swing.JFrame
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
+                currXScroll = sp.getVerticalScrollBar().getValue();
+                currYScroll = sp.getHorizontalScrollBar().getValue();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -511,8 +522,10 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
+        sp.getVerticalScrollBar().setValue(currXScroll);
+        sp.getHorizontalScrollBar().setValue(currYScroll);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -528,6 +541,8 @@ public class View extends javax.swing.JFrame
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
+                currXScroll = sp.getVerticalScrollBar().getValue();
+                currYScroll = sp.getHorizontalScrollBar().getValue();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
