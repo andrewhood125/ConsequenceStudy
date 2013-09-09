@@ -17,10 +17,10 @@ public class Controller
     private int points = 100;
     private int[] hitCount;
     private int[][] conditionCount;
-    private int dvrcMostPreferred, dvrcLeastPreferred, dvrcLeft, dvrcRight;
-    private int dvrMostPreferred, dvrLeastPreferred, dvrLeft, dvrRight;
-    private int dcMostPreferred, dcLeastPreferred, dcLeft, dcRight;
-    private int icMostPreferred, icLeastPreferred;
+    public int dvrcMostPreferred, dvrcLeastPreferred, dvrcLeft, dvrcRight;
+    public int dvrMostPreferred, dvrLeastPreferred, dvrLeft, dvrRight;
+    public int dcMostPreferred, dcLeastPreferred, dcLeft, dcRight;
+    public int icMostPreferred, icLeastPreferred;
     private ArrayList<Condition> conditionArray;
     Condition dvrc, dvr, dc, ic, lastCondition = null;
     // constructor
@@ -92,7 +92,7 @@ public class Controller
 
     public void continueBaselineCondition()
     {
-        if(false) // disabled for testing model.isBaselineEstablished() == false
+        if(false) //model.isBaselineEstablished() == false 
         {
             System.out.println("DEBUG - continueBaselineCondition() - isBaseLineEstablished is false");
             Pair thisPair = model.getRandomPair();
@@ -364,6 +364,7 @@ public class Controller
         System.out.println("DEBUG - incrementConditionCount() - incrementing conditionCount[" + group + "][" + index + "]");
         conditionCount[group][index]++;
     }
+    
 
     public void printBaselineStats()
     {

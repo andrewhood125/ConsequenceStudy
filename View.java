@@ -45,6 +45,7 @@ public class View extends javax.swing.JFrame
     JScrollPane sp;
     private int currXScroll;
     private JTextArea reading;
+    private boolean showHint = false;
     // constructor
     public View(Controller controller)
     {
@@ -71,12 +72,12 @@ public class View extends javax.swing.JFrame
         this.setTitle("Delayed Consequence");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
-        this.setMinimumSize(new Dimension(600, 600));
+        this.setMinimumSize(new Dimension(800, 600));
         // frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
         this.setLocationRelativeTo(null);
         // frame.setUndecorated(true);
         this.setVisible(true);
-        this.setResizable(false);
+        //this.setResizable(false);
         currXScroll = 40;
     }
     
@@ -93,16 +94,18 @@ public class View extends javax.swing.JFrame
     public void showInstructionSheet()
     {
         JPanel newPanel = new JPanel(new BorderLayout());         
-        newPanel.setBackground(new Color(156,181,228)); 
+        // Running showInstructionSheet as default color
+        //newPanel.setBackground(new Color(156,181,228)); 
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         JTextArea introTextArea = new JTextArea();
         introTextArea.setWrapStyleWord(true);
         introTextArea.setLineWrap(true);
 		introTextArea.setEditable(false);
-		introTextArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
-		introTextArea.setBounds(10, 0, 774, 496);
+		introTextArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+		//introTextArea.setBounds(10, 0, 774, 496);
+		//introTextArea.setBackground(new Color(255,255,255,100));
 		newPanel.add(introTextArea);
-        JScrollPane sp = new javax.swing.JScrollPane(introTextArea,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane sp = new javax.swing.JScrollPane(introTextArea,JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(introTextArea);
         ArrayList<String> introduction = Setup.getITS();
         introTextArea.setEditable(false);
@@ -112,11 +115,12 @@ public class View extends javax.swing.JFrame
         	introTextArea.append("\n");
         }
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
-        beginButtonPanel.setBackground(new Color(156,181,228));
-        pageStartPanel.setBackground(new Color(156,181,228));
+        // beginButtonPanel.setBackground(new Color(156,181,228));
+        // pageStartPanel.setBackground(new Color(156,181,228));
         JButton beginButton = new JButton("Begin");
         beginButton.addActionListener(new BeginButtonAction());        
-        newPanel.add(sp, BorderLayout.CENTER);
+        //newPanel.add(sp, BorderLayout.CENTER);
+        newPanel.add(introTextArea, BorderLayout.CENTER);
         beginButtonPanel.add(beginButton, BorderLayout.LINE_END);
         newPanel.add(beginButtonPanel, BorderLayout.PAGE_END);
         cards.add(newPanel, "Instruction Sheet");
@@ -128,8 +132,9 @@ public class View extends javax.swing.JFrame
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(0,153,153));
-        pageStartPanel.setBackground(new Color(0,153,153));        
+        // Running establish preference as default color
+        //newPanel.setBackground(new Color(0,153,153));
+        // pageStartPanel.setBackground(new Color(0,153,153));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -147,8 +152,9 @@ public class View extends javax.swing.JFrame
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,40,40));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        newPanel.setBackground(new Color(0,153,153));
-        pageStartPanel.setBackground(new Color(0,153,153));        
+        // newPanel.setBackground(new Color(0,153,153));
+        // Running establish preference as default color/
+        // pageStartPanel.setBackground(new Color(0,153,153));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
@@ -196,7 +202,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -257,14 +263,18 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("this is a test of the test while i am testing this new untested text ");
-        newPanel.add(reading, BorderLayout.CENTER);
+        reading.append("You shouldn’t have chosen the shape you chose on the blue screen - you have lost three points.");
+        if(showHint)
+        {
+            newPanel.add(reading, BorderLayout.CENTER);
+            showHint = false;
+        }
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -314,6 +324,10 @@ public class View extends javax.swing.JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+            if(index == controller.dvrcMostPreferred)
+            {
+                showHint = true;
+            }  
             controller.incrementConditionCount(Model.DVRC_ENUM, index);
             controller.calculatePointLoss(group, index);
             System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
@@ -360,7 +374,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -420,14 +434,18 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("this is a test of the test while i am testing this new untested text ");
-        newPanel.add(reading, BorderLayout.CENTER);
+        reading.append("You shouldn’t have chosen the shape you chose on the yellow screen.");
+        if(showHint)
+        {
+            newPanel.add(reading, BorderLayout.CENTER);
+            showHint = false;
+        }
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -476,6 +494,10 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
+            if(index == controller.dvrMostPreferred)
+            {
+                showHint = true;
+            }  
             System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
             controller.incrementConditionCount(Model.DVR_ENUM, index);
             System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
@@ -519,7 +541,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -579,14 +601,19 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("this is a test of the test while i am testing this new untested text ");
+        reading.append("You lost three points.");
         newPanel.add(reading, BorderLayout.CENTER);
+        if(showHint)
+        {
+            newPanel.add(reading, BorderLayout.CENTER);
+            showHint = false;
+        }
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -635,6 +662,11 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
+            if(index == controller.dcMostPreferred)
+            {
+                showHint = true;
+            }  
+            controller.calculatePointLoss(group, index);
             System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
             controller.incrementConditionCount(Model.DC_ENUM, index);
             System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
@@ -652,7 +684,7 @@ public class View extends javax.swing.JFrame
     
     public void ic(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        setCurrentTitle("DC");
+        setCurrentTitle("IC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(250,192,144));
@@ -682,14 +714,18 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
 		newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("this is a test of the test while i am testing this new untested text ");
-        newPanel.add(reading, BorderLayout.CENTER);
+        reading.append("You lost three points.");
+        if(showHint)
+        {
+            newPanel.add(reading, BorderLayout.CENTER);
+            showHint = false;
+        }
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -719,6 +755,11 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
+             if(index == controller.icMostPreferred)
+            {
+                showHint = true;
+            }  
+            controller.calculatePointLoss(group, index);
             System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
             controller.incrementConditionCount(Model.IC_ENUM, index);
             System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
