@@ -12,7 +12,7 @@ import java.util.Random;
 public class Controller
 {
     // instance variables
-    private View view;
+    public View view;
     private Model model;
     private int points = 100;
     private int[] hitCount;
@@ -92,7 +92,7 @@ public class Controller
 
     public void continueBaselineCondition()
     {
-        if(false) //model.isBaselineEstablished() == false 
+        if(model.isBaselineEstablished() == false) 
         {
             System.out.println("DEBUG - continueBaselineCondition() - isBaseLineEstablished is false");
             Pair thisPair = model.getRandomPair();
@@ -115,42 +115,64 @@ public class Controller
     {
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
         view.setCurrentTitle("Delayed Consequence"); 
-        Condition thisCondition;
+        Condition thisCondition = null;
         Random rand = new Random();
         do
         {
             System.out.println("DEBUG: presentCondition() - Randomly Selectiong condition");
-            thisCondition= conditionArray.get(rand.nextInt(conditionArray.size()));
+            if(conditionArray.size() == 1)
+            {
+                thisCondition = conditionArray.get(0);
+                System.out.println("DEBUG: presentCondition() - DVRC shown " + dvrc.getTimesShown() + " times.");
+                System.out.println("DEBUG: presentCondition() - DVR shown " + dvr.getTimesShown() + " times.");
+                System.out.println("DEBUG: presentCondition() - DC shown " + dc.getTimesShown() + " times.");
+                System.out.println("DEBUG: presentCondition() - IC shown " + ic.getTimesShown() + " times.");
+                break;
+            } else if(conditionArray.size() > 1) {
+                thisCondition= conditionArray.get(rand.nextInt(conditionArray.size()));
+            }
         } while(lastCondition == thisCondition);
-        lastCondition = thisCondition;
         
-        System.out.println("DEBUG: presentCondition() - Condition chosen: " + thisCondition);
-        
-        if(thisCondition.getTimesShown() > 6)
+        if(thisCondition == null)
         {
-            System.out.println("DEBUG: presentCondition() - Condition shown more than 6 times, removing form conditionArray.");
-            conditionArray.remove(thisCondition);
+            printStatsToFile();
+            view.gameOver(points);
+            return;
         }
-        
-        if(thisCondition == dvrc)
-        {
-            view.dvrc(model.getCharCubeChar(Model.DVRC_ENUM, dvrcMostPreferred), model.getCharCubeChar(Model.DVRC_ENUM, dvrcLeastPreferred), Model.DVRC_ENUM, dvrcMostPreferred, dvrcLeastPreferred);
-        }
-        
-        if(thisCondition == dvr)
-        {
-            view.dvr(model.getCharCubeChar(Model.DVR_ENUM, dvrMostPreferred), model.getCharCubeChar(Model.DVR_ENUM, dvrLeastPreferred), Model.DVR_ENUM, dvrMostPreferred, dvrLeastPreferred);
-        }
-        
-        if(thisCondition == dc)
-        {
-            view.dc(model.getCharCubeChar(Model.DC_ENUM, dcMostPreferred), model.getCharCubeChar(Model.DC_ENUM, dcLeastPreferred), Model.DC_ENUM, dcMostPreferred, dcLeastPreferred);
-        }
-        
-        if(thisCondition == ic)
-        {
-            view.ic(model.getCharCubeChar(Model.IC_ENUM, icMostPreferred), model.getCharCubeChar(Model.IC_ENUM, icLeastPreferred), Model.IC_ENUM, icMostPreferred, icLeastPreferred);
-        }
+            lastCondition = thisCondition;
+            thisCondition.incrementTimesShown();
+            System.out.println("DEBUG: presentCondition() - Condition chosen: " + thisCondition + " shown " + thisCondition.getTimesShown() + " times.");
+            
+            if(thisCondition.getTimesShown() > 6)
+            {
+                System.out.println("DEBUG: presentCondition() - Condition shown more than 6 times, removing form conditionArray.");
+                conditionArray.remove(thisCondition);
+            }
+            
+            if(thisCondition == dvrc)
+            {
+                view.dvrc(model.getCharCubeChar(Model.DVRC_ENUM, dvrcMostPreferred), model.getCharCubeChar(Model.DVRC_ENUM, dvrcLeastPreferred), Model.DVRC_ENUM, dvrcMostPreferred, dvrcLeastPreferred);
+            }
+            
+            if(thisCondition == dvr)
+            {
+                view.dvr(model.getCharCubeChar(Model.DVR_ENUM, dvrMostPreferred), model.getCharCubeChar(Model.DVR_ENUM, dvrLeastPreferred), Model.DVR_ENUM, dvrMostPreferred, dvrLeastPreferred);
+            }
+            
+            if(thisCondition == dc)
+            {
+                view.dc(model.getCharCubeChar(Model.DC_ENUM, dcMostPreferred), model.getCharCubeChar(Model.DC_ENUM, dcLeastPreferred), Model.DC_ENUM, dcMostPreferred, dcLeastPreferred);
+            }
+            
+            if(thisCondition == ic)
+            {
+                view.ic(model.getCharCubeChar(Model.IC_ENUM, icMostPreferred), model.getCharCubeChar(Model.IC_ENUM, icLeastPreferred), Model.IC_ENUM, icMostPreferred, icLeastPreferred);
+            }
+    }
+    
+    public void printStatsToFile()
+    {
+        System.out.println("Stats printed.");
     }
 
     public void setPreference()

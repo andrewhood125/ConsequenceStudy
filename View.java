@@ -81,6 +81,32 @@ public class View extends javax.swing.JFrame
         currXScroll = 40;
     }
     
+    public void gameOver(int points)
+    {
+        setCurrentTitle("The End.");
+        pageStartPanel.setBackground(javax.swing.UIManager.getColor ( "Panel.background" ));
+        JPanel newPanel = new JPanel(new BorderLayout());
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));  
+        JTextArea reading = new JTextArea();
+        reading.setWrapStyleWord(true);
+        reading.setLineWrap(true);
+        reading.setEditable(false);
+        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
+        reading.setBounds(10, 0, 774, 496);
+        newPanel.add(reading);
+        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setViewportView(reading);
+        reading.setEditable(false);
+        reading.append("You managed to save " + points + " points.");
+        newPanel.add(reading, BorderLayout.CENTER);
+            
+        
+        cards.add(newPanel, "Read now!");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards); 
+        
+    }
+    
     public void setCurrentTitle(String title)
     {
         currentPaneTitle.setText(title);
@@ -100,19 +126,19 @@ public class View extends javax.swing.JFrame
         JTextArea introTextArea = new JTextArea();
         introTextArea.setWrapStyleWord(true);
         introTextArea.setLineWrap(true);
-		introTextArea.setEditable(false);
-		introTextArea.setFont(new Font("Dialog", Font.PLAIN, 14));
-		//introTextArea.setBounds(10, 0, 774, 496);
-		//introTextArea.setBackground(new Color(255,255,255,100));
-		newPanel.add(introTextArea);
+        introTextArea.setEditable(false);
+        introTextArea.setFont(new Font("Dialog", Font.PLAIN, 14));
+        //introTextArea.setBounds(10, 0, 774, 496);
+        //introTextArea.setBackground(new Color(255,255,255,100));
+        newPanel.add(introTextArea);
         JScrollPane sp = new javax.swing.JScrollPane(introTextArea,JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(introTextArea);
         ArrayList<String> introduction = Setup.getITS();
         introTextArea.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
         {
-        	introTextArea.append(introduction.get(i));
-        	introTextArea.append("\n");
+            introTextArea.append(introduction.get(i));
+            introTextArea.append("\n");
         }
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
         // beginButtonPanel.setBackground(new Color(156,181,228));
@@ -204,15 +230,15 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
         {
-        	reading.append(introduction.get(i));
-        	reading.append("\n");
+            reading.append(introduction.get(i));
+            reading.append("\n");
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         sp.getVerticalScrollBar().setValue(currXScroll);
@@ -223,8 +249,8 @@ public class View extends javax.swing.JFrame
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	currXScroll = reading.getCaretPosition();
-            	dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
+                currXScroll = reading.getCaretPosition();
+                dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
                 
             }
             };
@@ -255,7 +281,7 @@ public class View extends javax.swing.JFrame
     public void dvrc4()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
-		controller.updatePoints();
+        controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(179,162,199));
         pageStartPanel.setBackground(new Color(179,162,199));   
@@ -265,7 +291,7 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
@@ -376,15 +402,15 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
         {
-        	reading.append(introduction.get(i));
-        	reading.append("\n");
+            reading.append(introduction.get(i));
+            reading.append("\n");
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
@@ -395,8 +421,8 @@ public class View extends javax.swing.JFrame
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	currXScroll = reading.getCaretPosition();
-            	dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
+                currXScroll = reading.getCaretPosition();
+                dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -426,7 +452,7 @@ public class View extends javax.swing.JFrame
     public void dvr4()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
-		controller.updatePoints();
+        controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(196,189,151));
         pageStartPanel.setBackground(new Color(196,189,151));   
@@ -436,7 +462,7 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
@@ -543,15 +569,15 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
         {
-        	reading.append(introduction.get(i));
-        	reading.append("\n");
+            reading.append(introduction.get(i));
+            reading.append("\n");
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
@@ -562,8 +588,8 @@ public class View extends javax.swing.JFrame
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	currXScroll = reading.getCaretPosition();
-            	dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
+                currXScroll = reading.getCaretPosition();
+                dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
            }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
@@ -593,7 +619,7 @@ public class View extends javax.swing.JFrame
     public void dc4()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
-		controller.updatePoints();
+        controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(255,255,255));
         pageStartPanel.setBackground(new Color(255,255,255));   
@@ -603,7 +629,7 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
@@ -706,7 +732,7 @@ public class View extends javax.swing.JFrame
     public void ic2()
     {
         JPanel newPanel = new JPanel(new BorderLayout());
-		controller.updatePoints();
+        controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(217,217,217));
         pageStartPanel.setBackground(new Color(217,217,217));   
@@ -716,7 +742,7 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
-		newPanel.add(reading);
+        newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
