@@ -35,6 +35,16 @@ public class Setup {
     private static char[] dvr;
     private static char[] dc;
     private static char[] ic;
+    private static int ptLost;
+    private static boolean soundPos;
+    private static boolean soundNeg;
+    private static int basePause;
+    private static int baseColor;
+    private static int symbolSize;
+    private static int feedbackFont;
+    private static int feedbackDelay;
+    private static boolean randomPres;
+    private static int baselinePres;
 
     public static void set(){
         conf = new ArrayList<>();
@@ -74,22 +84,48 @@ public class Setup {
     }
 
     private static void parseConf() {                       //parse all of the text in the config
-        readingDuration = Integer.parseInt(conf.get(0).substring(conf.get(0).indexOf("=")+1).trim());
-        for(int i = 1; i < conf.size(); i++){                   //read all of the lines 
-            int index = conf.get(i).indexOf("=");               //keep a count of where the delim is for everything but shapes.
-            if(conf.get(i).startsWith("-Start")) {                  //start reading in the different groups
-                int count = 0;
-                for(int j = i+1; j < i+5; j++) {
-                    String temp = conf.get(j).substring(conf.get(j).indexOf("=")+1);        //make a new string that is everything after the delim  
-                    setShapes(count, temp);
-                    count++;
-                }   
-            }
-            if(conf.get(i).startsWith("Starting")) {                        //set the starting points
-                numOfPoints = Integer.parseInt(conf.get(i).substring(index + 1).trim());        //from the config file.
-            }
-        }
-    }
+    	for(int o = 0; o < conf.size(); o++){
+    		int index = conf.get(o).indexOf("=");               //keep a count of where the delim is for everything but shapes.
+            int index2 = conf.get(o).indexOf(";");
+            index++;
+            if(o >= 0 && o <= 3){
+            	int count = 0;
+		        for(int i = 0; i < 4; i++){                   //read all of the lines
+		                    String temp = conf.get(i).substring(index , index2);        //make a new string that is everything after the delim  
+		                    setShapes(count, temp);
+		                    count++;
+		                }   
+		            }
+		        
+		            switch(o){
+		            case 4:readingDuration = Integer.parseInt(conf.get(4).substring(index,index2).trim());
+		            	break;
+		            case 5:numOfPoints = Integer.parseInt(conf.get(5).substring(index,index2).trim()); 
+		            	break;
+		            case 6:ptLost = Integer.parseInt(conf.get(6).substring(index,index2).trim());
+		            	break;
+		            case 7:soundPos = Boolean.parseBoolean(conf.get(7).substring(index, index2).trim().toLowerCase());
+		            	break;
+		            case 8:soundNeg = Boolean.parseBoolean(conf.get(8).substring(index, index2).trim().toLowerCase());
+		            	break;
+		            case 9:basePause = Integer.parseInt(conf.get(9).substring(index, index2).trim());
+		            	break;
+		            case 10:baseColor = Integer.parseInt(conf.get(10).substring(index, index2).trim());
+		            	break;
+		            case 11:symbolSize = Integer.parseInt(conf.get(11).substring(index, index2).trim());
+		            	break;
+		            case 12:feedbackFont = Integer.parseInt(conf.get(12).substring(index, index2).trim());
+		            	break;
+		            case 13:feedbackDelay = Integer.parseInt(conf.get(13).substring(index, index2).trim());
+		            	break;
+		            case 14:randomPres = Boolean.parseBoolean(conf.get(14).substring(index, index2).trim().toLowerCase());
+		            	break;
+		            case 15:baselinePres = Integer.parseInt(conf.get(15).substring(index, index2).trim());
+		            	break;	
+		            }  
+		        }
+
+}
 
     private static ArrayList<String> reader (File txt){         //read in the different types of text files with no special encoding
         ArrayList<String> lines = new ArrayList<>();            //make a temp arraylist
