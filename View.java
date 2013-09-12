@@ -6,6 +6,7 @@
  * @version (a version number or a date)
  */
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -120,16 +121,12 @@ public class View extends javax.swing.JFrame
     public void showInstructionSheet()
     {
         JPanel newPanel = new JPanel(new BorderLayout());         
-        // Running showInstructionSheet as default color
-        //newPanel.setBackground(new Color(156,181,228)); 
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         JTextArea introTextArea = new JTextArea();
         introTextArea.setWrapStyleWord(true);
         introTextArea.setLineWrap(true);
         introTextArea.setEditable(false);
         introTextArea.setFont(new Font("Dialog", Font.PLAIN, 14));
-        //introTextArea.setBounds(10, 0, 774, 496);
-        //introTextArea.setBackground(new Color(255,255,255,100));
         newPanel.add(introTextArea);
         JScrollPane sp = new javax.swing.JScrollPane(introTextArea,JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(introTextArea);
@@ -141,11 +138,8 @@ public class View extends javax.swing.JFrame
             introTextArea.append("\n");
         }
         JPanel beginButtonPanel = new JPanel(new BorderLayout());
-        // beginButtonPanel.setBackground(new Color(156,181,228));
-        // pageStartPanel.setBackground(new Color(156,181,228));
         JButton beginButton = new JButton("Begin");
         beginButton.addActionListener(new BeginButtonAction());        
-        //newPanel.add(sp, BorderLayout.CENTER);
         newPanel.add(introTextArea, BorderLayout.CENTER);
         beginButtonPanel.add(beginButton, BorderLayout.LINE_END);
         newPanel.add(beginButtonPanel, BorderLayout.PAGE_END);
@@ -154,21 +148,55 @@ public class View extends javax.swing.JFrame
         cl.next(cards);
     } 
     
+     // nested class
+    public class BeginButtonAction implements ActionListener
+    {
+
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("DEBUG: BeginButtonAction.actionPerformed() - begin button clicked, invoke getBaselineCondition().");
+            controller.getBaselineCondition();
+        }
+    }
+    
+   
+    
     public void establishPreference(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
-        newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        // Running establish preference as default color
-        //newPanel.setBackground(new Color(0,153,153));
-        // pageStartPanel.setBackground(new Color(0,153,153));        
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();  
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
+        
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));   
         left.setFont(new Font("Dialog", Font.BOLD, 200));
-        left.addActionListener(new ButtonAction(group, leftIndex));
-        right.addActionListener(new ButtonAction(group, rightIndex));
+        left.addActionListener(new ButtonAction(group, leftIndex, left));
+        right.addActionListener(new ButtonAction(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD, 200));
-        newPanel.add(left);
-        newPanel.add(right);
+        
+        Random rand = new Random();
+        int which = rand.nextInt(4);
+        switch(which)
+        {
+            case 0: newPanel.add(left);
+                    newPanel.add(right);
+                    newPanel.add(leftFiller);
+                    newPanel.add(rightFiller); break;
+            case 1: newPanel.add(leftFiller);
+                    newPanel.add(rightFiller);
+                    newPanel.add(left);
+                    newPanel.add(right); break;
+            case 2: newPanel.add(right);
+                    newPanel.add(left);
+                    newPanel.add(rightFiller);
+                    newPanel.add(leftFiller); break;
+            case 3: newPanel.add(rightFiller);
+                    newPanel.add(right);
+                    newPanel.add(left);
+                    newPanel.add(leftFiller); break;
+        }
+        
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -177,21 +205,53 @@ public class View extends javax.swing.JFrame
     public void presentCondition(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         JPanel newPanel = new JPanel(new GridLayout(1,2,40,40));
-        newPanel.setBorder(new EmptyBorder(50,50,50,50));
-        // newPanel.setBackground(new Color(0,153,153));
-        // Running establish preference as default color/
-        // pageStartPanel.setBackground(new Color(0,153,153));        
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));   
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, 200));
-        left.addActionListener(new ButtonAction(group, leftIndex));
-        right.addActionListener(new ButtonAction(group, rightIndex));
+        left.addActionListener(new ButtonAction(group, leftIndex, left));
+        right.addActionListener(new ButtonAction(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD, 200));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+    }
+    
+     public class ButtonAction implements ActionListener
+    {
+        int group;
+        int index;
+        JButton button;
+        // constructor
+        public ButtonAction(int group, int index, JButton button)
+        {
+            this.group = group;
+            this.index = index;
+            this.button = button;
+        }
+        public void actionPerformed(ActionEvent e)
+        {
+          
+            
+            ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+              System.out.println("DEBUG - ButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
+            controller.incrementHitCount(group, index);
+            System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+            controller.continueBaselineCondition();
+            }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(1000, taskPerformer);
+            timer.setRepeats(false);
+            timer.start();       
+        
+            
+        }
     }
     
     /**
@@ -280,7 +340,7 @@ public class View extends javax.swing.JFrame
     
     public void dvrc4()
     {
-        JPanel newPanel = new JPanel(new BorderLayout());
+        final JPanel newPanel = new JPanel(new BorderLayout());
         controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(179,162,199));
@@ -308,13 +368,25 @@ public class View extends javax.swing.JFrame
         
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                controller.printConditionStats();
-                controller.presentCondition();
+                JButton continueButton = new JButton("Continue.");
+                continueButton.addActionListener(new feedbackContinueButton());
+                newPanel.add(continueButton, BorderLayout.SOUTH);
+                revalidate();
+                repaint();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
+    }
+    
+    public class feedbackContinueButton implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            controller.printConditionStats();
+            controller.presentCondition();
+        }
     }
     
     public class dvrcButtonTwo implements ActionListener
@@ -451,7 +523,7 @@ public class View extends javax.swing.JFrame
     
     public void dvr4()
     {
-        JPanel newPanel = new JPanel(new BorderLayout());
+        final JPanel newPanel = new JPanel(new BorderLayout());
         controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(196,189,151));
@@ -477,15 +549,19 @@ public class View extends javax.swing.JFrame
         cl.next(cards); 
         
         
+           
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                controller.printConditionStats();
-                controller.presentCondition();
+                JButton continueButton = new JButton("Continue.");
+                continueButton.addActionListener(new feedbackContinueButton());
+                newPanel.add(continueButton, BorderLayout.SOUTH);
+                revalidate();
+                repaint();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
-        timer.start();       
+        timer.start();           
     }
     
     public class dvrButtonTwo implements ActionListener
@@ -618,7 +694,7 @@ public class View extends javax.swing.JFrame
     
     public void dc4()
     {
-        JPanel newPanel = new JPanel(new BorderLayout());
+        final JPanel newPanel = new JPanel(new BorderLayout());
         controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(255,255,255));
@@ -645,15 +721,19 @@ public class View extends javax.swing.JFrame
         cl.next(cards); 
         
         
+          
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                controller.printConditionStats();
-                controller.presentCondition();
+                JButton continueButton = new JButton("Continue.");
+                continueButton.addActionListener(new feedbackContinueButton());
+                newPanel.add(continueButton, BorderLayout.SOUTH);
+                revalidate();
+                repaint();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
-        timer.start();       
+        timer.start();          
     }
     
     public class dcButtonTwo implements ActionListener
@@ -731,7 +811,7 @@ public class View extends javax.swing.JFrame
     
     public void ic2()
     {
-        JPanel newPanel = new JPanel(new BorderLayout());
+        final JPanel newPanel = new JPanel(new BorderLayout());
         controller.updatePoints();
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(217,217,217));
@@ -757,15 +837,19 @@ public class View extends javax.swing.JFrame
         cl.next(cards); 
         
         
+          
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                controller.printConditionStats();
-                controller.presentCondition();
+                JButton continueButton = new JButton("Continue.");
+                continueButton.addActionListener(new feedbackContinueButton());
+                newPanel.add(continueButton, BorderLayout.SOUTH);
+                revalidate();
+                repaint();
             }
             };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
-        timer.start();       
+        timer.start();            
     }
     
     
@@ -816,32 +900,5 @@ public class View extends javax.swing.JFrame
     } 
 
     
-    // nested class
-    public class BeginButtonAction implements ActionListener
-    {
-
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("DEBUG: BeginButtonAction.actionPerformed() - begin button clicked, invoke getBaselineCondition().");
-            controller.getBaselineCondition();
-        }
-    }
-    public class ButtonAction implements ActionListener
-    {
-        int group;
-        int index;
-        // constructor
-        public ButtonAction(int group, int index)
-        {
-            this.group = group;
-            this.index = index;
-        }
-        public void actionPerformed(ActionEvent e)
-        {
-            System.out.println("DEBUG - ButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
-            controller.incrementHitCount(group, index);
-            System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-            controller.continueBaselineCondition();
-        }
-    }
+   
 }
