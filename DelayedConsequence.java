@@ -11,12 +11,12 @@ public class DelayedConsequence
     {
         System.out.println("DEBUG: main() - making a new controller.");
         Controller controller = new Controller();
-        if(Setup.getRandomPresentation())
+        if(Setup.isRandomPres())
         {
             System.out.println("DEBUG: main() - show instruction sheet.");
             controller.showInstructionSheet();
         } else {
-            while(Setup.readProgramNotComplete())
+/*            while(Setup.readProgramNotComplete())
             {
                 String line = Setup.readNextProgramLine();
                 String[] lineArray = line.split(",");
@@ -31,7 +31,7 @@ public class DelayedConsequence
                 if(lineArray[0] == "IC_SEQUENCE") { controller.beginIcSequence(); }
             }
             
-            controller.gameOver();
+            controller.gameOver();*/
         }
         
     }
