@@ -6,13 +6,13 @@ READING_DURATION=5	; How long the user has to read the long text.
 POINTS=200		; The number of points the user starts with
 POINTS_DEDUCTED=6	; The number of points removed.
 POSITIVE_SOUND=TRUE	; Does a positive sound play? YES/NO
-NEGATIVE_SOUND=TRUE ; Does a negative sound play? YES/NO
-BASELINE_PAUSE=500	; milliseconds to wait before showing the next pair while establishing baseline
-BASELINE_BG=13	; the color of the selected buttons background during wait. BLACK/BLUE/CYAN/DARK_GRAY/GRAY/GREEN/LIGHT_GRAY/MAGENTA/ORANGE/PINK/RED/WHITE/YELLOW
+NEGATIVE_SOUND=TRUE 	; Does a negative sound play? YES/NO
+BASELINE_PAUSE=250	; milliseconds to wait before showing the next pair while establishing baseline
+BASELINE_BG=13		; the color of the selected buttons background during wait. BLACK/BLUE/CYAN/DARK_GRAY/GRAY/GREEN/LIGHT_GRAY/MAGENTA/ORANGE/PINK/RED/WHITE/YELLOW
 SYMBOL_FONT_SIZE=150	; The size of the symbols
 FEEDBACK_FONT=40	; The size of the text in the feedback box.
 FEEDBACK_DELAY=3000	; milliseconds the feedback box is shown before the continue button pops up.
-RANDOM_PRESENTATION=TRUE	; Will the baseline and conditions be randomized or is there a set flow defined in program.txt
+RANDOM_PRESENTATION=TRUE; Will the baseline and conditions be randomized or is there a set flow defined in program.txt
 BASELINE_PRESENTED=1	; The number of times each group of symbols. 1 represents each symbol being shown a min of 6 times. 2 = 12, 3 = 18. 
 
 

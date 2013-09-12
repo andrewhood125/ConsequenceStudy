@@ -94,7 +94,7 @@ public class Controller
 
     public void continueBaselineCondition()
     {
-        if(model.isBaselineEstablished() == false) //  
+        if(false) //  model.isBaselineEstablished() == false
         {
             System.out.println("DEBUG - continueBaselineCondition() - isBaseLineEstablished is false");
             Pair thisPair = model.getRandomPair();

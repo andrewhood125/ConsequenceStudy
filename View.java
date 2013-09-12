@@ -261,15 +261,19 @@ public class View extends javax.swing.JFrame
     public void dvrc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         setCurrentTitle("DVRC");
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(142,180,227));
         pageStartPanel.setBackground(new Color(142,180,227));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrcButtonOne(group, leftIndex));
-        right.addActionListener(new dvrcButtonOne(group, rightIndex));
+        left.addActionListener(new dvrcButtonOne(group, leftIndex, left));
+        right.addActionListener(new dvrcButtonOne(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -321,15 +325,19 @@ public class View extends javax.swing.JFrame
     
     public void dvrc3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(217,150,148));
         pageStartPanel.setBackground(new Color(217,150,148));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrcButtonTwo(group, leftIndex));
-        right.addActionListener(new dvrcButtonTwo(group, rightIndex));
+        left.addActionListener(new dvrcButtonTwo(group, leftIndex, left));
+        right.addActionListener(new dvrcButtonTwo(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -393,18 +401,33 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public dvrcButtonTwo(int group, int index)
+        public dvrcButtonTwo(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            controller.incrementConditionCount(Model.DVRC_ENUM,index);
-            System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-            dvrc4();
+            
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                  System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                  controller.incrementConditionCount(Model.DVRC_ENUM,index);
+                  System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                  dvrc4();
+                }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();   
+            
+            
             
         }
     }
@@ -413,23 +436,40 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public dvrcButtonOne(int group, int index)
+        public dvrcButtonOne(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            if(index == controller.dvrcMostPreferred)
-            {
-                showHint = true;
-            }  
-            controller.incrementConditionCount(Model.DVRC_ENUM, index);
-            controller.calculatePointLoss(group, index);
-            System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
-            dvrc2();
+            
+            
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                    if(index == controller.dvrcMostPreferred)
+                    {
+                        showHint = true;
+                    }  
+                    controller.incrementConditionCount(Model.DVRC_ENUM, index);
+                    controller.calculatePointLoss(group, index);
+                    System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
+                    dvrc2();
+                }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();       
+            
+            
+            
             
         }
     }
@@ -445,15 +485,19 @@ public class View extends javax.swing.JFrame
     public void dvr(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         setCurrentTitle("DVR");
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(255,255,0));
         pageStartPanel.setBackground(new Color(255,255,0));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrButtonOne(group, leftIndex));
-        right.addActionListener(new dvrButtonOne(group, rightIndex));
+        left.addActionListener(new dvrButtonOne(group, leftIndex, left));
+        right.addActionListener(new dvrButtonOne(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -504,15 +548,19 @@ public class View extends javax.swing.JFrame
     
     public void dvr3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(195,214,155));
         pageStartPanel.setBackground(new Color(195,214,155));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrButtonTwo(group, leftIndex));
-        right.addActionListener(new dvrButtonTwo(group, rightIndex));
+        left.addActionListener(new dvrButtonTwo(group, leftIndex, left));
+        right.addActionListener(new dvrButtonTwo(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -568,18 +616,32 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public dvrButtonTwo(int group, int index)
+        public dvrButtonTwo(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            controller.incrementConditionCount(Model.DVR_ENUM,index);
-            System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-            dvr4();
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                  System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                    controller.incrementConditionCount(Model.DVR_ENUM,index);
+                    System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                    dvr4();
+                }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();   
+            
+            
             
         }
     }
@@ -588,22 +650,36 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public dvrButtonOne(int group, int index)
+        public dvrButtonOne(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-            if(index == controller.dvrMostPreferred)
-            {
-                showHint = true;
-            }  
-            System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            controller.incrementConditionCount(Model.DVR_ENUM, index);
-            System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
-            dvr2();
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    if(index == controller.dvrMostPreferred)
+                    {
+                        showHint = true;
+                    }  
+                    System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                    controller.incrementConditionCount(Model.DVR_ENUM, index);
+                    System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
+                    dvr2();
+                        }
+                    };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();   
+            
+            
             
         }
     }
@@ -616,15 +692,19 @@ public class View extends javax.swing.JFrame
     public void dc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         setCurrentTitle("DC");
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(166,166,166));
         pageStartPanel.setBackground(new Color(166,166,166));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dcButtonOne(group, leftIndex));
-        right.addActionListener(new dcButtonOne(group, rightIndex));
+        left.addActionListener(new dcButtonOne(group, leftIndex, left));
+        right.addActionListener(new dcButtonOne(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -675,15 +755,19 @@ public class View extends javax.swing.JFrame
     
     public void dc3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(152,72,7));
         pageStartPanel.setBackground(new Color(152,72,7));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, Setup.getSymbolSize()));
-        left.addActionListener(new dcButtonTwo(group, leftIndex));
-        right.addActionListener(new dcButtonTwo(group, rightIndex));
+        left.addActionListener(new dcButtonTwo(group, leftIndex, left));
+        right.addActionListener(new dcButtonTwo(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -740,18 +824,32 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public dcButtonTwo(int group, int index)
+        public dcButtonTwo(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            controller.incrementConditionCount(Model.DC_ENUM,index);
-            System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-            dc4();
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                    controller.incrementConditionCount(Model.DC_ENUM,index);
+                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                    dc4();
+                }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();   
+            
+            
             
         }
     }
@@ -760,23 +858,38 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public dcButtonOne(int group, int index)
+        public dcButtonOne(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-            if(index == controller.dcMostPreferred)
-            {
-                showHint = true;
-            }  
-            controller.calculatePointLoss(group, index);
-            System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            controller.incrementConditionCount(Model.DC_ENUM, index);
-            System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
-            dc2();
+            
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    if(index == controller.dcMostPreferred)
+                    {
+                        showHint = true;
+                    }  
+                    controller.calculatePointLoss(group, index);
+                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                    controller.incrementConditionCount(Model.DC_ENUM, index);
+                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
+                    dc2();
+                }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();   
+            
+            
             
         }
     }
@@ -791,15 +904,19 @@ public class View extends javax.swing.JFrame
     public void ic(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         setCurrentTitle("IC");
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(250,192,144));
         pageStartPanel.setBackground(new Color(250,192,144));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new icButtonOne(group, leftIndex));
-        right.addActionListener(new icButtonOne(group, rightIndex));
+        left.addActionListener(new icButtonOne(group, leftIndex, left));
+        right.addActionListener(new icButtonOne(group, rightIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -857,23 +974,38 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        JButton button;
         // constructor
-        public icButtonOne(int group, int index)
+        public icButtonOne(int group, int index, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.button  = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-             if(index == controller.icMostPreferred)
-            {
-                showHint = true;
-            }  
-            controller.calculatePointLoss(group, index);
-            System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
-            controller.incrementConditionCount(Model.IC_ENUM, index);
-            System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
-            ic2();
+            
+            ActionListener taskPerformer = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                    if(index == controller.icMostPreferred)
+                    {
+                        showHint = true;
+                    }  
+                    controller.calculatePointLoss(group, index);
+                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
+                    controller.incrementConditionCount(Model.IC_ENUM, index);
+                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
+                    ic2();
+                }
+            };
+              button.setBackground(Color.YELLOW);
+              button.setOpaque(true);
+              button.setBorderPainted(false);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
+            timer.setRepeats(false);
+            timer.start();   
+            
+             
             
         }
     }
