@@ -14,7 +14,8 @@ public class Controller
     // instance variables
     public View view;
     private Model model;
-    private int points = 100;
+    private int points;
+    private int ptsDed;
     private int[] hitCount;
     private int[][] conditionCount;
     public int dvrcMostPreferred, dvrcLeastPreferred, dvrcLeft, dvrcRight;
@@ -29,6 +30,7 @@ public class Controller
         Setup.set();
         System.out.println("DEBUG: Controller constructor Setup.getRD():  " + Setup.getRD());
         points = Setup.getPoints();
+        ptsDed = Setup.getPtLost();
         view = new View(this);
         model = new Model();
         hitCount  = new int[14];
@@ -50,10 +52,10 @@ public class Controller
     {
         switch(group)
         {
-            case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {points -= 3;}break;
-            case Model.DVR_ENUM: if(index == dvrMostPreferred) {points -= 3;}break;
-            case Model.DC_ENUM: if(index == dcMostPreferred) {points -= 3;}break;
-            case Model.IC_ENUM: if(index == icMostPreferred) {points -= 3;}break;
+            case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {points -= ptsDed;}break;
+            case Model.DVR_ENUM: if(index == dvrMostPreferred) {points -= ptsDed;}break;
+            case Model.DC_ENUM: if(index == dcMostPreferred) {points -= ptsDed;}break;
+            case Model.IC_ENUM: if(index == icMostPreferred) {points -= ptsDed;}break;
         }
     }
     

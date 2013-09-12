@@ -92,7 +92,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -170,10 +170,10 @@ public class View extends javax.swing.JFrame
         JButton right = new JButton("" + rightButtonChar);
         
         newPanel.setBorder(new EmptyBorder(50,50,50,50));   
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new ButtonAction(group, leftIndex, left));
         right.addActionListener(new ButtonAction(group, rightIndex, right));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         
         Random rand = new Random();
         int which = rand.nextInt(4);
@@ -208,10 +208,10 @@ public class View extends javax.swing.JFrame
         newPanel.setBorder(new EmptyBorder(50,50,50,50));   
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD, Setup.getSymbolSize()));
         left.addActionListener(new ButtonAction(group, leftIndex, left));
         right.addActionListener(new ButtonAction(group, rightIndex, right));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -246,7 +246,7 @@ public class View extends javax.swing.JFrame
               button.setBackground(Color.YELLOW);
               button.setOpaque(true);
               button.setBorderPainted(false);
-            Timer timer = new Timer(1000, taskPerformer);
+            Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();       
         
@@ -267,10 +267,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(142,180,227));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new dvrcButtonOne(group, leftIndex));
         right.addActionListener(new dvrcButtonOne(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -327,10 +327,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(217,150,148));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new dvrcButtonTwo(group, leftIndex));
         right.addActionListener(new dvrcButtonTwo(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -349,7 +349,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -375,7 +375,7 @@ public class View extends javax.swing.JFrame
                 repaint();
             }
             };
-        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
     }
@@ -451,10 +451,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(255,255,0));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new dvrButtonOne(group, leftIndex));
         right.addActionListener(new dvrButtonOne(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -510,10 +510,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(195,214,155));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new dvrButtonTwo(group, leftIndex));
         right.addActionListener(new dvrButtonTwo(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -532,7 +532,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -559,7 +559,7 @@ public class View extends javax.swing.JFrame
                 repaint();
             }
             };
-        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();           
     }
@@ -622,10 +622,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(166,166,166));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new dcButtonOne(group, leftIndex));
         right.addActionListener(new dcButtonOne(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -681,10 +681,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(152,72,7));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD, Setup.getSymbolSize()));
         left.addActionListener(new dcButtonTwo(group, leftIndex));
         right.addActionListener(new dcButtonTwo(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -703,7 +703,7 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -731,7 +731,7 @@ public class View extends javax.swing.JFrame
                 repaint();
             }
             };
-        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();          
     }
@@ -797,10 +797,10 @@ public class View extends javax.swing.JFrame
         pageStartPanel.setBackground(new Color(250,192,144));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
-        left.setFont(new Font("Dialog", Font.BOLD, 200));
+        left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new icButtonOne(group, leftIndex));
         right.addActionListener(new icButtonOne(group, rightIndex));
-        right.setFont(new Font("Dialog", Font.BOLD, 200));
+        right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
@@ -847,7 +847,7 @@ public class View extends javax.swing.JFrame
                 repaint();
             }
             };
-        Timer timer = new Timer(Setup.getRD(), taskPerformer);
+        Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();            
     }
