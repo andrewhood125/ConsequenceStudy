@@ -27,7 +27,6 @@ import java.util.logging.Logger;
  */
 public class Setup {
 	private static ArrayList<String> introTextScreen;           //The text that will be shown at the start of the program
-	private static ArrayList<String> readingIntermission;       //The text that will be show at the intermission(Screen 3)
 	private static ArrayList<String> conf;                      //The configuration file contents
 	private static int readingDuration;                         //In SEC how long does the intermission stay up
 	private static int numOfPoints;                             //The number of points that the person has left. 
@@ -39,19 +38,33 @@ public class Setup {
 	private static boolean soundPos;
 	private static boolean soundNeg;
 	private static int basePause;
-	private static int baseColor;
+	private static String baseColor;
 	private static int symbolSize;
 	private static int feedbackFont;
 	private static int feedbackDelay;
 	private static boolean randomPres;
 	private static int baselinePres;
+	private static File dcLeast = new File("dcLeast.txt");
+	private static File dcMost = new File("dcMost.txt");
+	private static File dvrcLeast = new File("dvrcLeast.txt");
+	private static File dvrMost = new File("dvrMost.txt");
+	private static File dvrLeast = new File("dvrLeast.txt");
+	private static File icLeast = new File("icLeast.txt");
+	private static File icMost = new File("icMost.txt");
+	private static ArrayList<String> dcLeastTXT;
+	private static ArrayList<String> dcMostTXT;
+	private static ArrayList<String> dvrcLeastTXT;
+	private static ArrayList<String> dvrMostTXT;
+	private static ArrayList<String> dvrLeastTXT;
+	private static ArrayList<String> icLeastTXT;
+	private static ArrayList<String> icMostTXT;
 
 	public static void set(){
 		conf = new ArrayList<>();
 		readConf();
 		parseConf();
 		setITS();
-		setRI();
+		setTexts();
 	}
 
 	private static void readConf() {                //to read in the config
@@ -113,7 +126,7 @@ public class Setup {
 			break;
 			case 9:basePause = Integer.parseInt(conf.get(9).substring(index, index2).trim());
 			break;
-			case 10:baseColor = Integer.parseInt(conf.get(10).substring(index, index2).trim());
+			case 10:baseColor = conf.get(10).substring(index, index2).trim();
 			break;
 			case 11:symbolSize = Integer.parseInt(conf.get(11).substring(index, index2).trim());
 			break;
@@ -146,16 +159,8 @@ public class Setup {
 		introTextScreen = reader(new File("introText.txt"));
 	}
 
-	private static void setRI() {
-		readingIntermission = reader(new File("readingText.txt"));  //setter for the intermission text
-	}
-
 	public static ArrayList<String> getITS() {              //getter for the intro text
 		return introTextScreen;
-	}
-
-	public static ArrayList<String> getRI() {               //getter for the Intermission text
-		return readingIntermission;
 	}
 
 	public static int getPoints() {                 //getter for the points
@@ -217,7 +222,7 @@ public class Setup {
 		return basePause;
 	}
 
-	public static int getBaseColor() {
+	public static String getBaseColor() {
 		return baseColor;
 	}
 
@@ -239,6 +244,44 @@ public class Setup {
 
 	public static int getBaselinePres() {
 		return baselinePres;
+	}
+	
+	public static void setTexts(){
+		ArrayList<String> dcLeastTXT = reader(dcLeast);
+		ArrayList<String> dcMostTXT = reader(dcMost);
+		ArrayList<String> dvrcLeastTXT = reader(dvrcLeast);
+		ArrayList<String> dvrMostTXT = reader(dvrMost);
+		ArrayList<String> dvrLeastTXT = reader(dvrLeast);
+		ArrayList<String> icLeastTXT = reader(icLeast);
+		ArrayList<String> icMostTXT = reader(icMost);
+	}
+	
+	public static ArrayList<String> getDcLeastTXT() {
+		return dcLeastTXT;
+	}
+
+	public static ArrayList<String> getDcMostTXT() {
+		return dcMostTXT;
+	}
+
+	public static ArrayList<String> getDvrcLeastTXT() {
+		return dvrcLeastTXT;
+	}
+
+	public static ArrayList<String> getDvrMostTXT() {
+		return dvrMostTXT;
+	}
+
+	public static ArrayList<String> getDvrLeastTXT() {
+		return dvrLeastTXT;
+	}
+
+	public static ArrayList<String> getIcLeastTXT() {
+		return icLeastTXT;
+	}
+
+	public static ArrayList<String> getIcMostTXT() {
+		return icMostTXT;
 	}
 	
 }

@@ -57,13 +57,9 @@ public class View extends javax.swing.JFrame
 
         // Initial points to 100
         points = new JLabel("Calculating Points...");
-        // intialize to begin screen title
-        currentPaneTitle = new JLabel("Starting up...");
-
+    
         // add the points and title label to the pageStartPanel
         pageStartPanel.add(points, BorderLayout.LINE_END);
-        pageStartPanel.add(currentPaneTitle, BorderLayout.LINE_START);
-
         // initialize the centerPanel
         cards = new JPanel();
         cards.setLayout(new java.awt.CardLayout());
@@ -84,7 +80,6 @@ public class View extends javax.swing.JFrame
     
     public void gameOver(int points)
     {
-        setCurrentTitle("The End.");
         pageStartPanel.setBackground(javax.swing.UIManager.getColor ( "Panel.background" ));
         JPanel newPanel = new JPanel(new BorderLayout());
         newPanel.setBorder(new EmptyBorder(50,50,50,50));  
@@ -107,12 +102,7 @@ public class View extends javax.swing.JFrame
         cl.next(cards); 
         
     }
-    
-    public void setCurrentTitle(String title)
-    {
-        currentPaneTitle.setText(title);
-    }
-    
+        
     public void setPoints(int points)
     {
         this.points.setText("Remaining Points: " + points);
@@ -260,7 +250,6 @@ public class View extends javax.swing.JFrame
     
     public void dvrc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        setCurrentTitle("DVRC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(142,180,227));
@@ -293,13 +282,13 @@ public class View extends javax.swing.JFrame
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-        ArrayList<String> introduction = Setup.getRI();
-        reading.setEditable(false);
-        for(int i = 0; i < introduction.size(); i++)
-        {
-            reading.append(introduction.get(i));
-            reading.append("\n");
-        }       
+//        ArrayList<String> introduction = Setup.getRI();
+//        reading.setEditable(false);
+//        for(int i = 0; i < introduction.size(); i++)
+//        {
+//            reading.append(introduction.get(i));
+//            reading.append("\n");
+//        }       
         newPanel.add(sp, BorderLayout.CENTER);
         sp.getVerticalScrollBar().setValue(currXScroll);
         reading.setCaretPosition(currXScroll);
@@ -444,7 +433,6 @@ public class View extends javax.swing.JFrame
     
     public void dvr(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        setCurrentTitle("DVR");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(255,255,0));
@@ -477,13 +465,13 @@ public class View extends javax.swing.JFrame
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-        ArrayList<String> introduction = Setup.getRI();
-        reading.setEditable(false);
-        for(int i = 0; i < introduction.size(); i++)
-        {
-            reading.append(introduction.get(i));
-            reading.append("\n");
-        }       
+//        ArrayList<String> introduction = Setup.getRI();
+//        reading.setEditable(false);
+//        for(int i = 0; i < introduction.size(); i++)
+//        {
+//            reading.append(introduction.get(i));
+//            reading.append("\n");
+//        }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         sp.getVerticalScrollBar().setValue(currXScroll);
@@ -615,7 +603,6 @@ public class View extends javax.swing.JFrame
     
     public void dc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        setCurrentTitle("DC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(166,166,166));
@@ -648,13 +635,13 @@ public class View extends javax.swing.JFrame
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-        ArrayList<String> introduction = Setup.getRI();
-        reading.setEditable(false);
-        for(int i = 0; i < introduction.size(); i++)
-        {
-            reading.append(introduction.get(i));
-            reading.append("\n");
-        }       
+//        ArrayList<String> introduction = Setup.getRI();
+//        reading.setEditable(false);
+//        for(int i = 0; i < introduction.size(); i++)
+//        {
+//            reading.append(introduction.get(i));
+//            reading.append("\n");
+//        }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         sp.getVerticalScrollBar().setValue(currXScroll);
@@ -790,7 +777,6 @@ public class View extends javax.swing.JFrame
     
     public void ic(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        setCurrentTitle("IC");
         JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(250,192,144));

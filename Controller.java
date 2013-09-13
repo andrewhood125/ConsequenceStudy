@@ -73,7 +73,6 @@ public class Controller
     public void showInstructionSheet()
     {
         System.out.println("DEBUG: showInstructionSheet() - Setting title to Instruction Sheet.");
-        view.setCurrentTitle("Instruction Sheet");
         System.out.println("DEBUG: showInstructionSheet() - Setting the points to initial value of 100.");
         view.setPoints(points);
         System.out.println("DEBUG: showInstructionSheet() - envoke showInstructionSheet from view.");
@@ -83,7 +82,6 @@ public class Controller
     public void getBaselineCondition()
     {
         System.out.println("DEBUG: getBaselineCondition() - Setting title to Baseline Condition.");
-        view.setCurrentTitle("Baseline Condition");
 
         System.out.println("DEBUG: getBaselineCondition() - Get Random Pair.");
         Pair thisPair = model.getRandomPair();
@@ -116,7 +114,6 @@ public class Controller
     public void presentCondition()
     {
         System.out.println("DEBUG: presentCondition() - Setting title to Delayed Consequence.");
-        view.setCurrentTitle("Delayed Consequence"); 
         Condition thisCondition = null;
         Random rand = new Random();
         do

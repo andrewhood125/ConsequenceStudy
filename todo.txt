@@ -1,7 +1,8 @@
 - Complete the parser for program.txt - Andrew
 - Change the sequence to a 2x2 grid and always populate the bottom two with the symbols - Andrew
-- Implement sound
-- Change from int to string for color
-- Load text from files for feedback boxes.
-- Remove titles
+- Implement sound - Neal (ill try)
+- Change from int to string for color -  Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- Load text from files for feedback boxes. - Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- Scrollbar stuff - Neal
+- Remove titles - Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
 - Increase the size of the points. - Andrew
