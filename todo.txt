@@ -1,4 +1,5 @@
 - Complete the parser for program.txt - Andrew
+<<<<<<< HEAD
 - Change the sequence to a 2x2 grid and always populate the bottom two with the symbols - Andrew
 - Implement sound - Neal (ill try)
 - Change from int to string for color -  Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -6,3 +7,6 @@
 - Scrollbar stuff - Neal
 - Remove titles - Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
 - Increase the size of the points. - Andrew
+- Keep track of scroll position for reading. 
+- Why don't all unicode chars work?
+- [X] Add Pause and colorization to buttons during sequence
