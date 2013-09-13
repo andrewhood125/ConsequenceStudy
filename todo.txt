@@ -1,5 +1,4 @@
 - Complete the parser for program.txt - Andrew
-<<<<<<< HEAD
 - Change the sequence to a 2x2 grid and always populate the bottom two with the symbols - Andrew
 - Implement sound - Neal (ill try)
 - Change from int to string for color -  Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
