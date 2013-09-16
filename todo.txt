@@ -5,6 +5,7 @@
 - [X] Load text from files for feedback boxes. - Neal 
 - Scrollbar stuff - Neal Working on now!
 - [X] Remove titles - Neal 
-- Increase the size of the points. - Andrew
+- [X] Increase the size of the points. - Andrew
 - Why don't all unicode chars work? No idea, I figure it should bc of the encoding schema 
 - [X] Add Pause and colorization to buttons during sequence
+- [ ] Load feedback box text with txt file input. 

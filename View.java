@@ -59,7 +59,7 @@ public class View extends javax.swing.JFrame
 
         // Initial points to 100
         points = new JLabel("Calculating Points...");
-    
+        points.setFont(new Font("Dialog", Font.PLAIN, 32));
         // add the points and title label to the pageStartPanel
         pageStartPanel.add(points, BorderLayout.LINE_END);
         // initialize the centerPanel
@@ -350,12 +350,16 @@ public class View extends javax.swing.JFrame
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("You shouldn’t have chosen the shape you chose on the blue screen - you have lost three points.");
+        
+        // Load text file
         if(showHint)
         {
-            newPanel.add(reading, BorderLayout.CENTER);
-            showHint = false;
-        }
+             reading.append(Setup.getDvrcLeastTXT());
+        } 
+        
+        newPanel.add(reading, BorderLayout.CENTER);
+        showHint = false;
+        
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -363,7 +367,7 @@ public class View extends javax.swing.JFrame
         
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                JButton continueButton = new JButton("Continue.");
+                JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
                 newPanel.add(continueButton, BorderLayout.SOUTH);
                 revalidate();
@@ -582,7 +586,7 @@ public class View extends javax.swing.JFrame
            
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                JButton continueButton = new JButton("Continue.");
+                JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
                 newPanel.add(continueButton, BorderLayout.SOUTH);
                 revalidate();
@@ -785,7 +789,7 @@ public class View extends javax.swing.JFrame
           
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                JButton continueButton = new JButton("Continue.");
+                JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
                 newPanel.add(continueButton, BorderLayout.SOUTH);
                 revalidate();
@@ -929,7 +933,7 @@ public class View extends javax.swing.JFrame
           
          ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                JButton continueButton = new JButton("Continue.");
+                JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
                 newPanel.add(continueButton, BorderLayout.SOUTH);
                 revalidate();
@@ -987,25 +991,25 @@ public class View extends javax.swing.JFrame
      */
     
      public static void playWinSound(){
- 		try{
- 			AudioInputStream audio = AudioSystem.getAudioInputStream(new File("winning.wav"));
- 			Clip clip = AudioSystem.getClip();
- 			clip.open(audio);
- 			clip.start();	
- 		}catch(Exception e){
- 			System.out.println(e);
- 		}
+        try{
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File("winning.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();   
+        }catch(Exception e){
+            System.out.println(e);
+        }
      }
      
      public static void playLossSound(){
- 		try{
- 			AudioInputStream audio = AudioSystem.getAudioInputStream(new File("losing.wav"));
- 			Clip clip = AudioSystem.getClip();
- 			clip.open(audio);
- 			clip.start();
- 		}catch(Exception e){
- 			System.out.println(e);
- 		}
+        try{
+            AudioInputStream audio = AudioSystem.getAudioInputStream(new File("losing.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+        }catch(Exception e){
+            System.out.println(e);
+        }
      }
     
     

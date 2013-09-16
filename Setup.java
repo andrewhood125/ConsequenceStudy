@@ -145,7 +145,7 @@ public class Setup {
 		}
 	}
 
-	private static ArrayList<String> reader (File txt){         //read in the different types of text files with no special encoding
+	private static ArrayList<String> reader(File txt){         //read in the different types of text files with no special encoding
 		ArrayList<String> lines = new ArrayList<>();            //make a temp arraylist
 		try {
 			Scanner scan = new Scanner(txt);                //scan it in
@@ -250,42 +250,127 @@ public class Setup {
 	}
 	
 	public static void setTexts(){
-		ArrayList<String> dcLeastTXT = reader(dcLeast);
-		ArrayList<String> dcMostTXT = reader(dcMost);
-		ArrayList<String> dvrcLeastTXT = reader(dvrcLeast);
-		ArrayList<String> dvrMostTXT = reader(dvrMost);
-		ArrayList<String> dvrLeastTXT = reader(dvrLeast);
-		ArrayList<String> icLeastTXT = reader(icLeast);
-		ArrayList<String> icMostTXT = reader(icMost);
+		dcLeastTXT = reader(dcLeast);
+		dcMostTXT = reader(dcMost);
+		dvrcLeastTXT = reader(dvrcLeast);
+		dvrMostTXT = reader(dvrMost);
+		dvrLeastTXT = reader(dvrLeast);
+		icLeastTXT = reader(icLeast);
+		icMostTXT = reader(icMost);
 		reading = reader(readingPath);
 	}
 	
-	public static ArrayList<String> getDcLeastTXT() {
-		return dcLeastTXT;
+	public static String getDcLeastTXT() {
+	    StringBuilder returnString = new StringBuilder();
+		if(dcLeastTXT == null)
+		{
+		    System.out.println("dcLeastTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(dcLeastTXT);
+		}
+		
+	    for(int i = 0; i < dcLeastTXT.size(); i++)
+	    {
+	        returnString.append(dcLeastTXT.get(i));
+	    }
+		return returnString.toString();
 	}
 
-	public static ArrayList<String> getDcMostTXT() {
-		return dcMostTXT;
+	public static String getDcMostTXT() {
+		StringBuilder returnString = new StringBuilder();
+		if(dcMostTXT == null)
+		{
+		    System.out.println("dcMostTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(dcMostTXT);
+		}
+		
+	    for(int i = 0; i < dcMostTXT.size(); i++)
+	    {
+	        returnString.append(dcMostTXT.get(i));
+	    }
+		return returnString.toString();
 	}
 
-	public static ArrayList<String> getDvrcLeastTXT() {
-		return dvrcLeastTXT;
+	public static String getDvrcLeastTXT() {
+		StringBuilder returnString = new StringBuilder();
+		if(dvrcLeastTXT == null)
+		{
+		    System.out.println("dvrcLeastTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(dvrcLeastTXT);
+		}
+		
+	    for(int i = 0; i < dvrcLeastTXT.size(); i++)
+	    {
+	        returnString.append(dvrcLeastTXT.get(i));
+	    }
+		return returnString.toString();
+	}
+	
+
+	public static String getDvrMostTXT() {
+		StringBuilder returnString = new StringBuilder();
+		if(dvrMostTXT == null)
+		{
+		    System.out.println("dvrMostTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(dvrMostTXT);
+		}
+		
+	    for(int i = 0; i < dvrMostTXT.size(); i++)
+	    {
+	        returnString.append(dvrMostTXT.get(i));
+	    }
+		return returnString.toString();
 	}
 
-	public static ArrayList<String> getDvrMostTXT() {
-		return dvrMostTXT;
+	public static String getDvrLeastTXT() {
+		StringBuilder returnString = new StringBuilder();
+		if(dvrLeastTXT == null)
+		{
+		    System.out.println("dvrLeastTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(dvrLeastTXT);
+		}
+		
+	    for(int i = 0; i < dvrLeastTXT.size(); i++)
+	    {
+	        returnString.append(dvrLeastTXT.get(i));
+	    }
+		return returnString.toString();
 	}
 
-	public static ArrayList<String> getDvrLeastTXT() {
-		return dvrLeastTXT;
+	public static String getIcLeastTXT() {
+		StringBuilder returnString = new StringBuilder();
+		if(icLeastTXT == null)
+		{
+		    System.out.println("icLeastTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(icLeastTXT);
+		}
+		
+	    for(int i = 0; i < icLeastTXT.size(); i++)
+	    {
+	        returnString.append(icLeastTXT.get(i));
+	    }
+		return returnString.toString();
 	}
 
-	public static ArrayList<String> getIcLeastTXT() {
-		return icLeastTXT;
-	}
-
-	public static ArrayList<String> getIcMostTXT() {
-		return icMostTXT;
+	public static String getIcMostTXT() {
+		StringBuilder returnString = new StringBuilder();
+		if(icMostTXT == null)
+		{
+		    System.out.println("icMostTXT was null. Settings Texts.");
+		    setTexts();
+		    System.out.println(icMostTXT);
+		}
+		
+	    for(int i = 0; i < icMostTXT.size(); i++)
+	    {
+	        returnString.append(icMostTXT.get(i));
+	    }
+		return returnString.toString();
 	}
 	
 	public static ArrayList<String> getRI() {
