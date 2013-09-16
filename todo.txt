@@ -1,5 +1,5 @@
 - Complete the parser for program.txt - Andrew
-- Change the sequence to a 2x2 grid and always populate the bottom two with the symbols - Andrew
+- [X] Change the sequence to a 2x2 grid and always populate the bottom two with the symbols - Andrew
 - [X] Implement sound - Neal 
 - [X] Change from int to string for color -  Neal 
 - [X] Load text from files for feedback boxes. - Neal 
