@@ -5,9 +5,11 @@
  * @author (your name) 
  * @version (a version number or a date)
  */
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.sound.sampled.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -282,13 +284,13 @@ public class View extends javax.swing.JFrame
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-//        ArrayList<String> introduction = Setup.getRI();
-//        reading.setEditable(false);
-//        for(int i = 0; i < introduction.size(); i++)
-//        {
-//            reading.append(introduction.get(i));
-//            reading.append("\n");
-//        }       
+        ArrayList<String> introduction = Setup.getRI();
+        reading.setEditable(false);
+        for(int i = 0; i < introduction.size(); i++)
+        {
+            reading.append(introduction.get(i));
+            reading.append("\n");
+        }       
         newPanel.add(sp, BorderLayout.CENTER);
         sp.getVerticalScrollBar().setValue(currXScroll);
         reading.setCaretPosition(currXScroll);
@@ -501,13 +503,13 @@ public class View extends javax.swing.JFrame
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-//        ArrayList<String> introduction = Setup.getRI();
-//        reading.setEditable(false);
-//        for(int i = 0; i < introduction.size(); i++)
-//        {
-//            reading.append(introduction.get(i));
-//            reading.append("\n");
-//        }       
+        ArrayList<String> introduction = Setup.getRI();
+        reading.setEditable(false);
+        for(int i = 0; i < introduction.size(); i++)
+        {
+            reading.append(introduction.get(i));
+            reading.append("\n");
+        }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         sp.getVerticalScrollBar().setValue(currXScroll);
@@ -703,13 +705,13 @@ public class View extends javax.swing.JFrame
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
-//        ArrayList<String> introduction = Setup.getRI();
-//        reading.setEditable(false);
-//        for(int i = 0; i < introduction.size(); i++)
-//        {
-//            reading.append(introduction.get(i));
-//            reading.append("\n");
-//        }       
+        ArrayList<String> introduction = Setup.getRI();
+        reading.setEditable(false);
+        for(int i = 0; i < introduction.size(); i++)
+        {
+            reading.append(introduction.get(i));
+            reading.append("\n");
+        }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         sp.getVerticalScrollBar().setValue(currXScroll);
@@ -984,7 +986,27 @@ public class View extends javax.swing.JFrame
      * END SEQUENCES *********************
      */
     
-    
+     public static void playWinSound(){
+ 		try{
+ 			AudioInputStream audio = AudioSystem.getAudioInputStream(new File("winning.wav"));
+ 			Clip clip = AudioSystem.getClip();
+ 			clip.open(audio);
+ 			clip.start();	
+ 		}catch(Exception e){
+ 			System.out.println(e);
+ 		}
+     }
+     
+     public static void playLossSound(){
+ 		try{
+ 			AudioInputStream audio = AudioSystem.getAudioInputStream(new File("losing.wav"));
+ 			Clip clip = AudioSystem.getClip();
+ 			clip.open(audio);
+ 			clip.start();
+ 		}catch(Exception e){
+ 			System.out.println(e);
+ 		}
+     }
     
     
     

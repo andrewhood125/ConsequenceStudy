@@ -58,7 +58,10 @@ public class Setup {
 	private static ArrayList<String> dvrLeastTXT;
 	private static ArrayList<String> icLeastTXT;
 	private static ArrayList<String> icMostTXT;
-
+	
+	private static ArrayList<String> reading;
+	private static File readingPath = new File("readingText.txt");
+	
 	public static void set(){
 		conf = new ArrayList<>();
 		readConf();
@@ -73,7 +76,7 @@ public class Setup {
 		BufferedReader br = null;                               //read in config
 		try {                                                   //try to read in
 			File cFile = new File("config.txt");                //Make it a file obj
-			String path = cFile.getAbsolutePath();            //get the abs path of the file
+			String path = cFile.getAbsolutePath();              //get the abs path of the file
 			fis = new FileInputStream(cFile);                   //start to read in
 			isr = new InputStreamReader(fis, "UTF-8");          //UTF-8 encoding for the special chars
 			br = new BufferedReader(isr);                       //read in
@@ -254,6 +257,7 @@ public class Setup {
 		ArrayList<String> dvrLeastTXT = reader(dvrLeast);
 		ArrayList<String> icLeastTXT = reader(icLeast);
 		ArrayList<String> icMostTXT = reader(icMost);
+		reading = reader(readingPath);
 	}
 	
 	public static ArrayList<String> getDcLeastTXT() {
@@ -282,6 +286,10 @@ public class Setup {
 
 	public static ArrayList<String> getIcMostTXT() {
 		return icMostTXT;
+	}
+	
+	public static ArrayList<String> getRI() {
+		return reading;
 	}
 	
 }

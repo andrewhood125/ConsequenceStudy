@@ -6,8 +6,13 @@
  * @version (a version number or a date)
  */
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Controller
 {
@@ -24,6 +29,7 @@ public class Controller
     public int icMostPreferred, icLeastPreferred;
     private ArrayList<Condition> conditionArray;
     Condition dvrc, dvr, dc, ic, lastCondition = null;
+    private boolean sound;
     // constructor
     public Controller()
     {
@@ -40,7 +46,7 @@ public class Controller
         dvr = new Condition();
         dc = new Condition();
         ic = new Condition();
-        
+        sound = false;
         conditionArray.add(dvrc);
         conditionArray.add(dvr);
         conditionArray.add(dc);
@@ -52,10 +58,35 @@ public class Controller
     {
         switch(group)
         {
-            case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {points -= ptsDed;}break;
-            case Model.DVR_ENUM: if(index == dvrMostPreferred) {points -= ptsDed;}break;
-            case Model.DC_ENUM: if(index == dcMostPreferred) {points -= ptsDed;}break;
-            case Model.IC_ENUM: if(index == icMostPreferred) {points -= ptsDed;}break;
+            case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {
+            	points -= ptsDed;
+            	sound = false;
+            	}
+            else{
+            	sound = true;
+            }
+            break;
+            case Model.DVR_ENUM: if(index == dvrMostPreferred) {
+            	points -= ptsDed;
+            	sound = false;
+        	}
+	        else{
+	        	sound = true;
+            }break;
+            case Model.DC_ENUM: if(index == dcMostPreferred) {
+            	points -= ptsDed;
+            	sound = false;
+        	}
+	        else{
+	        	sound = true;
+            }break;
+            case Model.IC_ENUM: if(index == icMostPreferred) {
+            	points -= ptsDed;
+            	sound = false;
+        	}
+	       else{
+	    	   sound = true;
+            }break;
         }
     }
     
@@ -66,7 +97,8 @@ public class Controller
     
     public void updatePoints()
     {
-        view.setPoints(points);
+        playSound();
+    	view.setPoints(points);
     }
 
     // methods
@@ -427,5 +459,15 @@ public class Controller
         }
     }
     
-    
+    public void playSound()
+    {
+    	if(sound == false)
+    	{
+    		View.playLossSound();
+    	}
+    	else
+    	{
+    		View.playWinSound();
+    	}
+    }
 }
