@@ -168,25 +168,45 @@ public class View extends javax.swing.JFrame
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         
         Random rand = new Random();
-        int which = rand.nextInt(4);
+        int which = rand.nextInt(9);
         switch(which)
         {
             case 0: newPanel.add(left);
                     newPanel.add(right);
                     newPanel.add(leftFiller);
                     newPanel.add(rightFiller); break;
-            case 1: newPanel.add(leftFiller);
+            case 1: newPanel.add(rightFiller);
+                    newPanel.add(left);
+                    newPanel.add(right);
+                    newPanel.add(leftFiller); break;
+            case 2: newPanel.add(leftFiller);
                     newPanel.add(rightFiller);
                     newPanel.add(left);
                     newPanel.add(right); break;
-            case 2: newPanel.add(right);
+            case 3: newPanel.add(right);
+                    newPanel.add(leftFiller);
+                    newPanel.add(rightFiller);
+                    newPanel.add(left); break;
+            case 4: newPanel.add(rightFiller);
+                    newPanel.add(right);
+                    newPanel.add(leftFiller);
+                    newPanel.add(left);
+            case 5: newPanel.add(left);
+                    newPanel.add(rightFiller);
+                    newPanel.add(right);
+                    newPanel.add(leftFiller);
+            case 6: newPanel.add(leftFiller);
                     newPanel.add(left);
                     newPanel.add(rightFiller);
-                    newPanel.add(leftFiller); break;
-            case 3: newPanel.add(rightFiller);
                     newPanel.add(right);
+            case 7: newPanel.add(right);
+                    newPanel.add(leftFiller);
                     newPanel.add(left);
-                    newPanel.add(leftFiller); break;
+                    newPanel.add(rightFiller);
+            case 8: newPanel.add(rightFiller);
+                    newPanel.add(left);
+                    newPanel.add(leftFiller);
+                    newPanel.add(right);          
         }
         
         cards.add(newPanel, "Baseline Condition");
@@ -572,12 +592,16 @@ public class View extends javax.swing.JFrame
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("You shouldn’t have chosen the shape you chose on the yellow screen.");
         if(showHint)
         {
-            newPanel.add(reading, BorderLayout.CENTER);
-            showHint = false;
+            reading.append(Setup.getDvrMostTXT());
+        } else {
+            reading.append(Setup.getDvrLeastTXT());
         }
+        
+        
+        newPanel.add(reading, BorderLayout.CENTER);
+        showHint = false;
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -774,13 +798,17 @@ public class View extends javax.swing.JFrame
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("You lost three points.");
-        newPanel.add(reading, BorderLayout.CENTER);
+        
+        
         if(showHint)
         {
-            newPanel.add(reading, BorderLayout.CENTER);
-            showHint = false;
+            reading.append(Setup.getDcMostTXT());
+        } else {
+            reading.append(Setup.getDcLeastTXT());
         }
+        
+        newPanel.add(reading, BorderLayout.CENTER);
+        showHint = false;
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -913,18 +941,22 @@ public class View extends javax.swing.JFrame
         reading.setWrapStyleWord(true);
         reading.setLineWrap(true);
         reading.setEditable(false);
-        reading.setFont(new Font("Dialog", Font.PLAIN, 14));
+        reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         sp.setViewportView(reading);
         reading.setEditable(false);
-        reading.append("You lost three points.");
+        
         if(showHint)
         {
-            newPanel.add(reading, BorderLayout.CENTER);
-            showHint = false;
+            reading.append(Setup.getIcMostTXT());
+        } else {
+            reading.append(Setup.getIcLeastTXT());
         }
+        
+        newPanel.add(reading, BorderLayout.CENTER);
+        showHint = false;
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
