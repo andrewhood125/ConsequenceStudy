@@ -1,10 +1,10 @@
 - Complete the parser for program.txt - Andrew
 - Change the sequence to a 2x2 grid and always populate the bottom two with the symbols - Andrew
-- Implement sound - Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-- Change from int to string for color -  Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-- Load text from files for feedback boxes. - Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+- [X] Implement sound - Neal 
+- [X] Change from int to string for color -  Neal 
+- [X] Load text from files for feedback boxes. - Neal 
 - Scrollbar stuff - Neal Working on now!
-- Remove titles - Neal XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx
+- [X] Remove titles - Neal 
 - Increase the size of the points. - Andrew
 - Why don't all unicode chars work? No idea, I figure it should bc of the encoding schema 
 - [X] Add Pause and colorization to buttons during sequence
