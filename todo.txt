@@ -3,7 +3,7 @@
 - [X] Implement sound - Neal 
 - [X] Change from int to string for color -  Neal 
 - [X] Load text from files for feedback boxes. - Neal 
-- [ ] Scrollbar stuff - Neal Working on now!
+- [X] Scrollbar stuff - Neal Working on now!
 - [X] Remove titles - Neal 
 - [X] Increase the size of the points. - Andrew
 - [ ] Why don't all unicode chars work? No idea, I figure it should bc of the encoding schema 
