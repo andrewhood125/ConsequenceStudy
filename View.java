@@ -52,14 +52,16 @@ public class View extends javax.swing.JFrame
     JLabel points;
     JLabel currentPaneTitle;
     Controller controller;
-    static JScrollPane sp;
+    JScrollPane sp;
+    JScrollBar sb;
     private JTextArea reading;
     private boolean showHint = false;
-    private int currX = 0;
+    private int currX = 0, line = 0;
     // constructor
     public View(Controller controller)
     {
         this.controller = controller;
+        sb = new JScrollBar();
         // initialize the page start panel and add a border
         pageStartPanel = new JPanel(new BorderLayout());
         pageStartPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -344,28 +346,49 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        ArrayList<String> introduction = Setup.getRI();
+        final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
-        DefaultCaret caret = (DefaultCaret) reading.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        int charCount = 0;
         for(int i = 0; i < introduction.size(); i++)
         {
+            for(int j = 0; j < introduction.get(i).length(); j++)
+            {
+                charCount++;
+            }
             reading.append(introduction.get(i));
             reading.append("\n");
+           
+            if(i == line)
+            {
+                System.out.println(introduction.get(i));
+                currX = charCount+1000;
+                System.out.println("Char at the end of this line is: " + currX);
+            }
         }       
         
         sp = new javax.swing.JScrollPane(reading);
-        sp.getVerticalScrollBar().setValue(currX);
+        
+        
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
-        cl.next(cards);  
+        cl.next(cards);
+        reading.setCaretPosition(currX);
         
+        System.out.println("scrollbar: " + sp.getVerticalScrollBar().getValue());
+        System.out.println("getCaretPosition: " + reading.getCaretPosition());
+        
+        
+       
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	System.out.println(currX);
-            	currX = sp.getVerticalScrollBar().getValue();
-                System.out.println(currX);
+                System.out.println("scrollbar: " + sp.getVerticalScrollBar().getValue());
+
+                line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
+                System.out.println("Calculated that you left off at line: " + line);
+                System.out.println(introduction.get(line));
+      
+              
                 dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
                 
             }
@@ -597,9 +620,9 @@ public class View extends javax.swing.JFrame
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	System.out.println(currX);
-            	currX = sp.getVerticalScrollBar().getValue();
-            	System.out.println(currX);
+                System.out.println(currX);
+                currX = sp.getVerticalScrollBar().getValue();
+                System.out.println(currX);
                 dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
             }
             };
@@ -806,9 +829,9 @@ public class View extends javax.swing.JFrame
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-            	System.out.println(currX);
-            	currX = sp.getVerticalScrollBar().getValue();
-            	System.out.println(currX);
+                System.out.println(currX);
+                currX = sp.getVerticalScrollBar().getValue();
+                System.out.println(currX);
                 dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
            }
             };
