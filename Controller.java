@@ -6,7 +6,7 @@
  * @version (a version number or a date)
  */
 
-import java.io.File;
+import java.io.*;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,6 +33,7 @@ public class Controller
     private boolean sound;
     Queue<String> manualProgramList;
     private boolean instructionSheetShown = false;
+    Writer writer;
     // constructor
     public Controller()
     {
@@ -55,6 +56,16 @@ public class Controller
         conditionArray.add(dc);
         conditionArray.add(ic);
         manualProgramList = Setup.getManualProgram();
+        String filename = "" + (System.currentTimeMillis()/10000);
+        filename += ".csv";
+        try
+        {
+            writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"));
+        } catch(IOException ex) {
+            System.out.println("DEBUG - caught exception making a writer, exiting.");
+            System.exit(1);
+        }
+        
     }
     
     public void calculatePointLoss(int group, int index)
@@ -564,5 +575,19 @@ public class Controller
         view.showInstructionSheet();
         
     }
+    }
+    
+    
+    
+    public void writeToCSV(String s)
+    {
+        try
+        {
+            writer.write(s);
+        } catch(IOException e) {
+            System.out.println("DEBUG - writeToCSV()");
+            System.exit(1);
+        }
+        
     }
 }
