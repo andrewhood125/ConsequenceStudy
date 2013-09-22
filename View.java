@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class View here.
  * 
@@ -8,6 +7,7 @@
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Queue;
 
 import javax.sound.sampled.*;
 import javax.swing.JFrame;
@@ -49,6 +49,7 @@ public class View extends javax.swing.JFrame
     private int currXScroll;
     private JTextArea reading;
     private boolean showHint = false;
+    
     // constructor
     public View(Controller controller)
     {
@@ -251,8 +252,16 @@ public class View extends javax.swing.JFrame
             public void actionPerformed(ActionEvent evt) {
               System.out.println("DEBUG - ButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
             controller.incrementHitCount(group, index);
-            System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-            controller.continueBaselineCondition();
+            if(Setup.isRandomPres()) 
+            {
+                System.out.println("DEBUG - Setup.isRandomPres(): " + Setup.isRandomPres());
+                System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                controller.continueBaselineCondition();
+            } else {
+                System.out.println("DEBUG - ButtonAction.actionPerformed() - manualProgram");
+                controller.manualProgram();
+            }
+            
             }
             };
               button.setBackground(Color.YELLOW);
@@ -404,7 +413,13 @@ public class View extends javax.swing.JFrame
         public void actionPerformed(ActionEvent e)
         {
             controller.printConditionStats();
-            controller.presentCondition();
+            if(Setup.isRandomPres()) {
+                controller.presentCondition();
+            } else {
+                controller.manualProgram();
+            }
+            
+            
         }
     }
     

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Queue;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -30,6 +31,7 @@ public class Controller
     private ArrayList<Condition> conditionArray;
     Condition dvrc, dvr, dc, ic, lastCondition = null;
     private boolean sound;
+    Queue<String> manualProgramList;
     // constructor
     public Controller()
     {
@@ -51,7 +53,7 @@ public class Controller
         conditionArray.add(dvr);
         conditionArray.add(dc);
         conditionArray.add(ic);
-        
+        manualProgramList = Setup.getManualProgram();
     }
     
     public void calculatePointLoss(int group, int index)
@@ -109,6 +111,14 @@ public class Controller
         view.setPoints(points);
         System.out.println("DEBUG: showInstructionSheet() - envoke showInstructionSheet from view.");
         view.showInstructionSheet();
+    }
+    
+    public void showBaseline(int group, int left, int right)
+    {
+        System.out.println("DEBUG: Controller.showBaseline() - manually showing the baseline.");
+        Pair thisPair = new Pair(left, right, group);
+        System.out.println("DEBUG: Controller.showBaseline() - invoke view.establishPreference(" + model.getLeftChar(thisPair) + "," +  model.getRightChar(thisPair) + "," +  thisPair.getGroup() + "," + thisPair.getLeftIndex() + "," + thisPair.getRightIndex() + ")");    
+        view.establishPreference(model.getLeftChar(thisPair), model.getRightChar(thisPair), thisPair.getGroup(), thisPair.getLeftIndex(), thisPair.getRightIndex());
     }
 
     public void getBaselineCondition()
@@ -469,5 +479,76 @@ public class Controller
     	{
     		View.playWinSound();
     	}
+    }
+    
+    
+    public void beginDvrcSequence()
+    {
+        view.dvrc(model.getCharCubeChar(Model.DVRC_ENUM, dvrcMostPreferred), model.getCharCubeChar(Model.DVRC_ENUM, dvrcLeastPreferred), Model.DVRC_ENUM, dvrcMostPreferred, dvrcLeastPreferred);
+    }
+    
+    public void beginDvrSequence()
+    {
+        view.dvr(model.getCharCubeChar(Model.DVR_ENUM, dvrMostPreferred), model.getCharCubeChar(Model.DVR_ENUM, dvrLeastPreferred), Model.DVR_ENUM, dvrMostPreferred, dvrLeastPreferred);
+    }
+    
+    public void beginDcSequence()
+    {
+        view.dc(model.getCharCubeChar(Model.DC_ENUM, dcMostPreferred), model.getCharCubeChar(Model.DC_ENUM, dcLeastPreferred), Model.DC_ENUM, dcMostPreferred, dcLeastPreferred);
+    }
+    
+    public void beginIcSequence()
+    {
+        view.ic(model.getCharCubeChar(Model.IC_ENUM, icMostPreferred), model.getCharCubeChar(Model.IC_ENUM, icLeastPreferred), Model.IC_ENUM, icMostPreferred, icLeastPreferred);
+    }
+    
+    public void gameOver()
+    {
+        view.gameOver(points);
+    }
+    
+    
+    public void manualProgram()
+    {
+//         
+//         while(manualProgramList.peek() != null)
+//         {
+//             String line = manualProgramList.remove();
+//             System.out.println(line);
+//             String[] lineArray = line.split(",");
+//             for(int i = 0; i < lineArray.length; i++)
+//             {
+//                 System.out.println("\t linArray[" + i + "]: " + lineArray[i]);
+//             }
+//         }
+        
+        if(manualProgramList.peek() != null)
+        {
+            String line = manualProgramList.remove();
+            String[] lineArray = line.split(",");
+            System.out.println("DEBUG - Parsing line: " + line);
+            if(lineArray[0].equals("BASELINE_DVRC"))
+            {
+                showBaseline(Model.DVRC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
+            } else if(lineArray[0].equals("BASELINE_DVR")) {
+                showBaseline(Model.DVR_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
+            } else if(lineArray[0].equals("BASELINE_DC")) {
+                showBaseline(Model.DC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
+            } else if(lineArray[0].equals("BASELINE_IC")) { 
+                showBaseline(Model.IC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
+            } else if(lineArray[0].equals("DVRC_SEQUENCE")) { 
+                setPreference(); beginDvrcSequence(); 
+            } else if(lineArray[0].equals("DVR_SEQUENCE")) { 
+                setPreference(); beginDvrSequence(); 
+            } else if(lineArray[0].equals("DC_SEQUENCE")) { 
+                setPreference(); beginDcSequence(); 
+            } else if(lineArray[0].equals("IC_SEQUENCE")) { 
+                setPreference(); beginIcSequence(); 
+            } else { 
+                manualProgram();
+            }
+        } else {
+            gameOver();
+        }
     }
 }
