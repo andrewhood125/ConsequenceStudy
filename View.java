@@ -258,9 +258,10 @@ public class View extends javax.swing.JFrame
         public void actionPerformed(ActionEvent e)
         {
           
-            
+            button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                
               System.out.println("DEBUG - ButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
             controller.incrementHitCount(group, index);
             if(Setup.isRandomPres()) 
