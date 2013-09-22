@@ -453,7 +453,7 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
-            
+            button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
@@ -489,7 +489,7 @@ public class View extends javax.swing.JFrame
         public void actionPerformed(ActionEvent e)
         {
             
-            
+            button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
@@ -671,6 +671,7 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
+            button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                   System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
@@ -882,6 +883,7 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
+            button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
@@ -1035,7 +1037,7 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
-            
+            button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                     if(index == controller.icMostPreferred)
