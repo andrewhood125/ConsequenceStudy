@@ -123,6 +123,7 @@ public class Controller
         view.setPoints(points);
         System.out.println("DEBUG: showInstructionSheet() - envoke showInstructionSheet from view.");
         view.showInstructionSheet();
+        writeToCSV("GROUP,SELECTED,NOT SELECTED");
     }
     
     public void showBaseline(int group, int left, int right)
@@ -546,7 +547,10 @@ public class Controller
             {
                 view.setBeginPanelColorDefault();
                 showBaseline(Model.DVRC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
-            } else if(lineArray[0].equals("BASELINE_DVR")) {
+            } else if(lineArray[0].equals("START_BASELINE_DVRC") || lineArray[0].equals("START_BASELINE_DVR") || 
+                        lineArray[0].equals("START_BASELINE_DC") || lineArray[0].equals("START_BASELINE_IC")) {
+                writeToCSV("GROUP,SELECTED,NOT SELECTED");
+            }else if(lineArray[0].equals("BASELINE_DVR")) {
                  view.setBeginPanelColorDefault();
                 showBaseline(Model.DVR_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
             } else if(lineArray[0].equals("BASELINE_DC")) {
@@ -583,11 +587,16 @@ public class Controller
     {
         try
         {
-            writer.write(s);
+            writer.write(s + "\n");
         } catch(IOException e) {
             System.out.println("DEBUG - writeToCSV()");
             System.exit(1);
         }
         
+    }
+    
+    public void closeCSV()
+    {
+        try {writer.close();} catch (Exception ex) {}
     }
 }

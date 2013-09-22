@@ -70,7 +70,13 @@ public class View extends javax.swing.JFrame
         this.getContentPane().add(cards, BorderLayout.CENTER);
         this.getContentPane().add(pageStartPanel, BorderLayout.PAGE_START);
         this.setTitle("Delayed Consequence");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                exitProcedure();
+            }
+        });
         this.setSize(800, 600);
         this.setMinimumSize(new Dimension(800, 600));
         // frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -79,6 +85,12 @@ public class View extends javax.swing.JFrame
         this.setVisible(true);
         //this.setResizable(false);
         currXScroll = 40;
+    }
+    
+    public void exitProcedure()
+    {
+        controller.closeCSV();
+        System.exit(0);
     }
     
     public void setBeginPanelColorDefault()
@@ -175,8 +187,8 @@ public class View extends javax.swing.JFrame
         
         newPanel.setBorder(new EmptyBorder(50,50,50,50));   
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new ButtonAction(group, leftIndex, left));
-        right.addActionListener(new ButtonAction(group, rightIndex, right));
+        left.addActionListener(new ButtonAction(group, leftIndex, rightIndex, left));
+        right.addActionListener(new ButtonAction(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         
         Random rand = new Random();
@@ -233,8 +245,8 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, Setup.getSymbolSize()));
-        left.addActionListener(new ButtonAction(group, leftIndex, left));
-        right.addActionListener(new ButtonAction(group, rightIndex, right));
+        left.addActionListener(new ButtonAction(group, leftIndex, rightIndex, left));
+        right.addActionListener(new ButtonAction(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
@@ -247,17 +259,19 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int otherIndex;
         JButton button;
         // constructor
-        public ButtonAction(int group, int index, JButton button)
+        public ButtonAction(int group, int index, int otherIndex, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.otherIndex = otherIndex;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
         {
-          
+            controller.writeToCSV(group + "," + index + "," + otherIndex);
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -312,6 +326,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+        controller.writeToCSV("GROUP,");
     }
     
     public void dvrc2()
@@ -545,6 +560,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+        controller.writeToCSV("DVR SEQUENCE");
     }
     
     public void dvr2()
@@ -756,6 +772,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+        controller.writeToCSV("DC SEQUENCE");
     }
     
     public void dc2()
@@ -972,6 +989,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+        controller.writeToCSV("IC SEQUENCE");
     }
     
     
