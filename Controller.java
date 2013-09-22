@@ -34,6 +34,7 @@ public class Controller
     Queue<String> manualProgramList;
     private boolean instructionSheetShown = false;
     Writer writer;
+    static int caret;
     // constructor
     public Controller()
     {
@@ -581,6 +582,15 @@ public class Controller
     }
     }
     
+    public static void setCaret(int a)
+    {
+    	caret = a;
+    }
+    
+    public static int getCaret()
+    {
+    	return caret;
+    }
     
     
     public void writeToCSV(String s)

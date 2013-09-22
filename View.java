@@ -8,18 +8,23 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Queue;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 
 import javax.sound.sampled.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.DefaultCaret;
 
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -27,6 +32,8 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.Scrollbar;
 import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -45,11 +52,10 @@ public class View extends javax.swing.JFrame
     JLabel points;
     JLabel currentPaneTitle;
     Controller controller;
-    JScrollPane sp;
-    private int currXScroll;
+    static JScrollPane sp;
     private JTextArea reading;
     private boolean showHint = false;
-    
+    private int currX = 0;
     // constructor
     public View(Controller controller)
     {
@@ -57,7 +63,6 @@ public class View extends javax.swing.JFrame
         // initialize the page start panel and add a border
         pageStartPanel = new JPanel(new BorderLayout());
         pageStartPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
         // Initial points to 100
         points = new JLabel("Calculating Points...");
         points.setFont(new Font("Dialog", Font.PLAIN, 32));
@@ -84,7 +89,6 @@ public class View extends javax.swing.JFrame
         // frame.setUndecorated(true);
         this.setVisible(true);
         //this.setResizable(false);
-        currXScroll = 40;
     }
     
     public void exitProcedure()
@@ -115,8 +119,6 @@ public class View extends javax.swing.JFrame
         reading.setEditable(false);
         reading.append("You managed to save " + points + " points.");
         newPanel.add(reading, BorderLayout.CENTER);
-            
-        
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
@@ -342,25 +344,28 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
+        DefaultCaret caret = (DefaultCaret) reading.getCaret();
+        caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
         for(int i = 0; i < introduction.size(); i++)
         {
             reading.append(introduction.get(i));
             reading.append("\n");
         }       
+        
+        sp = new javax.swing.JScrollPane(reading);
+        sp.getVerticalScrollBar().setValue(currX);
         newPanel.add(sp, BorderLayout.CENTER);
-        sp.getVerticalScrollBar().setValue(currXScroll);
-        reading.setCaretPosition(currXScroll);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                currXScroll = reading.getCaretPosition();
+            	System.out.println(currX);
+            	currX = sp.getVerticalScrollBar().getValue();
+                System.out.println(currX);
                 dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
                 
             }
@@ -577,7 +582,6 @@ public class View extends javax.swing.JFrame
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -587,14 +591,15 @@ public class View extends javax.swing.JFrame
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
-        sp.getVerticalScrollBar().setValue(currXScroll);
-        reading.setCaretPosition(currXScroll);
+        sp.getVerticalScrollBar().setValue(currX);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                currXScroll = reading.getCaretPosition();
+            	System.out.println(currX);
+            	currX = sp.getVerticalScrollBar().getValue();
+            	System.out.println(currX);
                 dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
             }
             };
@@ -641,7 +646,6 @@ public class View extends javax.swing.JFrame
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
         reading.setEditable(false);
         if(showHint)
         {
@@ -649,8 +653,6 @@ public class View extends javax.swing.JFrame
         } else {
             reading.append(Setup.getDvrLeastTXT());
         }
-        
-        
         newPanel.add(reading, BorderLayout.CENTER);
         showHint = false;
         cards.add(newPanel, "Read now!");
@@ -789,7 +791,6 @@ public class View extends javax.swing.JFrame
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
         ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         for(int i = 0; i < introduction.size(); i++)
@@ -799,14 +800,15 @@ public class View extends javax.swing.JFrame
         }       
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
-        sp.getVerticalScrollBar().setValue(currXScroll);
-        reading.setCaretPosition(currXScroll);
+        sp.getVerticalScrollBar().setValue(currX);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                currXScroll = reading.getCaretPosition();
+            	System.out.println(currX);
+            	currX = sp.getVerticalScrollBar().getValue();
+            	System.out.println(currX);
                 dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
            }
             };
@@ -1105,9 +1107,7 @@ public class View extends javax.swing.JFrame
         }catch(Exception e){
             System.out.println(e);
         }
-     }
-    
-    
+     }    
     
     public void timerScreen(int a)
     {
@@ -1120,8 +1120,6 @@ public class View extends javax.swing.JFrame
                 } );
         timer.start();
         timer.setRepeats(false);
-    } 
-
-    
+    }
    
 }
