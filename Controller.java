@@ -32,6 +32,7 @@ public class Controller
     Condition dvrc, dvr, dc, ic, lastCondition = null;
     private boolean sound;
     Queue<String> manualProgramList;
+    private boolean instructionSheetShown = false;
     // constructor
     public Controller()
     {
@@ -61,33 +62,33 @@ public class Controller
         switch(group)
         {
             case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {
-            	points -= ptsDed;
-            	sound = false;
-            	}
+                points -= ptsDed;
+                sound = false;
+                }
             else{
-            	sound = true;
+                sound = true;
             }
             break;
             case Model.DVR_ENUM: if(index == dvrMostPreferred) {
-            	points -= ptsDed;
-            	sound = false;
-        	}
-	        else{
-	        	sound = true;
+                points -= ptsDed;
+                sound = false;
+            }
+            else{
+                sound = true;
             }break;
             case Model.DC_ENUM: if(index == dcMostPreferred) {
-            	points -= ptsDed;
-            	sound = false;
-        	}
-	        else{
-	        	sound = true;
+                points -= ptsDed;
+                sound = false;
+            }
+            else{
+                sound = true;
             }break;
             case Model.IC_ENUM: if(index == icMostPreferred) {
-            	points -= ptsDed;
-            	sound = false;
-        	}
-	       else{
-	    	   sound = true;
+                points -= ptsDed;
+                sound = false;
+            }
+           else{
+               sound = true;
             }break;
         }
     }
@@ -100,7 +101,7 @@ public class Controller
     public void updatePoints()
     {
         playSound();
-    	view.setPoints(points);
+        view.setPoints(points);
     }
 
     // methods
@@ -471,19 +472,20 @@ public class Controller
     
     public void playSound()
     {
-    	if(sound == false)
-    	{
-    		View.playLossSound();
-    	}
-    	else
-    	{
-    		View.playWinSound();
-    	}
+        if(sound == false)
+        {
+            View.playLossSound();
+        }
+        else
+        {
+            View.playWinSound();
+        }
     }
     
     
     public void beginDvrcSequence()
     {
+        System.out.println("DEBUG - beginDvrcSequence()");
         view.dvrc(model.getCharCubeChar(Model.DVRC_ENUM, dvrcMostPreferred), model.getCharCubeChar(Model.DVRC_ENUM, dvrcLeastPreferred), Model.DVRC_ENUM, dvrcMostPreferred, dvrcLeastPreferred);
     }
     
@@ -521,7 +523,9 @@ public class Controller
 //                 System.out.println("\t linArray[" + i + "]: " + lineArray[i]);
 //             }
 //         }
-        
+        if(instructionSheetShown)
+        {
+            
         if(manualProgramList.peek() != null)
         {
             String line = manualProgramList.remove();
@@ -529,12 +533,16 @@ public class Controller
             System.out.println("DEBUG - Parsing line: " + line);
             if(lineArray[0].equals("BASELINE_DVRC"))
             {
+                view.setBeginPanelColorDefault();
                 showBaseline(Model.DVRC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
             } else if(lineArray[0].equals("BASELINE_DVR")) {
+                 view.setBeginPanelColorDefault();
                 showBaseline(Model.DVR_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
             } else if(lineArray[0].equals("BASELINE_DC")) {
+                 view.setBeginPanelColorDefault();
                 showBaseline(Model.DC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
             } else if(lineArray[0].equals("BASELINE_IC")) { 
+                 view.setBeginPanelColorDefault();
                 showBaseline(Model.IC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
             } else if(lineArray[0].equals("DVRC_SEQUENCE")) { 
                 setPreference(); beginDvrcSequence(); 
@@ -550,5 +558,11 @@ public class Controller
         } else {
             gameOver();
         }
+    } else {
+        instructionSheetShown = true;
+        view.setPoints(Setup.getPoints());
+        view.showInstructionSheet();
+        
+    }
     }
 }

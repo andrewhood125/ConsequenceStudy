@@ -81,6 +81,11 @@ public class View extends javax.swing.JFrame
         currXScroll = 40;
     }
     
+    public void setBeginPanelColorDefault()
+    {
+        pageStartPanel.setBackground(javax.swing.UIManager.getColor ( "Panel.background" ));
+    }
+    
     public void gameOver(int points)
     {
         pageStartPanel.setBackground(javax.swing.UIManager.getColor ( "Panel.background" ));
@@ -148,7 +153,13 @@ public class View extends javax.swing.JFrame
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("DEBUG: BeginButtonAction.actionPerformed() - begin button clicked, invoke getBaselineCondition().");
-            controller.getBaselineCondition();
+            if(Setup.isRandomPres())
+            {
+                 controller.getBaselineCondition();
+            } else {
+                controller.manualProgram();
+            }
+           
         }
     }
     
@@ -281,9 +292,13 @@ public class View extends javax.swing.JFrame
     
     public void dvrc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(142,180,227));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         pageStartPanel.setBackground(new Color(142,180,227));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
@@ -510,10 +525,14 @@ public class View extends javax.swing.JFrame
     
     public void dvr(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(255,255,0));
-        pageStartPanel.setBackground(new Color(255,255,0));        
+        pageStartPanel.setBackground(new Color(255,255,0));  
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
@@ -716,9 +735,13 @@ public class View extends javax.swing.JFrame
     
     public void dc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(166,166,166));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         pageStartPanel.setBackground(new Color(166,166,166));        
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
@@ -927,10 +950,14 @@ public class View extends javax.swing.JFrame
     
     public void ic(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
-        JPanel newPanel = new JPanel(new GridLayout(1,2,10,10));
+        JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(250,192,144));
-        pageStartPanel.setBackground(new Color(250,192,144));        
+        pageStartPanel.setBackground(new Color(250,192,144));
+        JLabel leftFiller = new JLabel();
+        JLabel rightFiller = new JLabel();
+        newPanel.add(leftFiller);
+        newPanel.add(rightFiller);
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
