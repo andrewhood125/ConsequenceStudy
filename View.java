@@ -219,23 +219,23 @@ public class View extends javax.swing.JFrame
             case 4: newPanel.add(rightFiller);
                     newPanel.add(right);
                     newPanel.add(leftFiller);
-                    newPanel.add(left);
+                    newPanel.add(left);break;
             case 5: newPanel.add(left);
                     newPanel.add(rightFiller);
                     newPanel.add(right);
-                    newPanel.add(leftFiller);
+                    newPanel.add(leftFiller);break;
             case 6: newPanel.add(leftFiller);
                     newPanel.add(left);
                     newPanel.add(rightFiller);
-                    newPanel.add(right);
+                    newPanel.add(right);break;
             case 7: newPanel.add(right);
                     newPanel.add(leftFiller);
                     newPanel.add(left);
-                    newPanel.add(rightFiller);
+                    newPanel.add(rightFiller);break;
             case 8: newPanel.add(rightFiller);
                     newPanel.add(left);
                     newPanel.add(leftFiller);
-                    newPanel.add(right);          
+                    newPanel.add(right);break;
         }
         
         cards.add(newPanel, "Baseline Condition");
