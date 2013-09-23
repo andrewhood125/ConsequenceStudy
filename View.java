@@ -1,7 +1,7 @@
 /**
  * Write a description of class View here.
  * 
- * @author (your name) 
+ * @author Andrew Hood, Neal Patel
  * @version (a version number or a date)
  */
 import java.io.File;
