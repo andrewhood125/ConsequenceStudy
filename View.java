@@ -192,7 +192,7 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new ButtonAction(group, leftIndex, rightIndex, left));
         right.addActionListener(new ButtonAction(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar);
         Random rand = new Random();
         int which = rand.nextInt(9);
         switch(which)
@@ -273,7 +273,9 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
-            controller.writeToCSV(group + "," + index + "," + otherIndex);
+            controller.calculatePointLoss(group, index);
+            controller.writeToCSV("," + "Hit: " + Character.toString(Model.getMyShape(group,index)));
+            controller.writeToCSV("\n");
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -328,7 +330,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("GROUP,");
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvrc2()
@@ -396,6 +398,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvrc4()
@@ -412,10 +415,7 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
-        reading.setEditable(false);
-        
+        reading.setEditable(false);        
         // Load text file
         if(showHint)
         {
@@ -479,6 +479,8 @@ public class View extends javax.swing.JFrame
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                   controller.incrementConditionCount(Model.DVRC_ENUM,index);
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                  Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                  Controller.writeToCSV("\n");
                   dvrc4();
                 }
             };
@@ -519,6 +521,8 @@ public class View extends javax.swing.JFrame
                     }  
                     controller.incrementConditionCount(Model.DVRC_ENUM, index);
                     controller.calculatePointLoss(group, index);
+                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                    Controller.writeToCSV("\n");
                     System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
                     dvrc2();
                 }
@@ -565,7 +569,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("DVR SEQUENCE");
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvr2()
@@ -626,6 +630,7 @@ public class View extends javax.swing.JFrame
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -645,7 +650,6 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         reading.setEditable(false);
         if(showHint)
         {
@@ -695,6 +699,8 @@ public class View extends javax.swing.JFrame
                   System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM,index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                    Controller.writeToCSV("\n");
                     dvr4();
                 }
             };
@@ -730,6 +736,8 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
+                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                    Controller.writeToCSV("\n");
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM, index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
@@ -774,7 +782,7 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("DC SEQUENCE");
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dc2()
@@ -809,6 +817,7 @@ public class View extends javax.swing.JFrame
             	System.out.println(currX);
             	currX = sp.getVerticalScrollBar().getValue();
             	System.out.println(currX);
+            	
                 dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
            }
             };
@@ -835,6 +844,7 @@ public class View extends javax.swing.JFrame
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
+        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -854,8 +864,6 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
         reading.setEditable(false);
         
         
@@ -908,6 +916,8 @@ public class View extends javax.swing.JFrame
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM,index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                    Controller.writeToCSV("\n");
                     dc4();
                 }
             };
@@ -944,6 +954,8 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
+                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                    Controller.writeToCSV("\n");
                     controller.calculatePointLoss(group, index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM, index);
@@ -991,7 +1003,6 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("IC SEQUENCE");
     }
     
     
@@ -1009,8 +1020,6 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, Setup.getFeedbackFont()));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        JScrollPane sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setViewportView(reading);
         reading.setEditable(false);
         
         if(showHint)
@@ -1064,6 +1073,9 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
+                    
+                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
+                    Controller.writeToCSV("\n");
                     controller.calculatePointLoss(group, index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.IC_ENUM, index);

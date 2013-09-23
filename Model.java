@@ -32,11 +32,11 @@ public class Model
     private ArrayList<Pair> dGroupPairs;
     private ArrayList<Pair> icGroupPairs;
     
-    private char[] dvrc_chars = Setup.getShapes(0);
-    private char[] dvr_chars = Setup.getShapes(1);
-    private char[] dc_chars = Setup.getShapes(2);
-    private char[] ic_chars = Setup.getShapes(3);    
-    private char[][] charCube = {dvrc_chars, dvr_chars, dc_chars, ic_chars};
+    private static char[] dvrc_chars = Setup.getShapes(0);
+    private static char[] dvr_chars = Setup.getShapes(1);
+    private static char[] dc_chars = Setup.getShapes(2);
+    private static char[] ic_chars = Setup.getShapes(3);    
+    private static char[][] charCube = {dvrc_chars, dvr_chars, dc_chars, ic_chars};
     
     public Model()
     {       
@@ -242,5 +242,10 @@ public class Model
     public char getRightChar(Pair pair)
     {
         return charCube[pair.getGroup()][pair.getRightIndex()];
+    }
+    
+    public static char getMyShape(int a, int b)
+    {
+    	return charCube[a][b];
     }
 }
