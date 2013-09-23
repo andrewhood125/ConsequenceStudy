@@ -33,7 +33,7 @@ public class Controller
     private boolean sound;
     Queue<String> manualProgramList;
     private boolean instructionSheetShown = false;
-    Writer writer;
+    static BufferedWriter writer;
     static int caret;
     // constructor
     public Controller()
@@ -593,11 +593,11 @@ public class Controller
     }
     
     
-    public void writeToCSV(String s)
+    public static void writeToCSV(String s)
     {
         try
         {
-            writer.write(s + "\n");
+            writer.write(s);
         } catch(IOException e) {
             System.out.println("DEBUG - writeToCSV()");
             System.exit(1);
@@ -605,7 +605,7 @@ public class Controller
         
     }
     
-    public void closeCSV()
+    public static void closeCSV()
     {
         try {writer.close();} catch (Exception ex) {}
     }
