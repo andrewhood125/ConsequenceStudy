@@ -1,15 +1,34 @@
 /**
- * Write a description of class View here.
+ * View handles the presentation and flow of the program once in
+ * a specified part of the presentation. Once done it hands back 
+ * control of the flow of the program back to the controller.
  * 
  * @author Andrew Hood, Neal Patel
- * @version (a version number or a date)
+ * Copyright (c) 2013 Andrew Hood, Neal Patel
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Queue;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 
 import javax.sound.sampled.*;
 import javax.swing.JFrame;
@@ -25,7 +44,11 @@ import javax.swing.JViewport;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DefaultCaret;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -39,21 +62,19 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
+
 
 public class View extends javax.swing.JFrame
 {
     // This panel is used to hold the current page title and remaining points
-    JPanel pageStartPanel;
+    private JPanel pageStartPanel;
     // This panel is renewed when new things are shown so the reference is needed. 
-    JPanel cards;
+    private JPanel cards;
     // This label is used to hold the remainging points
-    JLabel points;
-    JLabel currentPaneTitle;
-    Controller controller;
-    JScrollPane sp;
-    JScrollBar sb;
+    private JLabel points;
+    private JLabel currentPaneTitle;
+    private Controller controller;
+    private JScrollPane sp;
     private JTextArea reading;
     private boolean showHint = false;
     private int currX = 0, line = 0;
@@ -61,7 +82,6 @@ public class View extends javax.swing.JFrame
     public View(Controller controller)
     {
         this.controller = controller;
-        sb = new JScrollBar();
         // initialize the page start panel and add a border
         pageStartPanel = new JPanel(new BorderLayout());
         pageStartPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -170,7 +190,6 @@ public class View extends javax.swing.JFrame
 
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("DEBUG: BeginButtonAction.actionPerformed() - begin button clicked, invoke getBaselineCondition().");
             if(Setup.isRandomPres())
             {
                  controller.getBaselineCondition();
@@ -343,27 +362,27 @@ public class View extends javax.swing.JFrame
         {
             controller.writeToCSV("Group: " + group + "," + Model.getMyShape(group,index) + "," + Model.getMyShape(group, otherIndex) + "," + "Hit: " + Model.getMyShape(group,index));
             button.setEnabled(false);
-            ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                
-              System.out.println("DEBUG - ButtonAction.actionPerformed() - Symbol clicked incrementHitCount(" + group + "," + index + ")");
-            controller.incrementHitCount(group, index);
-            if(Setup.isRandomPres()) 
-            {
-                System.out.println("DEBUG - Setup.isRandomPres(): " + Setup.isRandomPres());
-                System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                controller.continueBaselineCondition();
-            } else {
-                System.out.println("DEBUG - ButtonAction.actionPerformed() - manualProgram");
-                controller.manualProgram();
-            }
             
-            }
+            ActionListener taskPerformer = new ActionListener() { 
+            public void actionPerformed(ActionEvent evt) {
+                controller.incrementHitCount(group, index);
+                if(Setup.isRandomPres()) 
+                {
+                    System.out.println("DEBUG - Setup.isRandomPres(): " + Setup.isRandomPres());
+                    System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
+                    controller.continueBaselineCondition();
+                } else {
+                    System.out.println("DEBUG - ButtonAction.actionPerformed() - manualProgram");
+                    controller.manualProgram();
+                }
+                
+                }
             };
+            
             int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();       
@@ -434,29 +453,23 @@ public class View extends javax.swing.JFrame
                     currX = charCount+1250;
                 }
                 
-                System.out.println("Char at the end of this line is: " + currX);
+             
             }
         }       
         
-        sp = new javax.swing.JScrollPane(reading);
-        
-        
+        sp = new JScrollPane(reading);
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
         reading.setCaretPosition(currX);
         
-        
-        
-       
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
                 dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
-                
             }
-            };
+        };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
@@ -500,7 +513,7 @@ public class View extends javax.swing.JFrame
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         reading.setEditable(false);        
-        // Load text file
+        
         if(showHint)
         {
              reading.append(Setup.getDvrcLeastTXT());
@@ -508,13 +521,11 @@ public class View extends javax.swing.JFrame
         
         newPanel.add(reading, BorderLayout.CENTER);
         showHint = false;
-        
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
         
-        
-         ActionListener taskPerformer = new ActionListener() {
+        ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
@@ -522,7 +533,7 @@ public class View extends javax.swing.JFrame
                 revalidate();
                 repaint();
             }
-            };
+        };
         Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
@@ -537,9 +548,7 @@ public class View extends javax.swing.JFrame
                 controller.presentCondition();
             } else {
                 controller.manualProgram();
-            }
-            
-            
+            }  
         }
     }
     
@@ -549,7 +558,7 @@ public class View extends javax.swing.JFrame
         int index;
         int indexOther;
         JButton button;
-        // constructor
+        
         public dvrcButtonTwo(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
@@ -557,9 +566,11 @@ public class View extends javax.swing.JFrame
             this.indexOther = indexOther;
             this.button = button;
         }
+        
         public void actionPerformed(ActionEvent e)
         {
             button.setEnabled(false);
+            
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
@@ -569,26 +580,24 @@ public class View extends javax.swing.JFrame
                   dvrc4();
                 }
             };
-             int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();   
-            
-            
-            
         }
     }
     
-     public class dvrcButtonOne implements ActionListener
+    public class dvrcButtonOne implements ActionListener
     {
         int group;
         int index;
         int indexOther;
         JButton button;
-        // constructor
+        
         public dvrcButtonOne(int group, int index, int indexOther,  JButton button)
         {
             this.group = group;
@@ -596,46 +605,37 @@ public class View extends javax.swing.JFrame
             this.indexOther = indexOther;
             this.button = button;
         }
+        
         public void actionPerformed(ActionEvent e)
         {
             
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     if(index == controller.dvrcMostPreferred)
                     {
                         showHint = true;
                     }  
                     controller.incrementConditionCount(Model.DVRC_ENUM, index);
                     controller.calculatePointLoss(group, index);
-                     controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
-                    System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
+                    controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     dvrc2();
                 }
             };
-             int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();       
-            
-            
-            
-            
         }
     }
-    
-    
-    
-    
     
      /**
      * DVR VIEW SEQUENCE ******************************************************************************
      */
-    
     public void dvr(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
@@ -672,7 +672,7 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        sp = new javax.swing.JScrollPane(reading);
+        sp = new JScrollPane(reading);
         final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         
@@ -711,7 +711,7 @@ public class View extends javax.swing.JFrame
                 line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
                 dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
             }
-            };
+        };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
@@ -766,10 +766,8 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
-        
-        
            
-         ActionListener taskPerformer = new ActionListener() {
+        ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
@@ -777,7 +775,8 @@ public class View extends javax.swing.JFrame
                 revalidate();
                 repaint();
             }
-            };
+        }
+        ;
         Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();           
@@ -809,16 +808,14 @@ public class View extends javax.swing.JFrame
                     dvr4();
                 }
             };
-             int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
-            timer.start();   
-            
-            
-            
+            timer.start();    
         }
     }
     
@@ -844,23 +841,20 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
-                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
+                    controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM, index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
                     dvr2();
-                        }
-                    };
-             int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+                }
+            };
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();   
-            
-            
-            
         }
     }
     
@@ -868,7 +862,6 @@ public class View extends javax.swing.JFrame
     /**
      * DC VIEW SEQUENCE ******************************************************************************
      */
-    
     public void dc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
@@ -905,13 +898,11 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        sp = new javax.swing.JScrollPane(reading);
+        sp = new JScrollPane(reading);
         final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         
-        
-        
-       int charCount = 0;
+        int charCount = 0;
         for(int i = 0; i < introduction.size(); i++)
         {
             for(int j = 0; j < introduction.get(i).length(); j++)
@@ -943,7 +934,7 @@ public class View extends javax.swing.JFrame
                 line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
                 dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
            }
-            };
+        };
         Timer timer = new Timer(Setup.getRD(), taskPerformer);
         timer.setRepeats(false);
         timer.start();       
@@ -1001,10 +992,8 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
-        
-        
           
-         ActionListener taskPerformer = new ActionListener() {
+        ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
@@ -1012,7 +1001,7 @@ public class View extends javax.swing.JFrame
                 revalidate();
                 repaint();
             }
-            };
+        };
         Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();          
@@ -1037,33 +1026,28 @@ public class View extends javax.swing.JFrame
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM,index);
-                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
+                    controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     dc4();
                 }
             };
-              int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();   
-            
-            
-            
         }
     }
     
-     public class dcButtonOne implements ActionListener
+    public class dcButtonOne implements ActionListener
     {
         int group;
         int index;
         int indexOther;
         JButton button;
-        // constructor
+        
         public dcButtonOne(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
@@ -1071,6 +1055,7 @@ public class View extends javax.swing.JFrame
             this.indexOther = indexOther;
             this.button = button;
         }
+        
         public void actionPerformed(ActionEvent e)
         {
             
@@ -1088,26 +1073,19 @@ public class View extends javax.swing.JFrame
                     dc2();
                 }
             };
-              int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
-            timer.start();   
-            
-            
-            
+            timer.start();
         }
     }
-    
-    
-    
     
     /**
      * IC VIEW SEQUENCE ******************************************************************************
      */
-    
     public void ic(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
@@ -1130,7 +1108,6 @@ public class View extends javax.swing.JFrame
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
     }
-    
     
     public void ic2()
     {
@@ -1160,10 +1137,8 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards); 
-        
-        
           
-         ActionListener taskPerformer = new ActionListener() {
+        ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 JButton continueButton = new JButton("Continue");
                 continueButton.addActionListener(new feedbackContinueButton());
@@ -1171,20 +1146,19 @@ public class View extends javax.swing.JFrame
                 revalidate();
                 repaint();
             }
-            };
+        };
         Timer timer = new Timer(Setup.getFeedbackDelay(), taskPerformer);
         timer.setRepeats(false);
         timer.start();            
     }
     
     
-     public class icButtonOne implements ActionListener
+    public class icButtonOne implements ActionListener
     {
         int group;
         int index;
         int indexOther;
         JButton button;
-        // constructor
         public icButtonOne(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
@@ -1192,6 +1166,7 @@ public class View extends javax.swing.JFrame
             this.indexOther = indexOther;
             this.button  = button;
         }
+        
         public void actionPerformed(ActionEvent e)
         {
             button.setEnabled(false);
@@ -1210,10 +1185,10 @@ public class View extends javax.swing.JFrame
                     ic2();
                 }
             };
-             int[] backgroundColor = Setup.getBaseColor();
-              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
-              button.setOpaque(true);
-              button.setBorderPainted(false);
+            int[] backgroundColor = Setup.getBaseColor();
+            button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+            button.setOpaque(true);
+            button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
             timer.setRepeats(false);
             timer.start();   
@@ -1223,38 +1198,36 @@ public class View extends javax.swing.JFrame
     /**
      * END SEQUENCES *********************
      */
-    
      public static void playWinSound(){
-        try{
+        try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(new File("winning.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audio);
             clip.start();   
-        }catch(Exception e){
+        } catch(Exception e) {
             System.out.println(e);
         }
      }
      
      public static void playLossSound(){
-        try{
+        try {
             AudioInputStream audio = AudioSystem.getAudioInputStream(new File("losing.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audio);
             clip.start();
-        }catch(Exception e){
+        } catch(Exception e) {
             System.out.println(e);
         }
      }    
     
     public void timerScreen(int a)
     {
-        Timer timer = new Timer( 1000, new ActionListener(){
-                    @Override
+        Timer timer = new Timer( 1000, new ActionListener() {
                     public void actionPerformed( ActionEvent e ){
                         CardLayout cl = (CardLayout) cards.getLayout();
                         cl.next(cards);
                     }
-                } );
+        } );
         timer.start();
         timer.setRepeats(false);
     }

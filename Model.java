@@ -1,9 +1,28 @@
 
 /**
- * Write a description of class Model here.
+ * Interact with the data collected from the program. 
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Andrew Hood, Neal Patel
+ * @version 2013-09-23
+ * Copyright (c) 2013 Andrew Hood, Neal Patel
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 import java.util.Random;
@@ -55,34 +74,29 @@ public class Model
         groups.add(ic_pairs);
     }
     
-    public char getCharCubeChar(int group, int index)
-    {
-        return charCube[group][index];
-    }
-    
     private void populateDGroupPairs()
     {
         for(int i = 0; i < 3; i++)
-        	{
-        	    for(int j = 0; j < Setup.getShapes(i).length; j++)
-            	    {
-            		if(i != j)
-                		{
-                		    dGroupPairs.add(new Pair(i,j));
-                		}
-            	    }
-        	}	
+        {
+            for(int j = 0; j < Setup.getShapes(i).length; j++)
+            {
+                if(i != j)
+                {
+                    dGroupPairs.add(new Pair(i,j));
+                }
+            }
+        }
     }
     
     private void populateICGroupPairs()
     {
         for(int i = 0; i < Setup.getShapes(3).length-1; i++)
+        {
+            if(i != (Setup.getShapes(3).length-1))
             {
-                if(i != (Setup.getShapes(3).length-1))
-                    {
-                        icGroupPairs.add(new Pair(i,(Setup.getShapes(3).length - 1 - i)));
-                    }
+                icGroupPairs.add(new Pair(i,(Setup.getShapes(3).length - 1 - i)));
             }
+        }
     }
     
     public Pair getRandomPair()
@@ -94,66 +108,49 @@ public class Model
         {
             if(groups.size() == 1)
             {
-                System.out.println("DEBUG: getRandomPair() - groups is size 1 removing the first index and breaking.");
                 thisGroup = groups.remove(0);
                 break;
             }
             thisGroup = groups.get(rand.nextInt(groups.size()));            
-            if(thisGroup == lastGroup)
-            {
-                System.out.println("DEBUG: getRandomPair() - same group as last time, trying again.");
-            }
-            if(thisGroup == null)
-            {
-                System.out.println("DEBUG: getRandomPair() - That group is complete, try another group.");
-            }            
+                        
         } while(thisGroup == lastGroup || thisGroup == null);
+        
         lastGroup = thisGroup;
-        System.out.println("DEBUG: getRandomPair() - group: " + thisGroup + " has been selected.");
         int whichGroup = 0;        
         if(thisGroup == dvrc_pairs)
         {
             whichGroup = 0;
-            System.out.println("DEBUG: getRandomPair() - whichGroup = 0");
         }
         if(thisGroup == dvr_pairs)
         {
             whichGroup = 1;
-            System.out.println("DEBUG: getRandomPair() - whichGroup = 1");
         }
         if(thisGroup == dc_pairs)
         {
             whichGroup = 2;
-            System.out.println("DEBUG: getRandomPair() - whichGroup = 2");
         }
         if(thisGroup == ic_pairs)
         {
             whichGroup = 3;
-            System.out.println("DEBUG: getRandomPair() - whichGroup = 3");
         }        
         switch(whichGroup)
         {
             case DVRC_ENUM: if(dvrc_pairs.size() == 1)
                             {
-                                System.out.println("DEBUG: getRandomPair() - dvrc_pairs has only 1 element left. Removing element at index 0.");
                                 returnPair = dvrc_pairs.remove(0);
                                 returnPair.setGroup(DVRC_ENUM);
                             } else {
-                                System.out.println("DEBUG: getRandomPair() - dvrc_pairs has more than 1 element left. Randomly selecting an element.");
                                 returnPair = dvrc_pairs.remove(rand.nextInt(dvrc_pairs.size()));
                                 returnPair.setGroup(DVRC_ENUM);
                             }
             
                             if(dvrc_pairs.isEmpty()) 
                             {
-                                System.out.println("DEBUG: getRandomPair() - dvrc_pairs is empty!");
                                 if(dvrcRenewedTimes < D_GROUPS_MAX_RENEW) 
                                 {
-                                    System.out.println("DEBUG: getRandomPair() - dvrc_pairs needs to be renewed.");
                                     dvrc_pairs.addAll(dGroupPairs);
                                     dvrcRenewedTimes++;
                                 } else {
-                                    System.out.println("DEBUG: getRandomPair() - dvrc_pairs has been depleted setting the reference to null.");
                                     groups.remove(dvrc_pairs);
                                     
                                 }
@@ -224,13 +221,11 @@ public class Model
                             break;
             default: System.exit(1);
         }
-        System.out.println("DEBUG: getRandomPair() - the following pair is being returned: " + returnPair);
         return returnPair;
     }
     
     public boolean isBaselineEstablished()
     {
-        System.out.println("DEBUG: isBaselineEstablished() - groups.isEmpty() is " + groups.isEmpty());
         return groups.isEmpty();
     }
     

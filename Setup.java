@@ -1,13 +1,30 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * The Setup class collects data from the config files. 
+ * 
+ * @author Andrew Hood, Neal Patel 
+ * @version 2013-09-23
+ * 
+ * Copyright (c) 2013 Andrew Hood, Neal Patel
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
-/**
- *
- * @author
- * Neal
- */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -22,12 +40,9 @@ import java.util.logging.Logger;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- *
- * @author
- * Neal
- */
-public class Setup {
+
+public class Setup
+{
     private static ArrayList<String> introTextScreen;           //The text that will be shown at the start of the program
     private static ArrayList<String> conf;                      //The configuration file contents
     private static int readingDuration;                         //In SEC how long does the intermission stay up
@@ -60,11 +75,11 @@ public class Setup {
     private static ArrayList<String> dvrLeastTXT;
     private static ArrayList<String> icLeastTXT;
     private static ArrayList<String> icMostTXT;
-    
     private static ArrayList<String> reading;
     private static File readingPath = new File("readingText.txt");
     
-    public static void set(){
+    public static void set()
+    {
         conf = new ArrayList<>();
         readConf();
         parseConf();
@@ -72,7 +87,8 @@ public class Setup {
         setTexts();
     }
 
-    private static void readConf() {                //to read in the config
+    private static void readConf()
+    {                //to read in the config
         FileInputStream fis = null;                             //read in config
         InputStreamReader isr = null;                           //read in config
         BufferedReader br = null;                               //read in config
@@ -101,7 +117,8 @@ public class Setup {
         }                                   //return
     }
 
-    private static void parseConf() {                       //parse all of the text in the config
+    private static void parseConf()
+    {                       //parse all of the text in the config
         for(int o = 0; o < conf.size(); o++){
             int index = conf.get(o).indexOf("=");               //keep a count of where the delim is for everything but shapes.
             int index2 = conf.get(o).indexOf(";");
@@ -150,7 +167,8 @@ public class Setup {
         }
     }
 
-    private static ArrayList<String> reader(File txt){         //read in the different types of text files with no special encoding
+    private static ArrayList<String> reader(File txt)
+    {         //read in the different types of text files with no special encoding
         ArrayList<String> lines = new ArrayList<>();            //make a temp arraylist
         try {
             Scanner scan = new Scanner(txt);                //scan it in
@@ -163,19 +181,23 @@ public class Setup {
         return lines;                           //return arraylist of the text file
     }
 
-    private static void setITS() {                  //setter for the Intro text
+    private static void setITS()
+    {                  //setter for the Intro text
         introTextScreen = reader(new File("introText.txt"));
     }
 
-    public static ArrayList<String> getITS() {              //getter for the intro text
+    public static ArrayList<String> getITS()
+    {              //getter for the intro text
         return introTextScreen;
     }
 
-    public static int getPoints() {                 //getter for the points
+    public static int getPoints()
+    {                 //getter for the points
         return numOfPoints;
     }
 
-    public static void decPoints(int decrement) {           //when the user loses points
+    public static void decPoints(int decrement)
+    {           //when the user loses points
         if(numOfPoints > decrement){                    //as long as the user has points to give it will happen
             numOfPoints = numOfPoints - decrement;
         }
@@ -184,7 +206,8 @@ public class Setup {
         }   
     }
 
-    public static void setShapes(int a , String s){
+    public static void setShapes(int a , String s)
+    {
         if(a == 0){
             dvrc = s.toCharArray();
         }else if (a == 1){
@@ -196,7 +219,8 @@ public class Setup {
         }else{}
     }
 
-    public static char[] getShapes(int a){
+    public static char[] getShapes(int a)
+    {
         if(a == 0){
             return dvrc;
         }else if (a == 1){
@@ -210,51 +234,63 @@ public class Setup {
         }
     }
 
-    public static int getRD(){
+    public static int getRD()
+    {
         return (readingDuration * 1000);
     }
 
-    public static int getPtLost() {
+    public static int getPtLost()
+    {
         return ptLost;
     }
 
-    public static boolean isSoundPos() {
+    public static boolean isSoundPos()
+    {
         return soundPos;
     }
 
-    public static boolean isSoundNeg() {
+    public static boolean isSoundNeg() 
+    {
         return soundNeg;
     }
 
-    public static int getBasePause() {
+    public static int getBasePause() 
+    {
         return basePause;
     }
 
-    public static int[] getBaseColor() {
+    public static int[] getBaseColor() 
+    {
         return baseColor;
     }
 
-    public static int getSymbolSize() {
+    public static int getSymbolSize() 
+    {
         return symbolSize;
     }
 
-    public static int getFeedbackFont() {
+    public static int getFeedbackFont()
+    {
         return feedbackFont;
     }
 
-    public static int getFeedbackDelay() {
+    public static int getFeedbackDelay() 
+    {
         return feedbackDelay;
     }
 
-    public static boolean isRandomPres() {
+    public static boolean isRandomPres() 
+    {
         return randomPres;
     }
 
-    public static int getBaselinePres() {
+    public static int getBaselinePres()
+    {
         return baselinePres;
     }
     
-    public static void setTexts(){
+    public static void setTexts()
+    {
         dcLeastTXT = reader(dcLeast);
         dcMostTXT = reader(dcMost);
         dvrcLeastTXT = reader(dvrcLeast);
@@ -265,11 +301,11 @@ public class Setup {
         reading = reader(readingPath);
     }
     
-    public static String getDcLeastTXT() {
+    public static String getDcLeastTXT() 
+    {
         StringBuilder returnString = new StringBuilder();
         if(dcLeastTXT == null)
         {
-            System.out.println("dcLeastTXT was null. Settings Texts.");
             setTexts();
             System.out.println(dcLeastTXT);
         }
@@ -281,11 +317,11 @@ public class Setup {
         return returnString.toString();
     }
 
-    public static String getDcMostTXT() {
+    public static String getDcMostTXT() 
+    {
         StringBuilder returnString = new StringBuilder();
         if(dcMostTXT == null)
         {
-            System.out.println("dcMostTXT was null. Settings Texts.");
             setTexts();
             System.out.println(dcMostTXT);
         }
@@ -297,11 +333,11 @@ public class Setup {
         return returnString.toString();
     }
 
-    public static String getDvrcLeastTXT() {
+    public static String getDvrcLeastTXT()
+    {
         StringBuilder returnString = new StringBuilder();
         if(dvrcLeastTXT == null)
         {
-            System.out.println("dvrcLeastTXT was null. Settings Texts.");
             setTexts();
             System.out.println(dvrcLeastTXT);
         }
@@ -314,11 +350,11 @@ public class Setup {
     }
     
 
-    public static String getDvrMostTXT() {
+    public static String getDvrMostTXT()
+    {
         StringBuilder returnString = new StringBuilder();
         if(dvrMostTXT == null)
         {
-            System.out.println("dvrMostTXT was null. Settings Texts.");
             setTexts();
             System.out.println(dvrMostTXT);
         }
@@ -330,11 +366,11 @@ public class Setup {
         return returnString.toString();
     }
 
-    public static String getDvrLeastTXT(    ) {
+    public static String getDvrLeastTXT() 
+    {
         StringBuilder returnString = new StringBuilder();
         if(dvrLeastTXT == null)
         {
-            System.out.println("dvrLeastTXT was null. Settings Texts.");
             setTexts();
             System.out.println(dvrLeastTXT);
         }
@@ -346,11 +382,11 @@ public class Setup {
         return returnString.toString();
     }
 
-    public static String getIcLeastTXT() {
+    public static String getIcLeastTXT()
+    {
         StringBuilder returnString = new StringBuilder();
         if(icLeastTXT == null)
         {
-            System.out.println("icLeastTXT was null. Settings Texts.");
             setTexts();
             System.out.println(icLeastTXT);
         }
@@ -362,11 +398,11 @@ public class Setup {
         return returnString.toString();
     }
 
-    public static String getIcMostTXT() {
+    public static String getIcMostTXT() 
+    {
         StringBuilder returnString = new StringBuilder();
         if(icMostTXT == null)
         {
-            System.out.println("icMostTXT was null. Settings Texts.");
             setTexts();
             System.out.println(icMostTXT);
         }
@@ -378,7 +414,8 @@ public class Setup {
         return returnString.toString();
     }
     
-    public static ArrayList<String> getRI() {
+    public static ArrayList<String> getRI() 
+    {
         return reading;
     }
     
