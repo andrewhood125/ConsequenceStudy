@@ -597,7 +597,7 @@ public class Controller
     {
         try
         {
-            writer.write(s);
+            writer.write(s + "\n");
         } catch(IOException e) {
             System.out.println("DEBUG - writeToCSV()");
             System.exit(1);
