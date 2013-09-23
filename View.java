@@ -120,6 +120,7 @@ public class View extends javax.swing.JFrame
         sp.setViewportView(reading);
         reading.setEditable(false);
         reading.append("You managed to save " + points + " points.");
+        controller.writePreferences();
         controller.writeToCSV("Points left: " + points);
         newPanel.add(reading, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
@@ -195,7 +196,6 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new ButtonAction(group, leftIndex, rightIndex, left));
         right.addActionListener(new ButtonAction(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar);
         Random rand = new Random();
         int which = rand.nextInt(9);
         switch(which)
@@ -342,8 +342,7 @@ public class View extends javax.swing.JFrame
         public void actionPerformed(ActionEvent e)
         {
             controller.calculatePointLoss(group, index);
-            controller.writeToCSV("," + "Hit: " + Character.toString(Model.getMyShape(group,index)));
-            controller.writeToCSV("\n");
+            controller.writeToCSV("Group: " + group + "," + Model.getMyShape(group,index) + "," + Model.getMyShape(group, otherIndex) + "," + "Hit: " + Model.getMyShape(group,index));
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -391,15 +390,14 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrcButtonOne(group, leftIndex, left));
-        right.addActionListener(new dvrcButtonOne(group, rightIndex, right));
+        left.addActionListener(new dvrcButtonOne(group, leftIndex, rightIndex, left));
+        right.addActionListener(new dvrcButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvrc2()
@@ -478,15 +476,14 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrcButtonTwo(group, leftIndex, left));
-        right.addActionListener(new dvrcButtonTwo(group, rightIndex, right));
+        left.addActionListener(new dvrcButtonTwo(group, leftIndex, rightIndex, left));
+        right.addActionListener(new dvrcButtonTwo(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvrc4()
@@ -551,12 +548,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public dvrcButtonTwo(int group, int index, JButton button)
+        public dvrcButtonTwo(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -567,8 +566,7 @@ public class View extends javax.swing.JFrame
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                   controller.incrementConditionCount(Model.DVRC_ENUM,index);
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                  Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                  Controller.writeToCSV("\n");
+                   controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                   dvrc4();
                 }
             };
@@ -589,12 +587,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public dvrcButtonOne(int group, int index, JButton button)
+        public dvrcButtonOne(int group, int index, int indexOther,  JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -610,8 +610,7 @@ public class View extends javax.swing.JFrame
                     }  
                     controller.incrementConditionCount(Model.DVRC_ENUM, index);
                     controller.calculatePointLoss(group, index);
-                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                    Controller.writeToCSV("\n");
+                     controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                     System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
                     dvrc2();
                 }
@@ -651,15 +650,14 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrButtonOne(group, leftIndex, left));
-        right.addActionListener(new dvrButtonOne(group, rightIndex, right));
+        left.addActionListener(new dvrButtonOne(group, leftIndex, rightIndex, left));
+        right.addActionListener(new dvrButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvr2()
@@ -733,12 +731,11 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dvrButtonTwo(group, leftIndex, left));
-        right.addActionListener(new dvrButtonTwo(group, rightIndex, right));
+        left.addActionListener(new dvrButtonTwo(group, leftIndex, rightIndex, left));
+        right.addActionListener(new dvrButtonTwo(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -791,12 +788,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public dvrButtonTwo(int group, int index, JButton button)
+        public dvrButtonTwo(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -807,8 +806,7 @@ public class View extends javax.swing.JFrame
                   System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM,index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                    Controller.writeToCSV("\n");
+                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                     dvr4();
                 }
             };
@@ -829,12 +827,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public dvrButtonOne(int group, int index, JButton button)
+        public dvrButtonOne(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -845,8 +845,7 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
-                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                    Controller.writeToCSV("\n");
+                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM, index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
@@ -884,15 +883,14 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new dcButtonOne(group, leftIndex, left));
-        right.addActionListener(new dcButtonOne(group, rightIndex, right));
+        left.addActionListener(new dcButtonOne(group, leftIndex, rightIndex, left));
+        right.addActionListener(new dcButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dc2()
@@ -965,12 +963,11 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD, Setup.getSymbolSize()));
-        left.addActionListener(new dcButtonTwo(group, leftIndex, left));
-        right.addActionListener(new dcButtonTwo(group, rightIndex, right));
+        left.addActionListener(new dcButtonTwo(group, leftIndex, rightIndex, left));
+        right.addActionListener(new dcButtonTwo(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -1026,12 +1023,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public dcButtonTwo(int group, int index, JButton button)
+        public dcButtonTwo(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -1042,8 +1041,7 @@ public class View extends javax.swing.JFrame
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM,index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                    Controller.writeToCSV("\n");
+                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                     dc4();
                 }
             };
@@ -1064,12 +1062,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public dcButtonOne(int group, int index, JButton button)
+        public dcButtonOne(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -1081,8 +1081,7 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
-                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                    Controller.writeToCSV("\n");
+                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                     controller.calculatePointLoss(group, index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM, index);
@@ -1123,12 +1122,11 @@ public class View extends javax.swing.JFrame
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        left.addActionListener(new icButtonOne(group, leftIndex, left));
-        right.addActionListener(new icButtonOne(group, rightIndex, right));
+        left.addActionListener(new icButtonOne(group, leftIndex,rightIndex, left));
+        right.addActionListener(new icButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -1185,12 +1183,14 @@ public class View extends javax.swing.JFrame
     {
         int group;
         int index;
+        int indexOther;
         JButton button;
         // constructor
-        public icButtonOne(int group, int index, JButton button)
+        public icButtonOne(int group, int index, int indexOther, JButton button)
         {
             this.group = group;
             this.index = index;
+            this.indexOther = indexOther;
             this.button  = button;
         }
         public void actionPerformed(ActionEvent e)
@@ -1203,8 +1203,7 @@ public class View extends javax.swing.JFrame
                         showHint = true;
                     }  
                     
-                    Controller.writeToCSV("Hit: " + Character.toString(Model.getMyShape(group,index)));
-                    Controller.writeToCSV("\n");
+                     controller.writeToCSV("IC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
                     controller.calculatePointLoss(group, index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.IC_ENUM, index);
