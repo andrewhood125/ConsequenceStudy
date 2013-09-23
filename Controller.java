@@ -382,15 +382,16 @@ public class Controller
                 // This index is higher than what is at index max. 
                 max = i;
             } 
-
-            if(hitCount[i] < hitCount[min])
-            {
-                min = i;
-            }
         }
         
-        icMostPreferred = max-12;
-        icLeastPreferred = min-12;
+        if(max-12 == 0)
+        {
+            icMostPreferred = max-12;
+            icLeastPreferred = 1;
+        } else {
+            icMostPreferred = 1;
+            icLeastPreferred = 0;
+        }
 
         System.out.println("DEBUG - setPreference() - dvrcMostPreferred = " + dvrcMostPreferred);
         System.out.println("DEBUG - setPreference() - dvrcLeastPreferred = " + dvrcLeastPreferred);
