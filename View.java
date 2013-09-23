@@ -120,6 +120,7 @@ public class View extends javax.swing.JFrame
         sp.setViewportView(reading);
         reading.setEditable(false);
         reading.append("You managed to save " + points + " points.");
+        controller.writePreferences();
         controller.writeToCSV("Points left: " + points);
         newPanel.add(reading, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
@@ -332,7 +333,6 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvrc2()
@@ -419,7 +419,6 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dvrc4()
@@ -672,7 +671,6 @@ public class View extends javax.swing.JFrame
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -828,7 +826,6 @@ public class View extends javax.swing.JFrame
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
     }
     
     public void dc2()
@@ -906,7 +903,6 @@ public class View extends javax.swing.JFrame
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -1066,7 +1062,6 @@ public class View extends javax.swing.JFrame
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         newPanel.add(left);
         newPanel.add(right);
-        controller.writeToCSV("Group: " + group + "," + leftButtonChar + "," + rightButtonChar + ",");
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);

@@ -69,6 +69,15 @@ public class Controller
         
     }
     
+    public void writePreferences()
+    {
+        writeToCSV("Group,Most Preferred, Left, Right, Least Preferred");
+        writeToCSV("DVRC," + dvrcMostPreferred + "," + dvrcLeft + "," + dvrcRight + "," + dvrcLeastPreferred);
+        writeToCSV("DVR," + dvrMostPreferred + "," + dvrLeft + "," + dvrRight + "," + dvrLeastPreferred);
+        writeToCSV("DC," + dcMostPreferred + "," + dcLeft + "," + dcRight + "," + dcLeastPreferred);
+        writeToCSV("IC," + icMostPreferred + ",,," + dvrcLeastPreferred);
+    }
+    
     public void calculatePointLoss(int group, int index)
     {
         switch(group)
