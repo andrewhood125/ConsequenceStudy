@@ -72,10 +72,10 @@ public class Controller
     public void writePreferences()
     {
         writeToCSV("Group,Most Preferred, Left, Right, Least Preferred");
-        writeToCSV("DVRC," + dvrcMostPreferred + "," + dvrcLeft + "," + dvrcRight + "," + dvrcLeastPreferred);
-        writeToCSV("DVR," + dvrMostPreferred + "," + dvrLeft + "," + dvrRight + "," + dvrLeastPreferred);
-        writeToCSV("DC," + dcMostPreferred + "," + dcLeft + "," + dcRight + "," + dcLeastPreferred);
-        writeToCSV("IC," + icMostPreferred + ",,," + dvrcLeastPreferred);
+        writeToCSV("DVRC," + Model.getMyShape(0,dvrcMostPreferred) + "," + Model.getMyShape(0,dvrcLeft) + "," + Model.getMyShape(0,dvrcRight) + "," + Model.getMyShape(0,dvrcLeastPreferred));
+        writeToCSV("DVR," + Model.getMyShape(1,dvrMostPreferred) + "," + Model.getMyShape(1,dvrLeft) + "," + Model.getMyShape(1,dvrRight) + "," + Model.getMyShape(1,dvrLeastPreferred));
+        writeToCSV("DC," + Model.getMyShape(2,dcMostPreferred) + "," + Model.getMyShape(2,dcLeft) + "," + Model.getMyShape(2,dcRight) + "," + Model.getMyShape(2,dcLeastPreferred));
+        writeToCSV("IC," + Model.getMyShape(3,icMostPreferred) + ",,," + Model.getMyShape(3,dvrcLeastPreferred));
     }
     
     public void calculatePointLoss(int group, int index)
@@ -83,7 +83,9 @@ public class Controller
         switch(group)
         {
             case Model.DVRC_ENUM: if(index == dvrcMostPreferred) {
+                System.out.println("DEBUG - calculatePointsLoss() - DVRC points before: " + points);
                 points -= ptsDed;
+                System.out.println("DEBUG - calculatePointsLoss() - DVRC points after: " + points);
                 sound = false;
                 }
             else{
@@ -92,7 +94,9 @@ public class Controller
             break;
             
             case Model.DVR_ENUM: if(index == dvrMostPreferred) {
+                System.out.println("DEBUG - calculatePointsLoss() - DVR points before: " + points);
                 points -= ptsDed;
+                System.out.println("DEBUG - calculatePointsLoss() - DVR points before: " + points);
                 sound = false;
             }
             else{
@@ -100,7 +104,9 @@ public class Controller
             }break;
             
             case Model.DC_ENUM: if(index == dcMostPreferred) {
+                System.out.println("DEBUG - calculatePointsLoss() - DC points before: " + points);
                 points -= ptsDed;
+                System.out.println("DEBUG - calculatePointsLoss() - DC points before: " + points);
                 sound = false;
             }
             else{
@@ -108,7 +114,9 @@ public class Controller
             }break;
             
             case Model.IC_ENUM: if(index == icMostPreferred) {
+                System.out.println("DEBUG - calculatePointsLoss() - IC points before: " + points);
                 points -= ptsDed;
+                System.out.println("DEBUG - calculatePointsLoss() - IC points before: " + points);
                 sound = false;
             }
            else{

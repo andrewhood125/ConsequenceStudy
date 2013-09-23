@@ -341,7 +341,6 @@ public class View extends javax.swing.JFrame
         }
         public void actionPerformed(ActionEvent e)
         {
-            controller.calculatePointLoss(group, index);
             controller.writeToCSV("Group: " + group + "," + Model.getMyShape(group,index) + "," + Model.getMyShape(group, otherIndex) + "," + "Hit: " + Model.getMyShape(group,index));
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
