@@ -40,7 +40,7 @@ public class Setup {
     private static boolean soundPos;
     private static boolean soundNeg;
     private static int basePause;
-    private static String baseColor;
+    private static int[] baseColor = new int[3];
     private static int symbolSize;
     private static int feedbackFont;
     private static int feedbackDelay;
@@ -131,7 +131,10 @@ public class Setup {
             break;
             case 9:basePause = Integer.parseInt(conf.get(9).substring(index, index2).trim());
             break;
-            case 10:baseColor = conf.get(10).substring(index, index2).trim();
+            case 10:String[] rgb = conf.get(10).substring(index, index2).trim().split(",");
+                baseColor[0] = Integer.parseInt(rgb[0]);
+                baseColor[1] = Integer.parseInt(rgb[1]);
+                baseColor[2] = Integer.parseInt(rgb[2]);
             break;
             case 11:symbolSize = Integer.parseInt(conf.get(11).substring(index, index2).trim());
             break;
@@ -227,7 +230,7 @@ public class Setup {
         return basePause;
     }
 
-    public static String getBaseColor() {
+    public static int[] getBaseColor() {
         return baseColor;
     }
 

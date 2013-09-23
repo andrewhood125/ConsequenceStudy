@@ -297,7 +297,8 @@ public class View extends javax.swing.JFrame
             
             }
             };
-              button.setBackground(Color.YELLOW);
+            int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -508,7 +509,8 @@ public class View extends javax.swing.JFrame
                   dvrc4();
                 }
             };
-              button.setBackground(Color.YELLOW);
+             int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -551,7 +553,8 @@ public class View extends javax.swing.JFrame
                     dvrc2();
                 }
             };
-              button.setBackground(Color.YELLOW);
+             int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -728,7 +731,8 @@ public class View extends javax.swing.JFrame
                     dvr4();
                 }
             };
-              button.setBackground(Color.YELLOW);
+             int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -768,7 +772,8 @@ public class View extends javax.swing.JFrame
                     dvr2();
                         }
                     };
-              button.setBackground(Color.YELLOW);
+             int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -944,7 +949,8 @@ public class View extends javax.swing.JFrame
                     dc4();
                 }
             };
-              button.setBackground(Color.YELLOW);
+              int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -986,7 +992,8 @@ public class View extends javax.swing.JFrame
                     dc2();
                 }
             };
-              button.setBackground(Color.YELLOW);
+              int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
@@ -1107,7 +1114,8 @@ public class View extends javax.swing.JFrame
                     ic2();
                 }
             };
-              button.setBackground(Color.YELLOW);
+             int[] backgroundColor = Setup.getBaseColor();
+              button.setBackground(new Color(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
               button.setOpaque(true);
               button.setBorderPainted(false);
             Timer timer = new Timer(Setup.getBasePause(), taskPerformer);
