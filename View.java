@@ -610,7 +610,7 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp = new javax.swing.JScrollPane(reading);
         final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         
@@ -638,7 +638,7 @@ public class View extends javax.swing.JFrame
         
         
         
-      
+        reading.setCaretPosition(currX);
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
@@ -843,7 +843,7 @@ public class View extends javax.swing.JFrame
         reading.setFont(new Font("Dialog", Font.PLAIN, 14));
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
-        sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp = new javax.swing.JScrollPane(reading);
         final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
         
@@ -870,6 +870,7 @@ public class View extends javax.swing.JFrame
                 }
             }
         }           
+        reading.setCaretPosition(currX);
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
         CardLayout cl = (CardLayout) cards.getLayout();
