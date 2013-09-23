@@ -368,11 +368,8 @@ public class View extends javax.swing.JFrame
                 controller.incrementHitCount(group, index);
                 if(Setup.isRandomPres()) 
                 {
-                    System.out.println("DEBUG - Setup.isRandomPres(): " + Setup.isRandomPres());
-                    System.out.println("DEBUG - ButtonAction.actionPerformed() - invokeContinueBaselineCondition");
                     controller.continueBaselineCondition();
                 } else {
-                    System.out.println("DEBUG - ButtonAction.actionPerformed() - manualProgram");
                     controller.manualProgram();
                 }
                 
@@ -445,7 +442,6 @@ public class View extends javax.swing.JFrame
            
             if(i == line)
             {
-                System.out.println(introduction.get(i));
                 if(charCount < 1000)
                 {
                     currX = charCount;
@@ -543,7 +539,6 @@ public class View extends javax.swing.JFrame
     {
         public void actionPerformed(ActionEvent e)
         {
-            controller.printConditionStats();
             if(Setup.isRandomPres()) {
                 controller.presentCondition();
             } else {
@@ -573,10 +568,8 @@ public class View extends javax.swing.JFrame
             
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                  System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                   controller.incrementConditionCount(Model.DVRC_ENUM,index);
-                  System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                   controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
+                  controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                   dvrc4();
                 }
             };
@@ -688,7 +681,6 @@ public class View extends javax.swing.JFrame
            
             if(i == line)
             {
-                System.out.println(introduction.get(i));
                 if(charCount < 1000)
                 {
                     currX = charCount;
@@ -801,10 +793,8 @@ public class View extends javax.swing.JFrame
             button.setEnabled(false);
             ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                  System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM,index);
-                    System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
+                    controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     dvr4();
                 }
             };
@@ -842,9 +832,7 @@ public class View extends javax.swing.JFrame
                         showHint = true;
                     }  
                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
-                    System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM, index);
-                    System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
                     dvr2();
                 }
             };
@@ -914,7 +902,6 @@ public class View extends javax.swing.JFrame
            
             if(i == line)
             {
-                System.out.println(introduction.get(i));
                 if(charCount < 1000)
                 {
                     currX = charCount;
@@ -1067,9 +1054,7 @@ public class View extends javax.swing.JFrame
                     }  
                      controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     controller.calculatePointLoss(group, index);
-                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM, index);
-                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
                     dc2();
                 }
             };
@@ -1177,11 +1162,9 @@ public class View extends javax.swing.JFrame
                         showHint = true;
                     }  
                     
-                     controller.writeToCSV("IC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
+                    controller.writeToCSV("IC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     controller.calculatePointLoss(group, index);
-                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.IC_ENUM, index);
-                    System.out.println("DEBUG - dcButtonAction.actionPerformed() - invoke dc2()");
                     ic2();
                 }
             };
