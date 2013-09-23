@@ -365,7 +365,13 @@ public class View extends javax.swing.JFrame
             if(i == line)
             {
                 System.out.println(introduction.get(i));
-                currX = charCount+1000;
+                if(charCount < 1000)
+                {
+                    currX = charCount;
+                } else {
+                    currX = charCount+1250;
+                }
+                
                 System.out.println("Char at the end of this line is: " + currX);
             }
         }       
@@ -379,20 +385,12 @@ public class View extends javax.swing.JFrame
         cl.next(cards);
         reading.setCaretPosition(currX);
         
-        System.out.println("scrollbar: " + sp.getVerticalScrollBar().getValue());
-        System.out.println("getCaretPosition: " + reading.getCaretPosition());
         
         
        
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                System.out.println("scrollbar: " + sp.getVerticalScrollBar().getValue());
-
                 line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
-                System.out.println("Calculated that you left off at line: " + line);
-                System.out.println(introduction.get(line));
-      
-              
                 dvrc3(controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCleft()), controller.getCharCubeChar(Model.DVRC_ENUM, controller.getDVRCright()), Model.DVRC_ENUM, controller.getDVRCleft(), controller.getDVRCright());
                 
             }
@@ -613,24 +611,42 @@ public class View extends javax.swing.JFrame
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        ArrayList<String> introduction = Setup.getRI();
+        final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
+        
+        int charCount = 0;
         for(int i = 0; i < introduction.size(); i++)
         {
+            for(int j = 0; j < introduction.get(i).length(); j++)
+            {
+                charCount++;
+            }
             reading.append(introduction.get(i));
             reading.append("\n");
+           
+            if(i == line)
+            {
+                System.out.println(introduction.get(i));
+                if(charCount < 1000)
+                {
+                    currX = charCount;
+                } else {
+                    currX = charCount+1250;
+                }
+            }
         }       
+        
+        
+        
+      
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
-        sp.getVerticalScrollBar().setValue(currX);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                System.out.println(currX);
-                currX = sp.getVerticalScrollBar().getValue();
-                System.out.println(currX);
+                line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
                 dvr3(controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRleft()), controller.getCharCubeChar(Model.DVR_ENUM, controller.getDVRright()), Model.DVR_ENUM, controller.getDVRleft(), controller.getDVRright());
             }
             };
@@ -828,24 +844,40 @@ public class View extends javax.swing.JFrame
         reading.setBounds(10, 0, 774, 496);
         newPanel.add(reading);
         sp = new javax.swing.JScrollPane(reading,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        ArrayList<String> introduction = Setup.getRI();
+        final ArrayList<String> introduction = Setup.getRI();
         reading.setEditable(false);
+        
+        
+        
+       int charCount = 0;
         for(int i = 0; i < introduction.size(); i++)
         {
+            for(int j = 0; j < introduction.get(i).length(); j++)
+            {
+                charCount++;
+            }
             reading.append(introduction.get(i));
             reading.append("\n");
-        }       
+           
+            if(i == line)
+            {
+                System.out.println(introduction.get(i));
+                if(charCount < 1000)
+                {
+                    currX = charCount;
+                } else {
+                    currX = charCount+1250;
+                }
+            }
+        }           
         newPanel.add(sp, BorderLayout.CENTER);
         cards.add(newPanel, "Read now!");
-        sp.getVerticalScrollBar().setValue(currX);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);  
         
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                System.out.println(currX);
-                currX = sp.getVerticalScrollBar().getValue();
-                System.out.println(currX);
+                line = (int) (sp.getVerticalScrollBar().getValue()/(reading.getHeight()/introduction.size()));
                 dc3(controller.getCharCubeChar(Model.DC_ENUM, controller.getDCleft()), controller.getCharCubeChar(Model.DC_ENUM, controller.getDCright()), Model.DC_ENUM, controller.getDCleft(), controller.getDCright());
            }
             };
