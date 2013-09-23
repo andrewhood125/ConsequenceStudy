@@ -76,7 +76,7 @@ public class View extends javax.swing.JFrame
         reading = new JTextArea();
         this.getContentPane().add(cards, BorderLayout.CENTER);
         this.getContentPane().add(pageStartPanel, BorderLayout.PAGE_START);
-        this.setTitle("Delayed Consequence");
+        this.setTitle("");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -566,7 +566,7 @@ public class View extends javax.swing.JFrame
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                   controller.incrementConditionCount(Model.DVRC_ENUM,index);
                   System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                   controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                   controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                   dvrc4();
                 }
             };
@@ -610,7 +610,7 @@ public class View extends javax.swing.JFrame
                     }  
                     controller.incrementConditionCount(Model.DVRC_ENUM, index);
                     controller.calculatePointLoss(group, index);
-                     controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                     controller.writeToCSV("DVRC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     System.out.println("DEBUG - dvrcButtonAction.actionPerformed() - invoke dvrc2()");
                     dvrc2();
                 }
@@ -806,7 +806,7 @@ public class View extends javax.swing.JFrame
                   System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM,index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     dvr4();
                 }
             };
@@ -845,7 +845,7 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
-                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DVR_ENUM, index);
                     System.out.println("DEBUG - dvrButtonAction.actionPerformed() - invoke dvr2()");
@@ -1041,7 +1041,7 @@ public class View extends javax.swing.JFrame
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM,index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - invokeContinueBaselineCondition");
-                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     dc4();
                 }
             };
@@ -1081,7 +1081,7 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
-                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                     controller.writeToCSV("DC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     controller.calculatePointLoss(group, index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.DC_ENUM, index);
@@ -1203,7 +1203,7 @@ public class View extends javax.swing.JFrame
                         showHint = true;
                     }  
                     
-                     controller.writeToCSV("IC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + "," + Model.getMyShape(group,index));
+                     controller.writeToCSV("IC SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     controller.calculatePointLoss(group, index);
                     System.out.println("DEBUG - dcButtonAction.actionPerformed() - Symbol clicked incrementConditionCount(" + group + "," + index + ")");
                     controller.incrementConditionCount(Model.IC_ENUM, index);

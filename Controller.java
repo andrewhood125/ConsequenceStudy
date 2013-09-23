@@ -90,6 +90,7 @@ public class Controller
                 sound = true;
             }
             break;
+            
             case Model.DVR_ENUM: if(index == dvrMostPreferred) {
                 points -= ptsDed;
                 sound = false;
@@ -97,6 +98,7 @@ public class Controller
             else{
                 sound = true;
             }break;
+            
             case Model.DC_ENUM: if(index == dcMostPreferred) {
                 points -= ptsDed;
                 sound = false;
@@ -104,6 +106,7 @@ public class Controller
             else{
                 sound = true;
             }break;
+            
             case Model.IC_ENUM: if(index == icMostPreferred) {
                 points -= ptsDed;
                 sound = false;
