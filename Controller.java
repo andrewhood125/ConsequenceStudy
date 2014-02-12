@@ -497,6 +497,11 @@ public class Controller
         view.ic(Model.getMyShape(Model.IC_ENUM, icMostPreferred), Model.getMyShape(Model.IC_ENUM, icLeastPreferred), Model.IC_ENUM, icMostPreferred, icLeastPreferred);
     }
     
+    public void delayView(int sleepTime)
+    {
+        view.delayView(sleepTime);
+    }
+    
     public void gameOver()
     {
         view.gameOver(points);
@@ -535,7 +540,17 @@ public class Controller
                     setPreference(); beginDcSequence(); 
                 } else if(lineArray[0].equals("IC_SEQUENCE")) { 
                     setPreference(); beginIcSequence(); 
-                } else { 
+                } else if(lineArray[0].equals("DELAY")) {
+                    int sleepTime = 0;
+                    try {
+                        sleepTime = Integer.parseInt(lineArray[1]);
+                    } catch(Exception ex) {
+                        view.crashDialog("Could not parse delay length.");
+                        System.exit(1);
+                    }
+                    // Sleep for lineArray[1] milliseconds
+                    delayView(sleepTime);
+                }else { 
                     manualProgram();
                 }
             } else {

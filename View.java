@@ -119,6 +119,13 @@ public class View extends javax.swing.JFrame
         System.exit(0);
     }
     
+    public void crashDialog(String errorMessage)
+    {
+        JOptionPane.showMessageDialog(this, errorMessage,  "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
+    
     public void setBeginPanelColorDefault()
     {
         pageStartPanel.setBackground(javax.swing.UIManager.getColor ( "Panel.background" ));
@@ -1202,6 +1209,31 @@ public class View extends javax.swing.JFrame
             System.out.println(e);
         }
      }    
+     
+    public void delayView(int sleepTime)
+    {
+        JPanel newPanel = new JPanel(new BorderLayout());         
+        newPanel.setBorder(new EmptyBorder(50,50,50,50));
+        cards.add(newPanel, "Waiting...");
+        CardLayout cl = (CardLayout) cards.getLayout();
+        cl.next(cards);
+        
+        ActionListener taskPerformer = new ActionListener() { 
+            public void actionPerformed(ActionEvent evt) {
+                if(Setup.isRandomPres()) 
+                {
+                    controller.continueBaselineCondition();
+                } else {
+                    controller.manualProgram();
+                }
+                
+                }
+            };
+       
+        Timer timer = new Timer(sleepTime, taskPerformer);
+        timer.setRepeats(false);
+        timer.start(); 
+    }
     
     public void timerScreen(int a)
     {
