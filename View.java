@@ -660,6 +660,7 @@ public class View extends javax.swing.JFrame
     {
         symbol1 = leftIndex;
         symbol2 = rightIndex;
+        dvr(group);
     }
     public void dvr(int group)
     {
@@ -898,6 +899,16 @@ public class View extends javax.swing.JFrame
      */
     public void dc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        symbol1 = leftIndex;
+        symbol2 = rightIndex;
+        dc(group);
+    }
+    public void dc(int group)
+    {
+        int leftIndex = symbol1;
+        int rightIndex = symbol2;
+        char leftButtonChar = Model.getMyShape(Model.DC_ENUM, symbol1);
+        char rightButtonChar = Model.getMyShape(Model.DC_ENUM, symbol2);
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(166,166,166));
@@ -975,6 +986,16 @@ public class View extends javax.swing.JFrame
     
     public void dc3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        symbol3 = leftIndex;
+        symbol4 = rightIndex;
+        dc3(group);
+    }
+    public void dc3(int group)
+    {
+        int leftIndex = symbol3;
+        int rightIndex = symbol4;
+        char leftButtonChar = Model.getMyShape(Model.DC_ENUM, symbol3);
+        char rightButtonChar = Model.getMyShape(Model.DC_ENUM, symbol4);
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         JLabel leftFiller = new JLabel();
         JLabel rightFiller = new JLabel();

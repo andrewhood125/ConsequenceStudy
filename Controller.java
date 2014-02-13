@@ -245,6 +245,13 @@ public class Controller
 
     public void setPreference()
     {
+        // DEBUG
+        for(int i = 0; i < hitCount.length; i++)
+        {
+            System.out.println("hitCount[" + i + "] = " + hitCount[i]);
+        }
+        // END DEBUG
+        
         // DVRC
         int max, min;
 
@@ -380,6 +387,12 @@ public class Controller
             icMostPreferred = 1;
             icLeastPreferred = 0;
         }
+        
+        System.out.println("dcMostPreferred: " + dcMostPreferred);
+        System.out.println("dcLeastPreferred: " + dcLeastPreferred);
+        System.out.println("dcLeft: " + dcLeft);
+        System.out.println("dcRght: " + dcRight);
+        
     }
     
     public int getDVRCleft()
@@ -559,9 +572,51 @@ public class Controller
         view.dvr(Model.DVR_ENUM);
     }
     
-    public void beginDcSequence()
+    public void beginDcSequence(int symbol1, int symbol2, int symbol3, int symbol4)
     {
-        view.dc(Model.getMyShape(Model.DC_ENUM, dcMostPreferred), Model.getMyShape(Model.DC_ENUM, dcLeastPreferred), Model.DC_ENUM, dcMostPreferred, dcLeastPreferred);
+        switch(symbol1)
+        {
+            // Show most preferred on the first screen
+            case 0: view.symbol1 = dcMostPreferred; break;
+            case 1: view.symbol1 = dcLeft; break;
+            case 2: view.symbol1 = dcRight; break;
+            case 3: view.symbol1 = dcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol1 for beginDcSequence");
+        }
+        
+        switch(symbol2)
+        {
+            case 0: view.symbol2 = dcMostPreferred; break;
+            case 1: view.symbol2 = dcLeft; break;
+            case 2: view.symbol2 = dcRight; break;
+            case 3: view.symbol2 = dcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol2 for beginDcSequence");
+        }
+        
+        switch(symbol3)
+        {
+            case 0: view.symbol3 = dcMostPreferred; break;
+            case 1: view.symbol3 = dcLeft; break;
+            case 2: view.symbol3 = dcRight; break;
+            case 3: view.symbol3 = dcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol3 for beginDcSequence");
+        }
+        
+        switch(symbol4)
+        {
+            case 0: view.symbol4 = dcMostPreferred; break;
+            case 1: view.symbol4 = dcLeft; break;
+            case 2: view.symbol4 = dcRight; break;
+            case 3: view.symbol4 = dcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol4 for beginDcSequence");
+        }
+        
+        System.out.println("About to call view.dc()");
+        System.out.println("view.symbol1 = " + view.symbol1);
+        System.out.println("view.symbol2 = " + view.symbol2);
+        System.out.println("view.symbol3 = " + view.symbol3);
+        System.out.println("view.symbol4 = " + view.symbol4);
+        view.dc(Model.DC_ENUM);
     }
     
     public void beginIcSequence()
@@ -628,7 +683,16 @@ public class Controller
                     }
                     beginDvrSequence(symbol1, symbol2, symbol3, symbol4); 
                 } else if(lineArray[0].equals("DC_SEQUENCE")) { 
-                    setPreference(); beginDcSequence(); 
+                    setPreference();
+                    try {
+                        symbol1 = Integer.parseInt(lineArray[1].trim());
+                        symbol2 = Integer.parseInt(lineArray[2].trim());
+                        symbol3 = Integer.parseInt(lineArray[3].trim());
+                        symbol4 = Integer.parseInt(lineArray[4].trim());
+                    } catch(Exception ex) {
+                        view.crashDialog("Error parsing DC_SEQUENCE from program.txt");
+                    }
+                    beginDcSequence(symbol1, symbol2, symbol3, symbol4); 
                 } else if(lineArray[0].equals("IC_SEQUENCE")) { 
                     setPreference(); beginIcSequence(); 
                 } else if(lineArray[0].equals("DELAY")) {
