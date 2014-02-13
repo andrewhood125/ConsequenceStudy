@@ -78,6 +78,8 @@ public class View extends javax.swing.JFrame
     private JTextArea reading;
     private boolean showHint = false;
     private int currX = 0, line = 0;
+    
+    public int symbol1, symbol2, symbol3, symbol4;
     // constructor
     public View(Controller controller)
     {
@@ -398,9 +400,18 @@ public class View extends javax.swing.JFrame
     /**
      * DVRC VIEW SEQUENCE ******************************************************************************
      */
-    
     public void dvrc(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        symbol1 = leftIndex;
+        symbol2 = rightIndex;
+        dvrc(group);
+    }
+    public void dvrc(int group)
+    {
+        int leftIndex = symbol1;
+        int rightIndex = symbol2;
+        char leftButtonChar = Model.getMyShape(Model.DVRC_ENUM, symbol1);
+        char rightButtonChar = Model.getMyShape(Model.DVRC_ENUM, symbol2);
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(142,180,227));

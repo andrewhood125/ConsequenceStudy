@@ -477,9 +477,45 @@ public class Controller
     }
     
     
-    public void beginDvrcSequence()
+    public void beginDvrcSequence(int symbol1, int symbol2, int symbol3, int symbol4)
     {
-        view.dvrc(Model.getMyShape(Model.DVRC_ENUM, dvrcMostPreferred), Model.getMyShape(Model.DVRC_ENUM, dvrcLeastPreferred), Model.DVRC_ENUM, dvrcMostPreferred, dvrcLeastPreferred);
+        switch(symbol1)
+        {
+            // Show most preferred on the first screen
+            case 0: view.symbol1 = dvrcMostPreferred; break;
+            case 1: view.symbol1 = dvrcLeft; break;
+            case 2: view.symbol1 = dvrcRight; break;
+            case 3: view.symbol1 = dvrcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol1 for beginDvrcSequence");
+        }
+        
+        switch(symbol2)
+        {
+            case 0: view.symbol2 = dvrcMostPreferred; break;
+            case 1: view.symbol2 = dvrcLeft; break;
+            case 2: view.symbol2 = dvrcRight; break;
+            case 3: view.symbol2 = dvrcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol2 for beginDvrcSequence");
+        }
+        
+        switch(symbol3)
+        {
+            case 0: view.symbol3 = dvrcMostPreferred; break;
+            case 1: view.symbol3 = dvrcLeft; break;
+            case 2: view.symbol3 = dvrcRight; break;
+            case 3: view.symbol3 = dvrcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol3 for beginDvrcSequence");
+        }
+        
+        switch(symbol4)
+        {
+            case 0: view.symbol4 = dvrcMostPreferred; break;
+            case 1: view.symbol4 = dvrcLeft; break;
+            case 2: view.symbol4 = dvrcRight; break;
+            case 3: view.symbol4 = dvrcLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol4 for beginDvrcSequence");
+        }
+        view.dvrc(Model.DVRC_ENUM);
     }
     
     public void beginDvrSequence()
@@ -514,6 +550,7 @@ public class Controller
         {
             if(manualProgramList.peek() != null)
             {
+                int symbol1 = 0, symbol2 = 0, symbol3 = 0, symbol4 = 0;
                 String line = manualProgramList.remove();
                 String[] lineArray = line.split(",");
                 if(lineArray[0].equals("BASELINE_DVRC"))
@@ -533,7 +570,16 @@ public class Controller
                      view.setBeginPanelColorDefault();
                     showBaseline(Model.IC_ENUM, Integer.parseInt(lineArray[1].trim()), Integer.parseInt(lineArray[2].trim()));
                 } else if(lineArray[0].equals("DVRC_SEQUENCE")) { 
-                    setPreference(); beginDvrcSequence(); 
+                    setPreference(); 
+                    try {
+                        symbol1 = Integer.parseInt(lineArray[1].trim());
+                        symbol2 = Integer.parseInt(lineArray[2].trim());
+                        symbol3 = Integer.parseInt(lineArray[3].trim());
+                        symbol4 = Integer.parseInt(lineArray[4].trim());
+                    } catch(Exception ex) {
+                        view.crashDialog("Error parsing DVRC_SEQUENCE from program.txt");
+                    }
+                    beginDvrcSequence(symbol1, symbol2, symbol3, symbol4); 
                 } else if(lineArray[0].equals("DVR_SEQUENCE")) { 
                     setPreference(); beginDvrSequence(); 
                 } else if(lineArray[0].equals("DC_SEQUENCE")) { 
