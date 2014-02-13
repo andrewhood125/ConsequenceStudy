@@ -488,9 +488,18 @@ public class View extends javax.swing.JFrame
         timer.setRepeats(false);
         timer.start();       
     }
-    
     public void dvrc3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        symbol3 = leftIndex;
+        symbol4 = rightIndex;
+        dvrc3(group);
+    }
+    public void dvrc3(int group)
+    {
+        int leftIndex = symbol3;
+        int rightIndex = symbol4;
+        char leftButtonChar = Model.getMyShape(Model.DVRC_ENUM, symbol3);
+        char rightButtonChar = Model.getMyShape(Model.DVRC_ENUM, symbol4);
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         JLabel leftFiller = new JLabel();
         JLabel rightFiller = new JLabel();
@@ -649,6 +658,15 @@ public class View extends javax.swing.JFrame
      */
     public void dvr(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        symbol1 = leftIndex;
+        symbol2 = rightIndex;
+    }
+    public void dvr(int group)
+    {
+        int leftIndex = symbol1;
+        int rightIndex = symbol2;
+        char leftButtonChar = Model.getMyShape(Model.DVR_ENUM, symbol1);
+        char rightButtonChar = Model.getMyShape(Model.DVR_ENUM, symbol2);
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         newPanel.setBorder(new EmptyBorder(50,50,50,50));
         newPanel.setBackground(new Color(255,255,0));
@@ -729,6 +747,16 @@ public class View extends javax.swing.JFrame
     
     public void dvr3(char leftButtonChar, char rightButtonChar, int group, int leftIndex, int rightIndex)
     {
+        symbol3 = leftIndex;
+        symbol4 = rightIndex;
+        dvr3(group);
+    }
+    public void dvr3(int group)
+    {
+        int leftIndex = symbol3;
+        int rightIndex = symbol4;
+        char leftButtonChar = Model.getMyShape(Model.DVR_ENUM, symbol3);
+        char rightButtonChar = Model.getMyShape(Model.DVR_ENUM, symbol4);
         JPanel newPanel = new JPanel(new GridLayout(2,2,10,10));
         JLabel leftFiller = new JLabel();
         JLabel rightFiller = new JLabel();

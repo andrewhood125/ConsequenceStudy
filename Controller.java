@@ -518,9 +518,45 @@ public class Controller
         view.dvrc(Model.DVRC_ENUM);
     }
     
-    public void beginDvrSequence()
+    public void beginDvrSequence(int symbol1, int symbol2, int symbol3, int symbol4)
     {
-        view.dvr(Model.getMyShape(Model.DVR_ENUM, dvrMostPreferred), Model.getMyShape(Model.DVR_ENUM, dvrLeastPreferred), Model.DVR_ENUM, dvrMostPreferred, dvrLeastPreferred);
+        switch(symbol1)
+        {
+            // Show most preferred on the first screen
+            case 0: view.symbol1 = dvrMostPreferred; break;
+            case 1: view.symbol1 = dvrLeft; break;
+            case 2: view.symbol1 = dvrRight; break;
+            case 3: view.symbol1 = dvrLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol1 for beginDvrSequence");
+        }
+        
+        switch(symbol2)
+        {
+            case 0: view.symbol2 = dvrMostPreferred; break;
+            case 1: view.symbol2 = dvrLeft; break;
+            case 2: view.symbol2 = dvrRight; break;
+            case 3: view.symbol2 = dvrLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol2 for beginDvrSequence");
+        }
+        
+        switch(symbol3)
+        {
+            case 0: view.symbol3 = dvrMostPreferred; break;
+            case 1: view.symbol3 = dvrLeft; break;
+            case 2: view.symbol3 = dvrRight; break;
+            case 3: view.symbol3 = dvrLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol3 for beginDvrSequence");
+        }
+        
+        switch(symbol4)
+        {
+            case 0: view.symbol4 = dvrMostPreferred; break;
+            case 1: view.symbol4 = dvrLeft; break;
+            case 2: view.symbol4 = dvrRight; break;
+            case 3: view.symbol4 = dvrLeastPreferred; break;
+            default: view.crashDialog("Could not determine symbol4 for beginDvrSequence");
+        }
+        view.dvr(Model.DVR_ENUM);
     }
     
     public void beginDcSequence()
@@ -580,8 +616,17 @@ public class Controller
                         view.crashDialog("Error parsing DVRC_SEQUENCE from program.txt");
                     }
                     beginDvrcSequence(symbol1, symbol2, symbol3, symbol4); 
-                } else if(lineArray[0].equals("DVR_SEQUENCE")) { 
-                    setPreference(); beginDvrSequence(); 
+                } else if(lineArray[0].equals("DVR_SEQUENCE")) {
+                    setPreference(); 
+                    try {
+                        symbol1 = Integer.parseInt(lineArray[1].trim());
+                        symbol2 = Integer.parseInt(lineArray[2].trim());
+                        symbol3 = Integer.parseInt(lineArray[3].trim());
+                        symbol4 = Integer.parseInt(lineArray[4].trim());
+                    } catch(Exception ex) {
+                        view.crashDialog("Error parsing DVR_SEQUENCE from program.txt");
+                    }
+                    beginDvrSequence(symbol1, symbol2, symbol3, symbol4); 
                 } else if(lineArray[0].equals("DC_SEQUENCE")) { 
                     setPreference(); beginDcSequence(); 
                 } else if(lineArray[0].equals("IC_SEQUENCE")) { 
@@ -589,7 +634,7 @@ public class Controller
                 } else if(lineArray[0].equals("DELAY")) {
                     int sleepTime = 0;
                     try {
-                        sleepTime = Integer.parseInt(lineArray[1]);
+                        sleepTime = Integer.parseInt(lineArray[1].trim());
                     } catch(Exception ex) {
                         view.crashDialog("Could not parse delay length.");
                         System.exit(1);
