@@ -543,7 +543,7 @@ public class Controller
                 } else if(lineArray[0].equals("DELAY")) {
                     int sleepTime = 0;
                     try {
-                        sleepTime = Integer.parseInt(lineArray[1]);
+                        sleepTime = Integer.parseInt(lineArray[1].trim());
                     } catch(Exception ex) {
                         view.crashDialog("Could not parse delay length.");
                         System.exit(1);
