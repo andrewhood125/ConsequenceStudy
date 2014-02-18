@@ -1,17 +1,9 @@
 ConsequenceStudy
 ===============
 
-Program used to conduct study.
+Behavioral analysis tool. 
 
-Current Status
---------------
-Complete.
-
-Contributors
-------------
-Andrew Hood @andrewhood125
-Neal Patel @Patel128
-
-License
--------
-See License.md
+Contributors  
+------------  
+Andrew Hood [@andrewhood125](https://github.com/andrewhood125)  
+Neal Patel [@Patel128](https://github.com/patel128)  
