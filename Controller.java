@@ -119,7 +119,8 @@ public class Controller
             case Model.DVR_ENUM:
                 if(index == dvrMostPreferred)
                 {
-                    points -= ptsDed;
+                    // Do not deduct points in dvr. It's no consequence. 
+                    //points -= ptsDed;
                     sound = false;
                 } else {
                     sound = true;

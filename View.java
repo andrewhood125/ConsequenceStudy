@@ -840,6 +840,7 @@ public class View extends javax.swing.JFrame
                     {
                         showHint = true;
                     }  
+                    controller.calculatePointLoss(group, index);
                     controller.writeToCSV("DVR SEQUENCE: " + group + "," + Model.getMyShape(group, index) + "," + Model.getMyShape(group, indexOther) + ",Hit: " + Model.getMyShape(group,index));
                     controller.incrementConditionCount(Model.DVR_ENUM, index);
                     dvr2();
