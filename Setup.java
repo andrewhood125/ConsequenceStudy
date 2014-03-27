@@ -64,13 +64,15 @@ public class Setup
     private static File dcLeast = new File("dcLeast.txt");
     private static File dcMost = new File("dcMost.txt");
     private static File dvrcLeast = new File("dvrcLeast.txt");
-    private static File dvrMost = new File("dvrMost.txt");
+    private static File dvrcMost = new File("dvrcMost.txt");
     private static File dvrLeast = new File("dvrLeast.txt");
+    private static File dvrMost = new File("dvrMost.txt");
     private static File icLeast = new File("icLeast.txt");
     private static File icMost = new File("icMost.txt");
     private static ArrayList<String> dcLeastTXT;
     private static ArrayList<String> dcMostTXT;
     private static ArrayList<String> dvrcLeastTXT;
+    private static ArrayList<String> dvrcMostTXT;
     private static ArrayList<String> dvrMostTXT;
     private static ArrayList<String> dvrLeastTXT;
     private static ArrayList<String> icLeastTXT;
@@ -294,6 +296,7 @@ public class Setup
         dcLeastTXT = reader(dcLeast);
         dcMostTXT = reader(dcMost);
         dvrcLeastTXT = reader(dvrcLeast);
+        dvrcMostTXT = reader(dvrcMost);
         dvrMostTXT = reader(dvrMost);
         dvrLeastTXT = reader(dvrLeast);
         icLeastTXT = reader(icLeast);
@@ -345,6 +348,22 @@ public class Setup
         for(int i = 0; i < dvrcLeastTXT.size(); i++)
         {
             returnString.append(dvrcLeastTXT.get(i));
+        }
+        return returnString.toString();
+    }
+    
+    public static String getDvrcMostTXT()
+    {
+        StringBuilder returnString = new StringBuilder();
+        if(dvrcMostTXT == null)
+        {
+            setTexts();
+            System.out.println(dvrcMostTXT);
+        }
+        
+        for(int i = 0; i < dvrcMostTXT.size(); i++)
+        {
+            returnString.append(dvrcMostTXT.get(i));
         }
         return returnString.toString();
     }
