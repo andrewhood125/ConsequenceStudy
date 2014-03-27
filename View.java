@@ -408,15 +408,23 @@ public class View extends javax.swing.JFrame
         JLabel rightFiller = new JLabel();
         newPanel.add(leftFiller);
         newPanel.add(rightFiller);
-        pageStartPanel.setBackground(new Color(142,180,227));        
+        pageStartPanel.setBackground(new Color(142,180,227));   
         JButton left = new JButton("" + leftButtonChar);
         JButton right = new JButton("" + rightButtonChar);
         left.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
         left.addActionListener(new dvrcButtonOne(group, leftIndex, rightIndex, left));
         right.addActionListener(new dvrcButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -494,8 +502,16 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new dvrcButtonTwo(group, leftIndex, rightIndex, left));
         right.addActionListener(new dvrcButtonTwo(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -654,8 +670,16 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new dvrButtonOne(group, leftIndex, rightIndex, left));
         right.addActionListener(new dvrButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -734,8 +758,16 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new dvrButtonTwo(group, leftIndex, rightIndex, left));
         right.addActionListener(new dvrButtonTwo(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -876,8 +908,16 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new dcButtonOne(group, leftIndex, rightIndex, left));
         right.addActionListener(new dcButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -953,8 +993,16 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new dcButtonTwo(group, leftIndex, rightIndex, left));
         right.addActionListener(new dcButtonTwo(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
@@ -1097,8 +1145,16 @@ public class View extends javax.swing.JFrame
         left.addActionListener(new icButtonOne(group, leftIndex,rightIndex, left));
         right.addActionListener(new icButtonOne(group, rightIndex, leftIndex, right));
         right.setFont(new Font("Dialog", Font.BOLD,  Setup.getSymbolSize()));
-        newPanel.add(left);
-        newPanel.add(right);
+        // Randomize the placement of leftButton and rightButton
+        Random rand = new Random();
+        if(rand.nextBoolean()) 
+        {
+            newPanel.add(left);
+            newPanel.add(right);
+        } else {
+            newPanel.add(right);
+            newPanel.add(left);
+        }
         cards.add(newPanel, "Baseline Condition");
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.next(cards);
